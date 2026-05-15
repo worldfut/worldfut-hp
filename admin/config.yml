@@ -1,0 +1,111 @@
+backend:
+  name: github
+  repo: WorldFut/worldfut-hp
+  branch: main
+
+media_folder: "images"
+public_folder: "/images"
+
+locale: 'ja'
+
+collections:
+  - name: "settings"
+    label: "サイト設定"
+    files:
+      - name: "general"
+        label: "基本情報"
+        file: "_data/general.json"
+        fields:
+          - { label: "団体名", name: "team_name", widget: "string" }
+          - { label: "キャッチコピー", name: "catchcopy", widget: "string" }
+          - { label: "設立年", name: "founded", widget: "string" }
+          - { label: "お問い合わせメール（一般）", name: "email_general", widget: "string" }
+          - { label: "お問い合わせメール（協賛）", name: "email_sponsor", widget: "string" }
+          - { label: "X（Twitter）URL", name: "sns_x", widget: "string" }
+          - { label: "Instagram URL", name: "sns_instagram", widget: "string" }
+          - { label: "Facebook URL", name: "sns_facebook", widget: "string" }
+          - { label: "TikTok URL", name: "sns_tiktok", widget: "string" }
+          - { label: "note URL", name: "sns_note", widget: "string" }
+
+  - name: "about"
+    label: "団体概要"
+    files:
+      - name: "about"
+        label: "団体概要"
+        file: "_data/about.json"
+        fields:
+          - { label: "本文1", name: "text1", widget: "text" }
+          - { label: "本文2", name: "text2", widget: "text" }
+          - label: "団体理念"
+            name: "mission"
+            widget: "object"
+            fields:
+              - { label: "タイトル", name: "title", widget: "string" }
+              - { label: "内容", name: "body", widget: "text" }
+          - label: "活動ビジョン"
+            name: "vision"
+            widget: "object"
+            fields:
+              - { label: "タイトル", name: "title", widget: "string" }
+              - { label: "内容", name: "body", widget: "text" }
+
+  - name: "news"
+    label: "News & Topics"
+    folder: "_data/news"
+    create: true
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    label_singular: "記事"
+    fields:
+      - { label: "タイトル", name: "title", widget: "string" }
+      - { label: "種別", name: "type", widget: "select", options: ["新着", "掲載記事"] }
+      - { label: "媒体名", name: "source", widget: "string" }
+      - { label: "URL", name: "url", widget: "string" }
+      - { label: "日付", name: "date", widget: "date", format: "YYYY.MM.DD" }
+      - { label: "本文（任意）", name: "body", widget: "text", required: false }
+
+  - name: "activities"
+    label: "活動内容"
+    files:
+      - name: "cambodia"
+        label: "カンボジア（スマオン小学校）"
+        file: "_data/activity_smaong.json"
+        fields:
+          - { label: "活動期間", name: "period", widget: "string" }
+          - { label: "説明文", name: "body", widget: "text" }
+      - name: "keothom"
+        label: "カンボジア（ケウトム小学校）"
+        file: "_data/activity_keothom.json"
+        fields:
+          - { label: "活動期間", name: "period", widget: "string" }
+          - { label: "説明文", name: "body", widget: "text" }
+      - name: "dcc_phnompenh"
+        label: "DCC in プノンペン"
+        file: "_data/activity_dcc_phnompenh.json"
+        fields:
+          - { label: "活動期間", name: "period", widget: "string" }
+          - { label: "説明文", name: "body", widget: "text" }
+      - name: "dcc_siemreap"
+        label: "DCC in シェムリアップ"
+        file: "_data/activity_dcc_siemreap.json"
+        fields:
+          - { label: "活動期間", name: "period", widget: "string" }
+          - { label: "説明文", name: "body", widget: "text" }
+      - name: "japan"
+        label: "日本での活動"
+        file: "_data/activity_japan.json"
+        fields:
+          - label: "チャリティーイベント"
+            name: "charity"
+            widget: "object"
+            fields:
+              - { label: "説明文", name: "body", widget: "text" }
+          - label: "ブラジル人学校"
+            name: "aebj"
+            widget: "object"
+            fields:
+              - { label: "説明文", name: "body", widget: "text" }
+          - label: "活動報告会"
+            name: "report"
+            widget: "object"
+            fields:
+              - { label: "説明文", name: "body", widget: "text" }
