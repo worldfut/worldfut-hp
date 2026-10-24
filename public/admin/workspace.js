@@ -1,7 +1,7 @@
 import {renderWorkspacePreview} from './preview.js';
 const $=id=>document.getElementById(id),editor=$('editor'),preview=$('preview');
 const labels={top:['トップ','最初のメッセージ・写真'],about:['団体概要','理念・団体紹介'],activities:['活動内容','支援活動・沿革'],media:['お知らせ','見出し・タブの名前'],join:['募集案内','参加方法・募集カード'],contact:['お問い合わせ','連絡先・フォーム'],navigation:['メニュー','上部のナビゲーション'],footer:['フッター','ページ下部の情報'],sections:['新規セクションを追加','文章・写真・カードを作る'],settings:['全体・デザイン設定','文字・既存セクションの順番'],news:['お知らせ・掲載記事','記事を追加・編集']};
-let previewTarget='',lastExtraCount=-1;
+let previewTarget='',lastExtraCount=-1,previewCandidate=null;
 let payload,current='top',device='desktop',settings,dirty=false,newsEntry=null;
 const savedEntries=new Map();
 const route=key=>key==='sections'?'#/collections/sections/entries/builder':key==='settings'?'#/collections/site/entries/settings':key==='news'?'#/collections/news':'#/collections/pages/entries/'+key;
@@ -21,10 +21,10 @@ function navigation(){
   $('sections').append(a);
  });
 }
-function select(key){current=key;$('editing-title').textContent=labels[key]?.[0]||'編集';$('editing-help').textContent=key==='sections'?'① 種類を選んで追加 → ② 内容・挿入位置を編集 → ③ プレビューして公開。':key==='settings'?'HP全体の文字と既存セクションの順番を設定します。':key==='news'?'記事を選ぶか、新しい記事を作成してください。':'文章や画像を変更し、右側で見え方を確認してください。';navigation();}
+function select(key){if(key!=='sections')previewCandidate=null;current=key;$('editing-title').textContent=labels[key]?.[0]||'編集';$('editing-help').textContent=key==='sections'?'① 表示する場所を選ぶ → ② デザインを比較 → ③ 内容を編集して保存。':key==='settings'?'HP全体の文字と既存セクションの順番を設定します。':key==='news'?'記事を選ぶか、新しい記事を作成してください。':'文章や画像を変更し、右側で見え方を確認してください。';navigation();}
 
 function updateSectionPicker(){
- const extras=payload.global.extra_sections||[];
+ const extras=[...(payload.global.extra_sections||[]),...(previewCandidate?[previewCandidate]:[])];
  const bar=$('section-preview-controls');bar.hidden=current!=='sections';
  const picker=$('section-preview-target');
  if(extras.length>lastExtraCount&&lastExtraCount>=0){const i=extras.length-1;previewTarget=extras[i].anchor||'extra-'+i;}
@@ -37,7 +37,7 @@ function updateSectionPicker(){
 $('section-preview-target').addEventListener('change',event=>{previewTarget=event.target.value;render();});
 
 
-function render(){try{updateSectionPicker();preview.srcdoc=renderWorkspacePreview(payload,current,newsEntry);$('preview-note').textContent=current==='sections'?'追加したセクションを保存前に表示中です。「HPに表示する」がオフの項目も、この画面では確認できます。':'保存前の見え方です。「公開」→「公開する」で確認用HPへ保存します。';}catch(error){$('preview-note').textContent='プレビューを作れませんでした。入力内容をご確認ください：'+error.message;}}
+function render(){try{updateSectionPicker();const view=previewCandidate?{...payload,global:{...payload.global,extra_sections:[...(payload.global.extra_sections||[]),previewCandidate]}}:payload;preview.srcdoc=renderWorkspacePreview(view,current,newsEntry);$('preview-note').textContent=current==='sections'?'追加したセクションを保存前に表示中です。「HPに表示する」がオフの項目も、この画面では確認できます。':'保存前の見え方です。「公開」→「公開する」で確認用HPへ保存します。';}catch(error){$('preview-note').textContent='プレビューを作れませんでした。入力内容をご確認ください：'+error.message;}}
 function resize(){const box=$('preview-device');const width=device==='mobile'?375:1280;box.style.maxWidth=device==='mobile'?'375px':'';const scale=Math.min(1,box.clientWidth/width);preview.style.width=width+'px';preview.style.height=Math.max(600,box.clientHeight/scale)+'px';preview.style.transform=`scale(${scale})`;}
 preview.addEventListener('load',()=>{resize();try{const doc=preview.contentDocument;doc.addEventListener('click',e=>{e.preventDefault();const button=e.target.closest('.tab-btn,.news-tab-btn');if(!button)return;const news=button.classList.contains('news-tab-btn');const buttons=Array.from(doc.querySelectorAll(news?'.news-tab-btn':'.tab-btn'));const ids=news?['new','press']:['cambodia','japan','history'];const selected=ids[buttons.indexOf(button)];buttons.forEach(b=>b.classList.toggle('active',b===button));doc.querySelectorAll(news?'.news-tab-content':'.tab-content').forEach(p=>p.classList.toggle('active',p.id===(news?'news-tab-':'tab-')+selected));});doc.addEventListener('submit',e=>e.preventDefault());const target=current==='sections'?doc.querySelector('[data-cms-section="'+(previewTarget||'extra-0')+'"]'):['settings','sections'].includes(current)?null:doc.querySelector(`[data-cms-section="${current==='news'?'media':current}"]`);if(target)doc.defaultView.scrollTo(0,target.offsetTop);}catch{}});
 document.querySelectorAll('[data-device]').forEach(button=>button.addEventListener('click',()=>{device=button.dataset.device;document.querySelectorAll('[data-device]').forEach(b=>b.setAttribute('aria-pressed',String(b===button)));resize();}));
@@ -45,6 +45,8 @@ new ResizeObserver(resize).observe($('preview-device'));
 window.addEventListener('message',event=>{
  if(event.origin!==location.origin||event.source!==editor.contentWindow||!payload)return;
  const message=event.data;
+ if(message?.type==='wf-section-candidate'&&message.data&&typeof message.data==='object'){previewCandidate={...message.data,anchor:'extra-candidate'};previewTarget='extra-candidate';render();return;}
+ if(message?.type==='wf-section-candidate-clear'){previewCandidate=null;render();return;}
  if(message?.type==='wf-section-focus'&&typeof message.anchor==='string'&&/^extra-[a-z0-9-]+$/.test(message.anchor)){previewTarget=message.anchor;render();return;}
  if(message?.type==='wf-editor-status'){dirty=message.dirty;$('environment').textContent=message.text;return;}
  if(message?.type==='wf-editor-route'){if(dirty&&savedEntries.has(current)){if(['settings','sections'].includes(current))payload.global=structuredClone(savedEntries.get(current));else if(current!=='news')payload.docs[current]=structuredClone(savedEntries.get(current));}dirty=false;select(keyFromHash(message.hash));location.hash=message.hash;render();return;}

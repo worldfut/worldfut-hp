@@ -46,3 +46,20 @@ test('活動カードの透明状態を解除し、非公開の追加セクシ�
  assert.ok(section.indexOf('id="extra-preview-check"')<section.indexOf('id="media"'));
  assert.doesNotMatch(section,/<script\b/i);
 });
+test('5デザイン×7表示場所の候補が有効な保存データとなり、選択位置へ描画される',async()=>{
+ const vm=await import('node:vm');const sandbox={window:{}};
+ vm.runInNewContext(await readFile(resolve(root,'public/admin/design-catalog.js'),'utf8'),sandbox);
+ const catalog=sandbox.window.WorldFutDesigns;
+ const {validateFields,globalFields}=await import('../lib/site.mjs');
+ await build({local:true});
+ const {renderWorkspacePreview}=await import(pathToFileURL(resolve(root,'dist/admin/preview.js')).href+'?catalog='+Date.now());
+ const base=JSON.parse(await readFile(resolve(root,'dist/admin/preview-data.json'),'utf8'));
+ for(const after of ['start','top','about','activities','media','join','contact'])for(const design of catalog.designs){
+  const data=structuredClone(base),entry=structuredClone(catalog.create(design.id,after,'extra-template-test'));
+  data.global.extra_sections=[entry];validateFields(data.global,globalFields,resolve(root,'public'));
+  const html=renderWorkspacePreview(data,'sections');const pos=html.indexOf('id="extra-template-test"');
+  assert.match(html,new RegExp('cms-layout-'+design.id));
+  if(after==='start')assert.ok(pos<html.indexOf('id="top"'));else assert.ok(pos>html.indexOf('id="'+after+'"'));
+  assert.ok(catalog.designs.some(d=>d.id===catalog.recommended(after)));
+ }
+});

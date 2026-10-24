@@ -4,7 +4,7 @@ export function renderWorkspacePreview(payload,current,newsEntry=null){
  const sections={},docs=payload.docs,global=payload.global;let css=typography(global.style);
  for(const e of payload.schema){sections[e.name]=values(payload.templates[e.name],docs[e.name],e.fields,e.groups);css+=typography(docs[e.name].style,`[data-cms-section="${e.name}"]`);}
  const extra=global.extra_sections||[];
- const chunks=global.section_order.map(({section})=>sections[section]+extra.map((e,i)=>(e.published||current==='sections')&&e.after===section?extraSection(e,i):'').join('')).join('\n');
+ const chunks=[extra.map((e,i)=>(e.published||current==='sections')&&e.after==='start'?extraSection(e,i):'').join(''),...global.section_order.map(({section})=>sections[section]+extra.map((e,i)=>(e.published||current==='sections')&&e.after===section?extraSection(e,i):'').join(''))].join('\n');
  extra.forEach((e,i)=>{if(e.published||current==='sections')css+=typography(e.style,`[data-cms-section="${e.anchor||'extra-'+i}"]`);});
  // Only static layout is rendered. No site JavaScript, form submission or outgoing navigation.
  const html=payload.source.replace('class="op-lock"','').replace(/<script\b[^>]*>[\s\S]*?<\/script>/gi,'').replace(/@@([A-Za-z0-9_]+)@@/g,(_,k)=>({PAGE:chunks,SECTION_navigation:sections.navigation,SECTION_footer:sections.footer}[k]||'')).replace('<!-- CMS_NEWS -->',()=>payload.news);
