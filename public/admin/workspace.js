@@ -16,7 +16,7 @@ function navigation(){
   if(key===current)a.setAttribute('aria-current','page');
   const n=document.createElement('span');n.className='number';n.textContent=i<6?String(i+1).padStart(2,'0'):'＋';
   const title=document.createElement('span');title.className='nav-label';title.textContent=labels[key][0];const sub=document.createElement('small');sub.textContent=labels[key][1];title.append(sub);a.append(n,title);
-  a.addEventListener('click',event=>{event.preventDefault();editor.contentWindow.location.hash=route(key);});
+  a.addEventListener('click',event=>{event.preventDefault();if(dirty&&!confirm('保存していない変更があります。保存せずに移動しますか？'))return;select(key);location.hash=route(key);editor.src='/admin/editor.html'+route(key);render();});
   $('sections').append(a);
  });
 }
