@@ -30,21 +30,5 @@
       "section": "contact"
     }
   ],
-  "extra_sections": [
-    {
-      "published": false,
-      "after": "join",
-      "layout": "text",
-      "cards": [],
-      "style": {
-        "font": "inherit",
-        "heading_scale": "inherit",
-        "body_scale": "inherit",
-        "align": "inherit",
-        "heading_weight": "inherit"
-      },
-      "title": "検証用・非掲載セクション 20261024",
-      "anchor": "extra-032e6843-124e-49b2-ad96-b2d73844414e"
-    }
-  ]
+  "extra_sections": []
 }
