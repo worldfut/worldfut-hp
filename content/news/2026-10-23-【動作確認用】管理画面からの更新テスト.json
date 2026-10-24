@@ -3,7 +3,7 @@
   "section": "new",
   "summary": "公開設定を確認するための一時的なテスト記事です。",
   "featured": false,
-  "published": true,
+  "published": false,
   "order": 0,
   "date": "2026-10-24",
   "title": "【動作確認用】管理画面からの更新テスト",
