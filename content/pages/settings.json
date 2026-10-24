@@ -30,21 +30,5 @@
       "section": "contact"
     }
   ],
-  "extra_sections": [
-    {
-      "published": false,
-      "after": "join",
-      "layout": "text",
-      "cards": [],
-      "style": {
-        "font": "inherit",
-        "heading_scale": "inherit",
-        "body_scale": "inherit",
-        "align": "inherit",
-        "heading_weight": "inherit"
-      },
-      "title": "てすと",
-      "anchor": "extra-80386bb0-9f56-4b4e-a7cc-b2b2c0d8bf0d"
-    }
-  ]
+  "extra_sections": []
 }
