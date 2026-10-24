@@ -88,3 +88,14 @@ test('レイアウトの欠損画像・不正anchorを安全に扱い、プレ�
  assert.match(src,/message\.session!==editorSession/);
  const previewSrc=await readFile(resolve(root,'public/admin/preview.js'),'utf8');assert.match(previewSrc,/loading="eager"/);
 });
+test('iframeの初期・重複load通知で表示中のプレビューを削除しない',async()=>{
+ const vm=await import('node:vm');const src=await readFile(resolve(root,'public/admin/workspace.js'),'utf8');
+ const fn=src.slice(src.indexOf('function replacePreview('),src.indexOf('\nfunction render()',src.indexOf('function replacePreview(')));
+ const frames=[];let prepared=0;
+ const parent={append:frame=>{frame.parentNode=parent;frames.push(frame);}};
+ const make=()=>({id:'preview',title:'preview',parentNode:parent,style:{cssText:''},contentDocument:{URL:'about:blank'},setAttribute(){},listeners:new Map(),addEventListener(type,fn){this.listeners.set(type,fn);},removeEventListener(type){this.listeners.delete(type);},remove(){this.removed=true;},emit(){this.listeners.get('load')?.();}});
+ const old=make();const scope={document:{getElementById:()=>null,createElement:make},preview:old,previewSerial:0,preparePreview:()=>prepared++};vm.createContext(scope);vm.runInContext(fn,scope);vm.runInContext('replacePreview("<h1>new</h1>")',scope);
+ const next=frames[0];next.emit();assert.equal(scope.preview,old);assert.equal(old.removed,undefined);
+ next.contentDocument.URL='about:srcdoc';next.emit();assert.equal(scope.preview,next);assert.equal(old.removed,true);assert.equal(prepared,1);
+ next.emit();assert.equal(next.removed,undefined);assert.equal(prepared,1);
+});

@@ -42,7 +42,13 @@ $('section-preview-target').addEventListener('change',event=>{previewTarget=even
 
 let renderedHtml='',previewSerial=0,renderTimer;
 function scheduleRender(){clearTimeout(renderTimer);renderTimer=setTimeout(render,160);}
-function replacePreview(html){const serial=++previewSerial;document.getElementById('preview-next')?.remove();const next=document.createElement('iframe');next.id='preview-next';next.title=preview.title;next.setAttribute('sandbox','allow-same-origin');next.style.cssText=preview.style.cssText;next.style.visibility='hidden';next.addEventListener('load',()=>{if(serial!==previewSerial){next.remove();return;}const old=preview;preview=next;next.id='preview';next.style.visibility='';old.remove();preparePreview();});next.srcdoc=html;preview.parentNode.append(next);}
+function replacePreview(html){
+ const serial=++previewSerial;document.getElementById('preview-next')?.remove();
+ const next=document.createElement('iframe');next.id='preview-next';next.title=preview.title;next.setAttribute('sandbox','allow-same-origin');next.style.cssText=preview.style.cssText;next.style.visibility='hidden';
+ let revealed=false;
+ const reveal=()=>{if(revealed)return;if(serial!==previewSerial){next.remove();return;}if(!next.contentDocument||next.contentDocument.URL==='about:blank')return;revealed=true;next.removeEventListener('load',reveal);const old=preview;preview=next;next.id='preview';next.style.visibility='';if(old!==next)old.remove();preparePreview();};
+ next.addEventListener('load',reveal);next.srcdoc=html;preview.parentNode.append(next);
+}
 function render(){try{updateSectionPicker();const view=previewCandidate?{...payload,global:{...payload.global,extra_sections:[...(payload.global.extra_sections||[]),previewCandidate]}}:payload;const html=renderWorkspacePreview(view,current,newsEntry);if(html!==renderedHtml){renderedHtml=html;replacePreview(html);}else focusPreview();$('preview-note').textContent=previewCandidate?'追加前のデザイン見本です。まだセクションの追加・HPへの保存は行われていません。':current==='sections'?'追加したセクションを保存前に表示中です。「HPに表示する」がオフの項目も、この画面では確認できます。':'保存前の見え方です。「公開」→「公開する」で確認用HPへ保存します。';}catch(error){$('preview-note').textContent='プレビューを作れませんでした。入力内容をご確認ください：'+error.message;}}
 function resize(){const box=$('preview-device');const width=device==='mobile'?375:1280;box.style.maxWidth=device==='mobile'?'375px':'';const scale=Math.min(1,box.clientWidth/width);preview.style.width=width+'px';preview.style.height=Math.max(600,box.clientHeight/scale)+'px';preview.style.transform=`scale(${scale})`;}
 function focusPreview(){try{const doc=preview.contentDocument;if(!doc?.body)return;const target=current==='sections'?doc.querySelector('[data-cms-section="'+(previewTarget||'extra-0')+'"]'):['settings','sections'].includes(current)?null:doc.querySelector(`[data-cms-section="${current==='news'?'media':current}"]`);if(target)doc.defaultView.scrollTo(0,target.getBoundingClientRect().top+doc.defaultView.scrollY);}catch{}}
