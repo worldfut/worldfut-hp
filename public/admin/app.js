@@ -55,6 +55,11 @@
       }
       CMS.registerBackend('worldfut-github',class extends GithubBackend{authComponent(){return Login;}});
     }
+    CMS.registerEventListener({name:'preSave',handler:({entry})=>{
+      const data=entry.get('data');
+      if(!data.has('extra_sections'))return;
+      return data.update('extra_sections',items=>items?.map(item=>item.get('anchor')?item:item.set('anchor','extra-'+crypto.randomUUID())));
+    }});
     const config = {
       backend:{name:local?'github':'worldfut-github',repo:settings.repo || 'local/worldfut',branch:settings.branch,base_url:settings.origin || location.origin,auth_endpoint:'api/auth'},
       load_config_file:false,locale:'ja',media_folder:'public/uploads',public_folder:'/uploads',
@@ -74,5 +79,6 @@
     });
     document.getElementById('setup').remove();
     await CMS.init({config});
+    if(!local&&window.WorldFutPublication)window.WorldFutPublication.start({settings,banner,CMS});
   } catch (error) { status.textContent='管理画面を開けませんでした。制作担当者へ連絡してください。 '+error.message; }
 })();

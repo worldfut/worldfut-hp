@@ -31,7 +31,7 @@ test('編集画面は一時情報を即時削除して1回だけCMSへ渡し、�
  const code=await readFile(new URL('../public/admin/app.js',import.meta.url),'utf8');
  for(const expires of [Date.now()+50000,Date.now()-1000]){
   let removed=false,Backend,config;const timers=[],received=[];
-  const CMS={getBackend:()=>({BackendClass:class{}}),registerBackend:(name,cls)=>Backend=cls,registerPreviewStyle:()=>{},registerPreviewTemplate:()=>{},init:async c=>config=c.config};
+  const CMS={registerEventListener:()=>{},getBackend:()=>({BackendClass:class{}}),registerBackend:(name,cls)=>Backend=cls,registerPreviewStyle:()=>{},registerPreviewTemplate:()=>{},init:async c=>config=c.config};
   const node={remove(){},append(){}};
   await vm.runInNewContext(code,{CMS,document:{getElementById:()=>node,createElement:()=>node,body:{append(){}}},window:{innerWidth:1200,h:(tag,props,...children)=>({tag,props,children})},location:{hostname:'worldfut-hp.pages.dev',origin},sessionStorage:{getItem:()=>JSON.stringify({token:'fake-token',provider:'github',expires}),removeItem:()=>removed=true},fetch:async url=>({ok:true,json:async()=>url.includes('site-schema')?{sections:[],globalFields:[]}:{origin,repo:env.GITHUB_REPO,branch:'codex/cloudflare-cms'}}),setTimeout:fn=>timers.push(fn),Date});
   assert.equal(removed,true);assert.equal(config.backend.name,'worldfut-github');

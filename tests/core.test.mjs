@@ -74,3 +74,20 @@ test('ポップアップは正しいorigin・送信元・握手メッセージ�
   assert.equal(messages.length,2);assert.equal(messages[1][1],env.CMS_ORIGIN);assert.ok(messages[1][0].includes('fake-token'));
   assert.ok(response.headers.get('Content-Security-Policy').includes("default-src 'none'"));
 });
+test('お知らせの全14編集項目が一覧・詳細・公開状態・表示順に反映される',async()=>{
+ const dir=await mkdtemp(join(tmpdir(),'worldfut-news-fields-'));await mkdir(join(dir,'uploads'));await writeFile(join(dir,'uploads/photo.png'),'test-fixture');
+ try{
+  const base={...entry,source:'元の主催者',summary:'元の紹介',body:'元の本文',image:'/uploads/photo.png',image_alt:'元の写真説明',link:'https://example.com/',link_label:'元のリンク',featured:false,published:true};
+  const changes={title:'変更した記事名',section:'press',date:'2026-10-25',date_label:'変更した日付表示',source:'変更した主催者',summary:'変更した紹介',body:'変更した本文',image:'',image_alt:'変更した写真説明',link:'https://example.com/changed',link_label:'変更したリンク',featured:true,order:100,published:false};
+  const other={...base,id:'other',title:'比較記事',date:'2026-10-26',order:50};
+  const render=d=>{const e=validateEntry(d,'edited',dir);return renderNews([e,other])+((e.published!==false&&e.body)?renderDetail(e):'');};
+  const baseline=render(base);
+  for(const [key,value] of Object.entries(changes))assert.notEqual(render({...base,[key]:value}),baseline,key);
+ }finally{await rm(dir,{recursive:true,force:true});}
+});
+test('日本語と括弧を含む写真名とURLエンコードされた写真名を同じ画像として扱う',async()=>{
+ const dir=await mkdtemp(join(tmpdir(),'worldfut-image-names-'));await mkdir(join(dir,'uploads'));await writeFile(join(dir,'uploads/活動写真 (1)+.png'),'fixture');
+ try{for(const name of ['/uploads/活動写真 (1)+.png','/uploads/'+encodeURIComponent('活動写真 (1)+.png')]){
+  const e=validateEntry({...entry,image:name},'image',dir);assert.match(e.image,/%E6/);assert.match(e.image,/%2B/);assert.match(renderNews([e]),/%20/);
+ }}finally{await rm(dir,{recursive:true,force:true});}
+});

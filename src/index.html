@@ -564,7 +564,7 @@
   </style>
 <script>
 const IMGS = {
-  logo: "/assets/logo.png",
+  logo: @@OPENING_LOGO@@,
   img_1: "/assets/img_1.jpg",
   img_2: "/assets/img_2.jpg",
   img_3: "/assets/img_3.jpg",
@@ -628,13 +628,13 @@ const IMGS = {
   const body=document.body;
   const reduce=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;
   let seen=false;
-  try{ seen=sessionStorage.getItem('wf_opening')==='1'; }catch(e){}
-  if(reduce||seen){ op.remove(); body.classList.remove('op-lock'); return; }
-  try{ sessionStorage.setItem('wf_opening','1'); }catch(e){}
+  try{ seen=sessionStorage.getItem(@@OPENING_KEY@@)==='1'; }catch(e){}
+  if(!@@OPENING_ENABLED@@||reduce||seen){ op.remove(); body.classList.remove('op-lock'); return; }
+  try{ sessionStorage.setItem(@@OPENING_KEY@@,'1'); }catch(e){}
 
   document.getElementById('opLogo').src=IMGS.logo;
   // 使う写真（ロゴ以外の全写真）
-  const pics=Object.keys(IMGS).filter(k=>k!=='logo').map(k=>IMGS[k]);
+  const pics=@@OPENING_PHOTOS@@;
   const stage=document.getElementById('opStage');
   const rows=innerWidth<640?6:5, perRow=12;
   let k=0;
@@ -675,7 +675,7 @@ const IMGS = {
   imgs.forEach((s,i)=>{
     const d=document.createElement('div');
     d.className='slide'+(i===0?' active':'');
-    d.style.backgroundImage=`url(${s})`;
+    d.style.backgroundImage=`url(${JSON.stringify(s)})`;
     wrap.appendChild(d);
     const b=document.createElement('button');
     b.className='dot'+(i===0?' active':'');
@@ -703,7 +703,8 @@ const IMGS = {
   function switchMainTab(id,btn){
     document.querySelectorAll('.tab-content').forEach(e=>e.classList.remove('active'));
     document.querySelectorAll('.tab-btn').forEach(e=>e.classList.remove('active'));
-    document.getElementById('tab-'+id).classList.add('active');
+    const panel=document.getElementById('tab-'+id);if(!panel||!btn)return;
+    panel.classList.add('active');
     btn.classList.add('active');
   }
   // Legacy alias
@@ -719,6 +720,7 @@ const IMGS = {
   async function sendMail(e) {
     e.preventDefault();
     const btn = document.getElementById('submitBtn');
+    const originalLabel = btn.textContent;
     const formMsg = document.getElementById('formMsg');
     const name = document.getElementById('fname').value;
     const email = document.getElementById('femail').value;
@@ -760,7 +762,7 @@ const IMGS = {
     } finally {
       formMsg.style.display = 'flex';
       btn.disabled = false;
-      btn.textContent = '送信する';
+      btn.textContent = originalLabel;
     }
   }
 
@@ -777,7 +779,7 @@ const IMGS = {
 
   // FOOTER → タブ切り替え
   document.querySelectorAll('[data-tab]').forEach(a=>a.addEventListener('click',()=>{
-    const i={cambodia:0,japan:1,history:2}[a.dataset.tab];
+    const i={cambodia:0,japan:1,history:2}[a.dataset.tab];if(i===undefined)return;
     switchMainTab(a.dataset.tab,document.querySelectorAll('.tab-btn')[i]);
   }));
 
