@@ -1,0 +1,1200 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>学生団体 WorldFut</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700;900&family=Outfit:wght@400;600;700;800;900&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --green:#2a7fc1; --green-l:#e8f2fb; --blue:#2a7fc1; --blue-l:#e8f2fb;
+      --orange:#2a7fc1; --orange-l:#e8f2fb; --ink:#1a2332;
+      --muted:#6b7280; --border:#e2e8f0; --bg:#f7f9fc; --white:#fff;
+      --shadow-sm:0 2px 8px rgba(0,0,0,.08); --shadow-md:0 6px 24px rgba(0,0,0,.10);
+      --r:12px; --font-d:'Bebas Neue',sans-serif; --font-j:'Zen Kaku Gothic New','Noto Sans JP',sans-serif;
+    }
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    html{scroll-behavior:smooth} body{font-family:var(--font-j);background:var(--bg);color:var(--ink);overflow-x:hidden}
+
+    /* NAV */
+    nav{position:fixed;top:0;left:0;right:0;z-index:1000;background:rgba(255,255,255,.95);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;padding:0 2rem;height:64px;box-shadow:var(--shadow-sm)}
+    .nav-logo{display:flex;align-items:center;gap:.6rem;text-decoration:none}
+    .nav-logo img{height:40px;object-fit:contain}
+    .nav-logo span{font-family:var(--font-j);font-size:1.3rem;font-weight:900;color:var(--ink);letter-spacing:.02em}
+    .nav-links{display:flex;gap:.2rem;list-style:none;align-items:center}
+    .nav-links a{color:var(--muted);text-decoration:none;font-size:.83rem;font-weight:700;letter-spacing:.04em;padding:.4rem .75rem;border-radius:6px;transition:all .2s}
+    .nav-links a:hover{color:var(--green);background:var(--green-l)}
+    .nav-cta{background:#2a7fc1!important;color:#fff!important;border-radius:8px!important}
+    .nav-top-btn{color:var(--muted)}
+    .nav-cta:hover{background:#1a5f9e!important}
+    .hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:5px}
+    .hamburger span{display:block;width:24px;height:2px;background:var(--ink);border-radius:2px;transition:all .3s}
+
+    /* HERO */
+    .hero{position:relative;height:100vh;min-height:500px;overflow:hidden;padding-top:64px;display:flex;align-items:center;justify-content:center}
+    .slides-wrap{position:absolute;inset:0}
+    .slide{position:absolute;inset:0;background-size:cover;background-position:center center;opacity:0;transition:opacity 1.2s ease}
+    .slide.active{opacity:1}
+    .slide::after{content:'';position:absolute;inset:0;background:linear-gradient(to bottom,rgba(0,0,0,.3) 0%,rgba(0,0,0,.45) 40%,rgba(0,0,0,.2) 100%)}
+    .slide-dots{position:absolute;bottom:2rem;left:50%;transform:translateX(-50%);display:flex;gap:8px;z-index:10}
+    .dot{width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,.5);cursor:pointer;transition:all .3s;border:none}
+    .dot.active{background:#fff;width:24px;border-radius:4px}
+    .hero-content{position:relative;z-index:5;text-align:center;padding:2rem 1.5rem;width:100%;display:flex;flex-direction:column;align-items:center}
+    .hero-logo{display:none}
+    .hero-eyecatch{display:inline-block;font-size:clamp(.9rem,3vw,1.1rem);font-weight:800;color:#fff;letter-spacing:.15em;margin-bottom:1rem;animation:fadeInUp .8s .1s ease both;text-shadow:0 2px 12px rgba(0,0,0,.8);text-align:center;width:100%;padding:.35rem .9rem;border:1.5px solid rgba(255,255,255,.6);border-radius:50px;background:rgba(0,0,0,.25);backdrop-filter:blur(4px)}
+
+    .hero-tagline{font-size:clamp(1.8rem,4.8vw,4rem);font-weight:900;color:#fff;line-height:1.3;text-shadow:0 4px 24px rgba(0,0,0,.55),0 1px 4px rgba(0,0,0,.4);animation:fadeInUp .8s .2s ease both;letter-spacing:-.01em;text-align:center;word-break:keep-all}
+    .hero-tagline .accent{color:#fff}
+    .hero-sub{margin-top:1rem;font-size:clamp(.85rem,1.8vw,1.1rem);color:rgba(255,255,255,.9);font-weight:600;letter-spacing:.08em;animation:fadeInUp .8s .35s ease both;text-shadow:0 2px 8px rgba(0,0,0,.4)}
+    .hero-divider{width:60px;height:3px;background:rgba(255,255,255,.7);margin:1.2rem auto 0;border-radius:2px;animation:fadeInUp .8s .45s ease both}
+    .hero-btns{margin-top:2rem;display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;animation:fadeInUp .8s .5s ease both}
+
+
+    /* OPENING */
+    #opening{position:fixed;inset:0;z-index:3000;overflow:hidden;background:radial-gradient(120% 90% at 50% 50%,#1c6bb0 0%,#0e3f73 45%,#071f3b 100%);clip-path:circle(150% at 50% 50%)}
+    #opening .op-pitch{position:absolute;inset:0;width:100%;height:100%;z-index:1;opacity:.14;pointer-events:none}
+    #opening .op-stage{position:absolute;left:50%;top:50%;width:150vmax;height:150vmax;transform:translate(-50%,-50%) rotate(-9deg);z-index:2;display:flex;flex-direction:column;justify-content:center;gap:2.2vh}
+    #opening .op-row{display:flex;gap:1.4vw;width:max-content;opacity:0;animation:opRowIn .5s ease forwards,opSlideL 3.4s cubic-bezier(.25,.65,.3,1) forwards}
+    #opening .op-row.rev{animation:opRowIn .5s ease forwards,opSlideR 3.4s cubic-bezier(.25,.65,.3,1) forwards}
+    #opening .op-row:nth-child(2){animation-delay:.07s,0s}
+    #opening .op-row:nth-child(3){animation-delay:.14s,0s}
+    #opening .op-row:nth-child(4){animation-delay:.21s,0s}
+    #opening .op-row:nth-child(5){animation-delay:.28s,0s}
+    #opening .op-row:nth-child(6){animation-delay:.35s,0s}
+    #opening .op-tile{height:21vh;aspect-ratio:3/2;flex-shrink:0;border-radius:8px;overflow:hidden;border:3px solid #fff;box-shadow:0 10px 28px rgba(3,20,40,.45)}
+    #opening .op-tile img{width:100%;height:100%;object-fit:cover;display:block}
+    #opening .op-tile.dim img{filter:saturate(.6) brightness(.8)}
+    #opening .op-dim{position:absolute;inset:0;z-index:3;background:radial-gradient(circle at 50% 50%,rgba(7,31,59,.92) 0,rgba(7,31,59,.75) 28%,rgba(7,31,59,.35) 60%,rgba(7,31,59,.1) 100%);opacity:0;animation:opFade .6s ease 2.3s forwards}
+    #opening .op-center{position:absolute;left:50%;top:50%;width:min(44vmin,300px);aspect-ratio:1;transform:translate(-50%,-50%);z-index:4}
+    #opening .op-ring{position:absolute;inset:-14%;width:128%;height:128%;overflow:visible}
+    #opening .op-ring circle{fill:none;stroke:#fff;stroke-width:1.2;stroke-dasharray:315;stroke-dashoffset:315;transform:rotate(-90deg);transform-origin:50% 50%;animation:opDraw .8s cubic-bezier(.6,0,.2,1) 2.4s forwards}
+    #opening .op-ring .spot{fill:#fff;stroke:none;opacity:0;animation:opFade .3s ease 3.1s forwards}
+    #opening .op-disc{position:absolute;inset:0;border-radius:50%;background:#fff;display:flex;align-items:center;justify-content:center;transform:scale(0);box-shadow:0 20px 60px rgba(0,0,0,.35);animation:opPop .6s cubic-bezier(.3,1.5,.5,1) 2.75s forwards}
+    #opening .op-disc img{width:78%;height:78%;object-fit:contain}
+    #opening .op-tag{position:absolute;left:50%;top:calc(50% + min(22vmin,150px) + 2.6rem);transform:translateX(-50%);z-index:4;white-space:nowrap;color:#fff;font-family:'Outfit',sans-serif;font-size:.78rem;font-weight:600;letter-spacing:.42em;opacity:0;animation:opTag .6s ease 3.15s forwards}
+    #opening .op-tag b{color:#8fd0ff;font-weight:700}
+    #opening .op-skip{position:absolute;right:22px;bottom:20px;z-index:10;display:flex;align-items:center;gap:.5rem;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.3);border-radius:50px;color:rgba(255,255,255,.85);font-family:'Outfit',sans-serif;font-size:10px;font-weight:600;letter-spacing:.2em;padding:8px 16px;cursor:pointer;backdrop-filter:blur(6px)}
+    #opening .op-skip:hover{background:rgba(255,255,255,.18);color:#fff}
+    #opening.go{transition:clip-path .75s cubic-bezier(.7,0,.3,1);clip-path:circle(0% at 50% 50%)}
+    #opening.go .op-tag,#opening.go .op-skip{transition:opacity .2s;opacity:0}
+    @keyframes opRowIn{to{opacity:1}}
+    @keyframes opSlideL{from{transform:translateX(-4%)}to{transform:translateX(-26%)}}
+    @keyframes opSlideR{from{transform:translateX(-26%)}to{transform:translateX(-4%)}}
+    @keyframes opFade{to{opacity:1}}
+    @keyframes opDraw{to{stroke-dashoffset:0}}
+    @keyframes opPop{to{transform:scale(1)}}
+    @keyframes opTag{from{opacity:0;letter-spacing:.9em}to{opacity:1;letter-spacing:.42em}}
+    body.op-lock{overflow:hidden}
+    body.op-lock .hero-content,body.op-lock .hero-content *{animation-play-state:paused!important}
+    @media(max-width:640px){
+      #opening .op-tile{height:14vh;border-width:2px;border-radius:6px}
+      #opening .op-stage{gap:1.6vh}
+      #opening .op-tag{font-size:.68rem}
+      #opening .op-skip{right:14px;bottom:14px}
+    }
+    @media(prefers-reduced-motion:reduce){#opening{display:none}}
+
+    /* STATS */
+    
+
+    /* SECTIONS */
+    section{padding:5rem 1.5rem}
+    .si{max-width:1100px;margin:0 auto}
+    .sl{font-size:.78rem;font-weight:700;letter-spacing:.2em;color:var(--green);text-transform:uppercase;margin-bottom:.4rem}
+    .st{font-size:clamp(1.7rem,3.5vw,2.6rem);font-weight:900;line-height:1.25;margin-bottom:.75rem}
+    .dv{width:44px;height:4px;background:var(--green);border-radius:2px;margin-bottom:2.5rem}
+
+    /* ABOUT */
+    #about{background:#fff}
+    .about-grid{display:grid;grid-template-columns:1fr;gap:2rem;max-width:780px}
+    .about-text p{font-size:1rem;line-height:1.9;color:#444;margin-bottom:1.1rem}
+    .about-text strong{color:#2a7fc1}
+    .fact-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-top:1.5rem}
+    .fact-card{background:var(--bg);border-radius:var(--r);padding:1.4rem;border:1px solid var(--border);transition:box-shadow .2s}
+    .fact-card:hover{box-shadow:var(--shadow-md)}
+    .fact-card .n{font-family:var(--font-d);font-size:2rem;color:var(--green)}
+    .fact-card .l{font-size:.78rem;color:var(--muted);margin-top:.2rem;font-weight:600}
+    
+
+
+    /* ACTIVITIES */
+    #activities{background:var(--bg)}
+    .tab-row{display:flex;gap:.5rem;margin-bottom:2.5rem;flex-wrap:wrap}
+    .tab-btn{padding:.65rem 1.5rem;border:2px solid var(--border);background:#fff;color:var(--muted);font-family:var(--font-j);font-weight:700;font-size:.9rem;border-radius:50px;cursor:pointer;transition:all .25s}
+    .tab-btn:hover{border-color:var(--green);color:var(--green)}
+    .tab-btn.active{background:var(--green);color:#fff;border-color:var(--green);box-shadow:0 4px 16px rgba(42,127,193,.3)}
+    .tab-content{display:none}
+    .tab-content.active{display:block;animation:fadeInUp .4s ease}
+    .act-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1.5rem}
+    .act-card{background:#fff;border-radius:var(--r);overflow:hidden;box-shadow:var(--shadow-sm);border:1px solid var(--border);transition:box-shadow .3s,transform .3s}
+    .act-card:hover{box-shadow:var(--shadow-md);transform:translateY(-4px)}
+    .act-card img{width:100%;height:190px;object-fit:cover;display:block}
+    .act-body{padding:1.3rem}
+    .act-year{font-size:.75rem;font-weight:700;letter-spacing:.1em;color:var(--green);margin-bottom:.4rem}
+    .act-card h3{font-size:1rem;font-weight:900;color:var(--ink);margin-bottom:.5rem}
+    .act-card p{font-size:.87rem;color:var(--muted);line-height:1.75}
+
+    /* DCC */
+    .dcc-card{background:#fff;border-radius:var(--r);overflow:hidden;box-shadow:var(--shadow-sm);border:1px solid var(--border);margin-bottom:2rem}
+    .dcc-head{background:linear-gradient(135deg,var(--blue),#1a5f9e);color:#fff;padding:1.5rem 2rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem}
+    .dcc-head h3{font-size:1.3rem;font-weight:900}
+    .badge-w{background:rgba(255,255,255,.2);padding:.3rem .9rem;border-radius:50px;font-size:.8rem;font-weight:700}
+    .dcc-photos{display:grid;grid-template-columns:repeat(3,1fr);gap:6px}
+    .dcc-photos img{width:100%;height:160px;object-fit:cover}
+    .dcc-body{padding:1.5rem 2rem}
+    .dcc-stats{display:flex;gap:1.5rem;flex-wrap:wrap;margin-bottom:1rem}
+    .dcc-stat .n{font-family:var(--font-d);font-size:1.8rem;color:var(--blue)}
+    .dcc-stat .l{font-size:.72rem;color:var(--muted);font-weight:700}
+    table.dcc-t{width:100%;border-collapse:collapse;margin-top:1.5rem;font-size:.83rem}
+    table.dcc-t th{background:var(--blue);color:#fff;padding:.6rem .8rem;text-align:left;font-weight:700}
+    table.dcc-t td{padding:.6rem .8rem;border-bottom:1px solid var(--border);vertical-align:top;line-height:1.5}
+    table.dcc-t tr:hover td{background:var(--blue-l)}
+
+    /* JAPAN */
+    .j-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:1.5rem}
+    .j-card{background:#fff;border-radius:var(--r);padding:1.8rem;box-shadow:var(--shadow-sm);border:1px solid var(--border);transition:box-shadow .3s}
+    .j-card:hover{box-shadow:var(--shadow-md)}
+    .j-card .icon{font-size:2.2rem;margin-bottom:1rem}
+    .j-card h3{font-size:1rem;font-weight:900;margin-bottom:.6rem;color:var(--orange)}
+    .j-card p{font-size:.87rem;color:var(--muted);line-height:1.75}
+
+    /* TIMELINE */
+    .tl{max-width:700px}
+    .tl-item{position:relative;padding-left:2.5rem;padding-bottom:2rem;border-left:2px solid var(--border);margin-left:.5rem}
+    .tl-item:last-child{border-left-color:transparent;padding-bottom:0}
+    .tl-dot{position:absolute;left:-9px;top:4px;width:16px;height:16px;border-radius:50%;background:var(--green);border:3px solid #fff;box-shadow:0 0 0 2px var(--green)}
+    .tl-y{font-size:.78rem;font-weight:700;color:var(--green);letter-spacing:.08em;margin-bottom:.2rem}
+    .tl-item h4{font-size:.95rem;font-weight:900;margin-bottom:.25rem}
+    .tl-item p{font-size:.85rem;color:var(--muted);line-height:1.65}
+
+    /* CHARITY */
+    #charity{background:#fff}
+    .c-summary{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:1rem;margin-bottom:2.5rem}
+    .c-sum{background:var(--bg);border-radius:var(--r);padding:1.5rem;text-align:center;border:1px solid var(--border)}
+    .c-sum .n{font-family:var(--font-d);font-size:2.5rem;color:var(--orange)}
+    .c-sum .l{font-size:.75rem;color:var(--muted);font-weight:700;margin-top:.25rem}
+    .t-wrap{overflow-x:auto;border-radius:var(--r);box-shadow:var(--shadow-sm)}
+    table.c-t{width:100%;border-collapse:collapse;font-size:.82rem;background:#fff}
+    table.c-t th{background:var(--orange);color:#fff;padding:.7rem 1rem;text-align:left;font-weight:700;white-space:nowrap}
+    table.c-t td{padding:.6rem 1rem;border-bottom:1px solid var(--border);white-space:nowrap}
+    table.c-t tr:hover td{background:var(--orange-l)}
+    .hl{font-weight:700;color:var(--orange)}
+
+
+    /* SPONSOR */
+    #sponsor{background:#fff}
+    .sp-annual{background:linear-gradient(135deg,#2a7fc1,#1a5f9e);border-radius:var(--r);padding:2rem 2.5rem;color:#fff;text-align:center;margin-bottom:2rem;box-shadow:0 8px 32px rgba(42,127,193,.3)}
+    .sp-annual .lbl{font-size:.75rem;letter-spacing:.15em;opacity:.85;font-weight:700}
+    .sp-annual h3{font-size:1.5rem;font-weight:900;margin-top:.4rem}
+    .sp-logos{display:flex;flex-wrap:wrap;gap:.6rem;margin-top:1.5rem}
+    .sp-badge{background:var(--bg);border:1px solid var(--border);padding:.5rem 1rem;font-size:.82rem;font-weight:700;color:var(--ink);border-radius:6px}
+    .media-s{margin-top:2rem;display:flex;align-items:center;gap:1rem;background:var(--bg);border-radius:var(--r);padding:1rem 1.5rem;border:1px solid var(--border)}
+    .media-s .icon{font-size:1.5rem}
+    .media-s p{font-size:.9rem;color:var(--muted)}
+
+    /* JOIN */
+    #join{background:linear-gradient(135deg,#2a7fc1,#1a5f9e)}
+    #join .sl{color:rgba(255,255,255,.75)}
+    #join .st{color:#fff}
+    #join .dv{background:rgba(255,255,255,.35)}
+    .j-g{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:1.2rem;margin:2rem 0}
+    .jc{background:rgba(255,255,255,.15);backdrop-filter:blur(8px);border-radius:var(--r);padding:1.5rem;border:1px solid rgba(255,255,255,.25);transition:background .25s}
+    .jc:hover{background:rgba(255,255,255,.25)}
+    .jc h4{color:#fff;font-size:.78rem;letter-spacing:.12em;font-weight:700;margin-bottom:.5rem}
+    .jc p{color:rgba(255,255,255,.85);font-size:.87rem;line-height:1.7}
+    .btn-w{background:#fff;color:var(--green);padding:.85rem 2.2rem;border-radius:50px;font-weight:900;font-size:1rem;text-decoration:none;display:inline-block;box-shadow:0 4px 20px rgba(0,0,0,.15);transition:all .25s;border:none;cursor:pointer}
+    .btn-w:hover{transform:translateY(-2px);box-shadow:0 8px 32px rgba(0,0,0,.2)}
+
+    /* CONTACT */
+    #contact{background:var(--bg)}
+    .ct-grid{display:grid;grid-template-columns:1fr 1fr;gap:3rem;align-items:start}
+    .ct-box{background:#fff;border-radius:var(--r);padding:2rem;box-shadow:var(--shadow-sm);border:1px solid var(--border)}
+    .ct-box h3{font-size:1.1rem;font-weight:900;margin-bottom:1.5rem}
+    .ct-item{display:flex;align-items:flex-start;gap:1rem;margin-bottom:1.2rem}
+    .c-ico{width:40px;height:40px;min-width:40px;border-radius:10px;background:var(--green-l);display:flex;align-items:center;justify-content:center;font-size:1.1rem}
+    .ct-item .lbl{font-size:.72rem;color:var(--muted);font-weight:600;margin-bottom:.2rem}
+    .ct-item a{color:var(--ink);text-decoration:none;font-weight:700;font-size:.95rem}
+    .ct-item a:hover{color:var(--green)}
+    .sns-row{display:flex;gap:.6rem;flex-wrap:wrap;margin-top:1.5rem}
+    .sns-btn{display:inline-flex;align-items:center;gap:.5rem;padding:.55rem 1.1rem;border-radius:8px;background:var(--bg);color:var(--ink);text-decoration:none;font-size:.82rem;font-weight:700;border:1px solid var(--border);transition:all .2s}
+    .sns-btn:hover{background:#2a7fc1;color:#fff;border-color:#2a7fc1}
+    .sns-btn[href*="twitter"]:hover,.sns-btn[href*="x.com"]:hover{background:#000;border-color:#000}
+    .sns-btn[href*="instagram"]:hover{background:linear-gradient(45deg,#f09433,#e6683c,#dc2743,#cc2366,#bc1888);border-color:#dc2743}
+    .sns-btn[href*="facebook"]:hover{background:#1877f2;border-color:#1877f2}
+    .sns-btn[href*="note"]:hover{background:#41c9b4;border-color:#41c9b4}
+    .sns-btn[href*="tiktok"]:hover{background:#000;border-color:#000}
+    .sns-btn svg{width:16px;height:16px;flex-shrink:0}
+    .form-ph{text-align:center;padding:2.5rem 1.5rem;border:2px dashed var(--border);border-radius:var(--r);color:var(--muted)}
+    .form-ph p{font-size:.88rem;line-height:1.7}
+
+
+
+    /* CROWDFUNDING */
+    #crowdfunding .sl{color:var(--blue)}
+    .cf-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:1.5rem}
+    .cf-card{display:block;background:#fff;border-radius:var(--r);padding:1.6rem;box-shadow:var(--shadow-sm);border:1px solid var(--border);text-decoration:none;color:var(--ink);transition:box-shadow .3s,transform .3s}
+    .cf-card:hover{box-shadow:var(--shadow-md);transform:translateY(-4px)}
+    .cf-platform{font-size:.7rem;font-weight:700;letter-spacing:.12em;color:var(--blue);margin-bottom:.5rem}
+    .cf-card h3{font-size:.95rem;font-weight:900;margin-bottom:.5rem;line-height:1.4}
+    .cf-card p{font-size:.84rem;color:var(--muted);line-height:1.65;margin-bottom:.75rem}
+    .cf-link{font-size:.8rem;font-weight:700;color:var(--blue)}
+
+    /* MEDIA */
+    .media-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1.2rem}
+    .media-card{display:block;background:var(--bg);border-radius:var(--r);padding:1.4rem;border:1px solid var(--border);text-decoration:none;color:var(--ink);transition:box-shadow .3s,background .2s}
+    .media-card:hover{box-shadow:var(--shadow-md);background:#fff}
+    .media-src{font-size:.7rem;font-weight:700;letter-spacing:.1em;color:#fff;background:var(--blue);display:inline-block;padding:.2rem .6rem;border-radius:4px;margin-bottom:.5rem}
+    .media-card h3{font-size:.9rem;font-weight:700;line-height:1.5;margin-bottom:.4rem}
+    .media-date{font-size:.76rem;color:var(--muted)}
+
+
+    .note-direct-wrap{background:#fff;border-radius:var(--r);box-shadow:var(--shadow-md);border:1px solid var(--border);overflow:hidden}
+    .note-direct-header{display:flex;align-items:center;justify-content:space-between;padding:1.2rem 1.5rem;border-bottom:1px solid var(--border);flex-wrap:wrap;gap:1rem}
+    .note-direct-title{display:flex;align-items:center;gap:.75rem}
+
+
+    /* MISSION */
+    .about-mission{margin-top:1.5rem;display:flex;flex-direction:column;gap:1.2rem}
+    .mission-photo-card{position:relative;border-radius:var(--r);overflow:hidden;aspect-ratio:16/6;width:100%;background:#ccc;background-size:cover;background-position:center}
+    .mission-photo-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.85) 0%,rgba(0,0,0,.55) 50%,rgba(0,0,0,.15) 100%);display:flex;flex-direction:column;justify-content:flex-end;padding:1.8rem 2rem}
+    .mission-label{font-size:.8rem;font-weight:800;letter-spacing:.18em;color:rgba(255,255,255,.9);text-transform:uppercase;margin-bottom:.6rem}
+    .mission-photo-overlay p{font-size:1rem;color:#fff;line-height:1.75;margin:0;text-shadow:0 1px 4px rgba(0,0,0,.5)}
+    @media(max-width:640px){
+      .hero-eyecatch{font-size:.88rem;letter-spacing:.08em;padding:.3rem .75rem}
+      section{padding:3rem 1.2rem}
+      .hero-tagline{font-size:clamp(1.5rem,6vw,4rem)}
+      .mission-photo-card{aspect-ratio:4/3}
+      .mission-photo-overlay{padding:1.2rem 1.2rem}
+      .mission-photo-overlay p{font-size:.92rem;line-height:1.65}
+      .about-mission{gap:.9rem}
+    }
+
+
+
+    /* ACTIVITY PHOTO PLACEHOLDER */
+    .act-photo-placeholder{width:100%;height:190px;background:var(--bg);border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:center}
+    .act-photo-placeholder-inner{text-align:center;color:var(--muted)}
+    .act-photo-placeholder-inner .placeholder-icon{font-size:2rem;display:block;margin-bottom:.5rem;opacity:.5}
+    .act-photo-placeholder-inner p{font-size:.8rem;line-height:1.6;opacity:.7}
+
+    /* SUB TABS */
+    .history-section-label{display:flex;align-items:center;gap:.65rem;font-size:1.05rem;font-weight:900;margin-bottom:1.2rem;color:var(--ink)}
+    .hsl-ico{width:34px;height:34px;border-radius:10px;background:var(--blue-l);color:var(--blue);display:inline-flex;align-items:center;justify-content:center;flex-shrink:0}
+    .hsl-ico svg{width:18px;height:18px}
+    .sub-tab-row{display:flex;gap:.5rem;margin-bottom:1.5rem;flex-wrap:wrap}
+    .sub-tab-btn{padding:.5rem 1.2rem;border:2px solid var(--border);background:#fff;color:var(--muted);font-family:var(--font-j);font-weight:700;font-size:.85rem;border-radius:50px;cursor:pointer;transition:all .25s}
+    .sub-tab-btn:hover{border-color:var(--blue);color:var(--blue)}
+    .sub-tab-btn.active{background:var(--blue);color:#fff;border-color:var(--blue)}
+    .school-sub-row{display:flex;gap:.5rem;margin-bottom:1.2rem;flex-wrap:wrap}
+    .school-btn{padding:.4rem 1rem;border:1.5px solid var(--border);background:#fff;color:var(--muted);font-family:var(--font-j);font-weight:700;font-size:.82rem;border-radius:50px;cursor:pointer;transition:all .2s}
+    .school-btn:hover{border-color:var(--blue);color:var(--blue)}
+    .school-btn.active{background:var(--blue-l);color:var(--blue);border-color:var(--blue)}
+    .sub-tab-content{display:none}
+    .sub-tab-content.active{display:block;animation:fadeInUp .35s ease}
+    .school-content{display:none}
+    .school-content.active{display:block;animation:fadeInUp .3s ease}
+
+
+    /* NEWS TABS */
+    .news-tab-row{display:flex;gap:.5rem;margin-bottom:1.8rem;flex-wrap:wrap}
+    .news-tab-btn{padding:.6rem 1.4rem;border:2px solid var(--border);background:#fff;color:var(--muted);font-family:var(--font-j);font-weight:700;font-size:.9rem;border-radius:50px;cursor:pointer;transition:all .25s}
+    .news-tab-btn:hover{border-color:var(--blue);color:var(--blue)}
+    .news-tab-btn.active{background:var(--blue);color:#fff;border-color:var(--blue);box-shadow:0 4px 16px rgba(42,127,193,.3)}
+    .news-tab-content{display:none}
+    .news-tab-content.active{display:block;animation:fadeInUp .35s ease}
+    .news-card-featured{position:relative;border:1px solid #fbd3c7;background:linear-gradient(135deg,#fff8f5 0%,#fff 100%)}
+    .news-badge-new{position:absolute;top:1rem;right:1rem;background:#f85430;color:#fff;font-size:.68rem;font-weight:800;letter-spacing:.1em;padding:.25rem .6rem;border-radius:4px}
+    .campfire-src{background:#f85430!important}
+    .news-cta{display:inline-block;margin-top:.75rem;font-size:.82rem;font-weight:700;color:#f85430}
+    .news-card-featured:hover{border-color:#f85430;box-shadow:0 6px 24px rgba(248,84,48,.15)}
+
+    /* FORM */
+    .form-group{margin-bottom:1.2rem}
+    .form-group label{display:block;font-size:.82rem;font-weight:700;color:var(--ink);margin-bottom:.4rem}
+    .req{color:#e53e3e}
+    .form-group input,.form-group select,.form-group textarea{width:100%;padding:.7rem 1rem;border:1.5px solid var(--border);border-radius:8px;font-family:var(--font-j);font-size:.9rem;color:var(--ink);background:#fff;transition:border-color .2s;outline:none}
+    .form-group input:focus,.form-group select:focus,.form-group textarea:focus{border-color:var(--blue)}
+    .form-group textarea{resize:vertical;min-height:120px}
+    .form-submit{width:100%;background:var(--blue);color:#fff;border:none;padding:.85rem;border-radius:8px;font-family:var(--font-j);font-size:1rem;font-weight:700;cursor:pointer;transition:background .2s}
+    .form-submit:hover{background:#1a5f9e}
+    .form-submit:disabled{background:#aaa;cursor:not-allowed}
+
+    /* FOOTER */
+    footer{background:var(--ink);color:rgba(255,255,255,.45);padding:2.5rem 2rem 1.5rem}
+    .ft{max-width:1100px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1.5rem}
+    .ft-logo{display:flex;align-items:center;gap:.6rem}
+    .ft-logo img{height:34px;filter:brightness(0) invert(1);opacity:.6}
+    .ft-logo span{font-family:var(--font-j);font-size:1.1rem;font-weight:900;color:rgba(255,255,255,.45)}
+    .ft-links{display:flex;gap:1.5rem;flex-wrap:wrap}
+    .ft-links a{color:rgba(255,255,255,.35);font-size:.8rem;text-decoration:none;transition:color .2s}
+    .ft-links a:hover{color:var(--green)}
+    .ft-copy{font-size:.78rem}
+
+    @keyframes fadeInDown{from{opacity:0;transform:translateY(-20px)}to{opacity:1;transform:translateY(0)}}
+    @keyframes fadeInUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
+    .reveal{opacity:0;transform:translateY(28px);transition:opacity .65s ease,transform .65s ease}
+    .reveal.visible{opacity:1;transform:translateY(0)}
+
+    @media(max-width:900px){
+      .about-grid,.ct-grid{grid-template-columns:1fr}
+    }
+    @media(max-width:640px){
+      .nav-links{display:none}
+      .nav-links.open{display:flex;flex-direction:column;position:fixed;top:64px;left:0;right:0;background:#fff;padding:1.5rem 2rem;gap:.5rem;z-index:999;box-shadow:var(--shadow-md)}
+      .hamburger{display:flex}
+      .stat-item{padding:1rem 1.2rem}
+      .hero{height:75vw;min-height:320px}
+      .dcc-photos{grid-template-columns:1fr}
+    }
+    /* LUCIDE ICONS */
+    :where(svg.lucide){width:1.1em;height:1.1em;flex-shrink:0}
+    .tab-btn,.news-tab-btn{display:inline-flex;align-items:center;gap:.45rem}
+    .tab-btn svg,.news-tab-btn svg{width:17px;height:17px}
+    .media-src{display:inline-flex;align-items:center;gap:.3rem}
+    .media-src svg{width:13px;height:13px}
+    .cf-link,.news-cta{display:inline-flex;align-items:center;gap:.25rem}
+    .cf-link svg,.news-cta svg{width:15px;height:15px}
+    .btn-w{display:inline-flex;align-items:center;gap:.5rem}
+    .btn-w svg{width:18px;height:18px}
+    .c-ico{color:var(--blue)}
+    .c-ico svg{width:20px;height:20px}
+    .jc-meta{display:flex;align-items:center;gap:.4rem}
+    .jc-meta svg{width:15px;height:15px}
+    .placeholder-icon svg{width:32px;height:32px}
+    #formMsg svg{width:18px;height:18px}
+    .op-skip svg{width:14px;height:14px}
+    /* ===== THEME: matches opening (deep blue / pitch lines / center circle) ===== */
+    :root{--navy:#071f3b;--navy-2:#0e3f73;--brand:#1c6bb0;--sky:#8fd0ff;--soft:#f3f7fc;--r:14px;--pitch:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1600 1000' preserveAspectRatio='xMidYMid slice' fill='none' stroke='%23fff' stroke-width='3'%3E%3Crect x='40' y='40' width='1520' height='920'/%3E%3Cline x1='800' y1='40' x2='800' y2='960'/%3E%3Ccircle cx='800' cy='500' r='150'/%3E%3Crect x='40' y='250' width='240' height='500'/%3E%3Crect x='40' y='380' width='90' height='240'/%3E%3Crect x='1320' y='250' width='240' height='500'/%3E%3Crect x='1470' y='380' width='90' height='240'/%3E%3Cpath d='M280 410 A110 110 0 0 1 280 590'/%3E%3Cpath d='M1320 410 A110 110 0 0 0 1320 590'/%3E%3C/svg%3E")}
+    body{background:var(--soft)}
+    .sl,.mission-label,.cf-platform,.act-year,.tl-y,.media-src{font-family:'Outfit',var(--font-j)}
+
+    /* nav */
+    nav{background:rgba(7,31,59,.88);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid rgba(255,255,255,.08);box-shadow:0 4px 24px rgba(3,15,30,.25)}
+    .nav-logo img{width:40px;height:40px;background:#fff;border-radius:50%;padding:3px;box-shadow:0 0 0 2px rgba(255,255,255,.25)}
+    .nav-logo span{color:#fff;font-family:'Noto Sans JP',sans-serif;font-weight:700;font-size:1.2rem;letter-spacing:.02em}
+    .nav-links a{color:rgba(255,255,255,.78)}
+    .nav-links a:hover{color:#fff;background:rgba(255,255,255,.1)}
+    .nav-cta{background:#fff!important;color:var(--navy)!important;border-radius:50px!important;padding:.45rem 1.1rem!important}
+    .nav-cta:hover{background:var(--sky)!important}
+    .hamburger span{background:#fff}
+    @media(max-width:640px){.nav-links.open{background:var(--navy)}}
+
+    /* hero */
+    .hero{background:var(--navy)}
+    .slide::after{background:linear-gradient(180deg,rgba(7,31,59,.6) 0%,rgba(14,63,115,.38) 45%,rgba(7,31,59,.78) 100%)}
+    .hero-content{z-index:5}
+    .hero-eyecatch{width:auto;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.45);backdrop-filter:blur(6px);text-shadow:none;padding:.4rem 1.2rem}
+    .hero-divider{position:relative;width:96px;height:2px;border-radius:0;background:rgba(255,255,255,.75);margin-top:1.6rem}
+    .hero-divider::after{content:'';position:absolute;left:50%;top:50%;width:16px;height:16px;border:2px solid #fff;border-radius:50%;transform:translate(-50%,-50%);background:rgba(14,63,115,.9)}
+    .dot{background:rgba(255,255,255,.45)}
+    .dot.active{background:#fff}
+
+    /* section headings */
+    .sl{display:flex;align-items:center;gap:.7rem;color:var(--brand);letter-spacing:.3em;font-size:.76rem}
+    .sl::before{content:'';width:26px;height:2px;background:currentColor}
+    .st{letter-spacing:.01em}
+    .dv{position:relative;width:88px;height:2px;border-radius:0;background:var(--brand);--dvbg:#fff;margin-bottom:2.8rem}
+    .dv::after{content:'';position:absolute;left:50%;top:50%;width:14px;height:14px;border:2px solid var(--brand);border-radius:50%;background:var(--dvbg);transform:translate(-50%,-50%)}
+
+    /* dark (pitch) sections */
+    .pitch-sec{position:relative;overflow:hidden;background:radial-gradient(120% 90% at 50% 0%,#1c6bb0 0%,#0e3f73 42%,#071f3b 100%)!important;color:#fff}
+    .pitch-sec::before{content:'';position:absolute;inset:0;background:var(--pitch) center/cover no-repeat;opacity:.09;pointer-events:none}
+    .pitch-sec>.si{position:relative;z-index:1}
+    .pitch-sec .sl{color:var(--sky)}
+    .pitch-sec .st{color:#fff}
+    .pitch-sec .dv{background:rgba(255,255,255,.6);--dvbg:#0f3f72}
+    .pitch-sec .dv::after{border-color:#fff}
+
+    /* about */
+    #about{background:#fff}
+    .about-text strong{color:var(--brand)}
+    .mission-photo-card{border-radius:18px;box-shadow:0 14px 40px rgba(7,31,59,.18);outline:3px solid #fff;outline-offset:-3px}
+    .mission-photo-overlay{background:linear-gradient(to top,rgba(7,31,59,.92) 0%,rgba(14,63,115,.55) 55%,rgba(14,63,115,.1) 100%)}
+    .mission-label{display:flex;align-items:center;gap:.6rem;color:var(--sky)}
+    .mission-label::before{content:'';width:10px;height:10px;border:2px solid var(--sky);border-radius:50%}
+
+    /* activities (dark) */
+    .tab-btn{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.22);color:rgba(255,255,255,.85);backdrop-filter:blur(6px)}
+    .tab-btn:hover{border-color:#fff;color:#fff;background:rgba(255,255,255,.14)}
+    .tab-btn.active{background:#fff;color:var(--navy);border-color:#fff;box-shadow:0 8px 24px rgba(3,15,30,.35)}
+    .act-card{border-radius:16px;border:none;padding:8px;box-shadow:0 14px 36px rgba(3,15,30,.35)}
+    .act-card:hover{box-shadow:0 20px 48px rgba(3,15,30,.45)}
+    .act-card img,.act-card .act-photo-placeholder{border-radius:10px!important;height:200px!important}
+    .act-body{padding:1.1rem .9rem 1rem}
+    .act-year{color:var(--brand);letter-spacing:.14em}
+    .pitch-sec .history-section-label{color:#fff}
+    .pitch-sec .hsl-ico{background:transparent;color:#fff;border:2px solid rgba(255,255,255,.7);border-radius:50%}
+    .pitch-sec .tl-item{border-left-color:rgba(255,255,255,.22)}
+    .pitch-sec .tl-dot{background:var(--navy);border:2px solid #fff;box-shadow:0 0 0 3px rgba(143,208,255,.35)}
+    .pitch-sec .tl-y{color:var(--sky)}
+    .pitch-sec .tl-item h4{color:#fff}
+    .pitch-sec .cf-card{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.16);color:#fff;border-radius:16px;backdrop-filter:blur(6px);box-shadow:none}
+    .pitch-sec .cf-card:hover{background:rgba(255,255,255,.13);border-color:rgba(255,255,255,.35)}
+    .pitch-sec .cf-card p{color:rgba(255,255,255,.72)}
+    .pitch-sec .cf-platform,.pitch-sec .cf-link{color:var(--sky)}
+
+    /* media */
+    #media .dv{--dvbg:#fff}
+    .news-tab-btn{border-radius:50px}
+    .news-tab-btn.active{background:var(--navy);border-color:var(--navy);box-shadow:0 6px 18px rgba(7,31,59,.25)}
+    .news-tab-btn:hover{border-color:var(--navy);color:var(--navy)}
+    .news-tab-btn.active:hover{color:#fff}
+    .media-card{background:var(--soft);border-radius:16px;border:1px solid #e3ebf5}
+    .media-card:hover{background:#fff;box-shadow:0 14px 36px rgba(7,31,59,.12)}
+    .media-src{border-radius:50px;padding:.25rem .75rem;background:var(--navy-2)}
+
+    /* join (dark) */
+    #join .dv{margin:0 auto 2rem}
+    #join .sl{justify-content:center}
+    #join .sl::after{content:'';width:26px;height:2px;background:currentColor}
+    .jc{border-radius:16px;background:rgba(255,255,255,.08);border-color:rgba(255,255,255,.16)}
+    .jc h4{font-family:'Outfit',sans-serif;color:var(--sky);letter-spacing:.24em}
+    .btn-w{color:var(--navy)}
+    .btn-w:hover{background:var(--sky)}
+
+    /* contact */
+    #contact{background:var(--soft)}
+    #contact .dv{--dvbg:var(--soft)}
+    .ct-box{border-radius:18px;border:1px solid #e3ebf5;box-shadow:0 10px 30px rgba(7,31,59,.07)}
+    .c-ico{border-radius:50%;background:#fff;border:2px solid var(--brand);color:var(--brand)}
+    .sns-btn{border-radius:50px}
+    .form-group input,.form-group select,.form-group textarea{border-radius:10px;background:var(--soft);border-color:#dbe5f1}
+    .form-group input:focus,.form-group select:focus,.form-group textarea:focus{background:#fff;border-color:var(--brand)}
+    .form-submit{border-radius:50px;background:var(--navy)}
+    .form-submit:hover{background:var(--brand)}
+
+    /* footer */
+    footer{position:relative;overflow:hidden;background:var(--navy);color:rgba(255,255,255,.55)}
+    footer::before{content:'';position:absolute;inset:0;background:var(--pitch) center/cover no-repeat;opacity:.06;pointer-events:none}
+    footer .ft{position:relative}
+    .ft-logo img{filter:none;opacity:1;width:38px;height:38px;background:#fff;border-radius:50%;padding:3px}
+    .ft-logo span{color:#fff;font-family:'Noto Sans JP',sans-serif;font-weight:700;font-size:1.05rem;letter-spacing:.02em}
+    .ft-links a{color:rgba(255,255,255,.6)}
+    .ft-links a:hover{color:var(--sky)}
+
+    /* ===== MISSION / VISION (text only, 2 columns) ===== */
+    .about-grid{max-width:none}
+    .about-text p{max-width:820px}
+    .mv{position:relative;display:grid;grid-template-columns:1fr 1fr;margin-top:3.5rem;padding:3rem 0;border-top:1px solid #e3ebf5;border-bottom:1px solid #e3ebf5}
+    .mv::before{content:'';position:absolute;left:50%;top:2.5rem;bottom:2.5rem;width:1px;background:#d5e2f0}
+    .mv::after{content:'';position:absolute;left:50%;top:50%;width:18px;height:18px;border:2px solid var(--brand);border-radius:50%;background:#fff;transform:translate(-50%,-50%)}
+    .mv-col{padding:0 3.5rem}
+    .mv-col:first-child{padding-left:0}
+    .mv-col:last-child{padding-right:0}
+    .mv-en{font-family:'Outfit',sans-serif;font-size:.78rem;font-weight:700;letter-spacing:.32em;color:var(--brand);margin-bottom:.4rem}
+    .mv-ja{font-size:1rem;font-weight:700;color:var(--muted);margin-bottom:1.3rem}
+    .mv-text{font-size:clamp(1.15rem,2vw,1.5rem);font-weight:700;line-height:1.85;color:var(--navy);letter-spacing:.02em}
+    .mq{margin-top:3.5rem;overflow:hidden;-webkit-mask-image:linear-gradient(90deg,transparent,#000 5%,#000 95%,transparent);mask-image:linear-gradient(90deg,transparent,#000 5%,#000 95%,transparent)}
+    .mq-track{display:flex;gap:18px;width:max-content;padding:10px 0 24px;animation:mqMove 90s linear infinite}
+    .mq:hover .mq-track{animation-play-state:paused}
+    .mq-track img{height:230px;aspect-ratio:3/2;object-fit:cover;border-radius:14px;border:3px solid #fff;box-shadow:0 12px 30px rgba(7,31,59,.18);flex-shrink:0}
+    @keyframes mqMove{to{transform:translateX(-50%)}}
+    @media(max-width:760px){
+      .mv{grid-template-columns:1fr;padding:2rem 0}
+      .mv::before{left:0;right:0;top:50%;bottom:auto;width:auto;height:1px}
+      .mv-col{padding:0!important}
+      .mv-col:first-child{padding-bottom:2.6rem!important}
+      .mv-col:last-child{padding-top:2.6rem!important}
+      .mq-track img{height:150px}
+    }
+    @media(prefers-reduced-motion:reduce){.mq-track{animation:none}}
+
+    /* ===== ACTIVITIES: alternating rows ===== */
+    .tab-content{counter-reset:act}
+    .tab-content .act-grid{display:flex;flex-direction:column;gap:5rem;margin-bottom:5rem!important}
+    .act-card{counter-increment:act;display:grid;grid-template-columns:1.1fr 1fr;gap:4rem;align-items:center;background:none;border:none;box-shadow:none!important;padding:0;border-radius:0;overflow:visible;transform:none!important;opacity:0;translate:-48px 0;transition:opacity .8s ease,translate .8s cubic-bezier(.2,.7,.2,1)}
+    .act-card:nth-child(even){translate:48px 0}
+    .act-card.in{opacity:1;translate:0 0}
+    .act-card img,.act-card .act-photo-placeholder{width:100%!important;height:auto!important;aspect-ratio:3/2;border-radius:16px!important;border:4px solid #fff;box-shadow:0 22px 50px rgba(3,15,30,.45)}
+    .act-card:nth-child(even) img,.act-card:nth-child(even) .act-photo-placeholder{order:2}
+    .act-body{padding:0}
+    .act-body::before{content:counter(act,decimal-leading-zero);display:block;font-family:'Outfit',sans-serif;font-size:4.8rem;font-weight:800;line-height:1;color:transparent;-webkit-text-stroke:1.5px rgba(143,208,255,.75);margin-bottom:.9rem}
+    .pitch-sec .act-year{color:var(--sky);font-size:.8rem}
+    .pitch-sec .act-card h3{color:#fff;font-size:clamp(1.25rem,2.2vw,1.6rem);margin:.3rem 0 1rem}
+    .pitch-sec .act-card p{color:rgba(255,255,255,.8);font-size:.95rem;line-height:1.95}
+    .pitch-sec .history-section-label{margin-bottom:2.2rem!important;font-size:1.15rem}
+    @media(max-width:760px){
+      .act-card{grid-template-columns:1fr;gap:1.4rem;translate:0 32px}
+      .act-card:nth-child(even){translate:0 32px}
+      .act-card:nth-child(even) img,.act-card:nth-child(even) .act-photo-placeholder{order:0}
+      .act-body::before{font-size:3.4rem}
+      .tab-content .act-grid{gap:3.5rem;margin-bottom:3.5rem!important}
+    }
+    @media(prefers-reduced-motion:reduce){.act-card{opacity:1;translate:none;transition:none}}
+
+    /* ===== FOOTER ===== */
+    footer.ft2{position:relative;overflow:hidden;background:var(--navy);color:rgba(255,255,255,.72);padding:5rem 2rem 0}
+    footer.ft2::before{display:none}
+    footer.ft2::after{content:'';position:absolute;inset:0;pointer-events:none;background-image:radial-gradient(rgba(143,208,255,.28) 1.1px,transparent 1.5px);background-size:16px 16px;-webkit-mask-image:radial-gradient(55% 75% at 10% 20%,#000 0,#000 35%,transparent 70%);mask-image:radial-gradient(55% 75% at 10% 20%,#000 0,#000 35%,transparent 70%)}
+    .ft2-in{position:relative;z-index:1;max-width:1180px;margin:0 auto;display:grid;grid-template-columns:1.35fr 1fr 1fr 1fr}
+    .ft2-in>div{position:relative;padding:0 2.4rem}
+    .ft2-in>div:first-child{padding-left:0}
+    .ft2-col::before{content:'';position:absolute;left:0;top:0;bottom:0;width:1px;background:rgba(255,255,255,.12)}
+    .ft2-logo{display:inline-flex;align-items:center;gap:.7rem;text-decoration:none}
+    .ft2-logo img{width:46px;height:46px;background:#fff;border-radius:50%;padding:3px}
+    .ft2-logo span{color:#fff;font-family:'Noto Sans JP',sans-serif;font-weight:700;font-size:1.3rem}
+    .ft2-tag{margin-top:1.3rem;font-size:.9rem;color:rgba(255,255,255,.75)}
+    .ft2-sns{display:flex;gap:.6rem;margin-top:1.5rem}
+    .ft2-sns a{width:38px;height:38px;border-radius:50%;border:1px solid rgba(255,255,255,.25);display:flex;align-items:center;justify-content:center;color:#fff;transition:background .2s,border-color .2s}
+    .ft2-sns a:hover{background:rgba(255,255,255,.12);border-color:#fff}
+    .ft2-sns svg{width:16px;height:16px}
+    .ft2-addr{margin-top:1.8rem;font-size:.86rem;line-height:2}
+    .ft2-addr a{color:rgba(255,255,255,.85);text-decoration:none}
+    .ft2-addr a:hover{color:var(--sky)}
+    .ft2-col h4{font-family:'Outfit',sans-serif;font-size:.8rem;font-weight:700;letter-spacing:.3em;color:var(--sky);margin-bottom:1.6rem}
+    .ft2-col ul{list-style:none;display:flex;flex-direction:column;gap:1.05rem}
+    .ft2-col a{color:rgba(255,255,255,.75);text-decoration:none;font-size:.9rem;transition:color .2s}
+    .ft2-col a:hover{color:#fff}
+    .ft2-bottom{position:relative;z-index:1;max-width:1180px;margin:4rem auto 0;padding:1.6rem 0 2rem;border-top:1px solid rgba(255,255,255,.1);font-size:.76rem;color:rgba(255,255,255,.5)}
+    @media(max-width:900px){
+      .ft2-in{grid-template-columns:1fr 1fr;row-gap:2.8rem}
+      .ft2-brand{grid-column:1/-1;padding:0!important}
+      .ft2-in>div:nth-child(2){padding-left:0}
+      .ft2-in>div:nth-child(2)::before{display:none}
+    }
+    @media(max-width:560px){
+      footer.ft2{padding:3.5rem 1.25rem 0}
+      .ft2-in{grid-template-columns:1fr}
+      .ft2-col{padding:0!important}
+      .ft2-col::before{display:none}
+    }
+
+  </style>
+<script>
+const IMGS = {
+  logo: "/assets/logo.png",
+  img_1: "/assets/img_1.jpg",
+  img_2: "/assets/img_2.jpg",
+  img_3: "/assets/img_3.jpg",
+  img_4: "/assets/img_4.jpg",
+  img_5: "/assets/img_5.jpg",
+  img_8: "/assets/img_8.jpg",
+  img_9: "/assets/img_9.jpg",
+  img_11: "/assets/img_11.jpg",
+  img_12: "/assets/img_12.jpg",
+  img_14: "/assets/img_14.jpg",
+  img_16: "/assets/img_16.jpg",
+  img_17: "/assets/img_17.jpg",
+  img_a1: "/assets/img_a1.jpg",
+  img_a3: "/assets/img_a3.jpg",
+  img_a4: "/assets/img_a4.jpg",
+  new1: "/assets/new1.jpg",
+  new2: "/assets/new2.jpg",
+  new3: "/assets/new3.jpg",
+  new4: "/assets/new4.jpg",
+  new5: "/assets/new5.jpg",
+  new6: "/assets/new6.jpg",
+  mission1: "/assets/mission1.jpg",
+  mission2: "/assets/mission2.jpg",
+  act_smaong: "/assets/act_smaong.jpg",
+  act_keothom: "/assets/act_keothom.jpg",
+  act_phnompenh: "/assets/act_phnompenh.jpg",
+  act_siemreap: "/assets/act_siemreap.jpg",
+  jpn_charity: "/assets/jpn_charity.jpg",
+  jpn_aebj: "/assets/jpn_aebj.jpg",
+  jpn_shisetsu: "/assets/jpn_shisetsu.jpg",
+  jpn_report: "/assets/jpn_report.jpg",
+};
+// Replace all img src and background-image after DOM loads
+document.addEventListener('DOMContentLoaded', function() {
+  const map = {
+    'logo.png': IMGS.logo,
+    'img_1.jpg': IMGS.img_1,
+    'img_2.jpg': IMGS.img_2,
+    'img_3.jpg': IMGS.img_3,
+    'img_4.jpg': IMGS.img_4,
+    'img_5.jpg': IMGS.img_5,
+    'img_8.jpg': IMGS.img_8,
+    'img_9.jpg': IMGS.img_9,
+    'img_11.jpg': IMGS.img_11,
+    'img_12.jpg': IMGS.img_12,
+    'img_14.jpg': IMGS.img_14,
+    'img_16.jpg': IMGS.img_16,
+    'img_17.jpg': IMGS.img_17,
+    'img_a1.jpg': IMGS.img_a1,
+    'img_a3.jpg': IMGS.img_a3,
+    'img_a4.jpg': IMGS.img_a4,
+  };
+  // Logo
+  const navLogo = document.getElementById('navLogo');
+  if(navLogo) navLogo.src = IMGS.logo;
+  const footerLogo = document.getElementById('footerLogo');
+  if(footerLogo) footerLogo.src = IMGS.logo;
+
+  // Activity card images
+  const ai = {
+    actImgCharity: IMGS.jpn_charity,
+    actImgAebj: IMGS.jpn_aebj,
+    actImgReport: IMGS.jpn_report,
+    actImgShisetsu: IMGS.jpn_shisetsu,
+    actImgSmaong: IMGS.act_smaong,
+    actImgKeothom: IMGS.act_keothom,
+    actImgPhnompenh: IMGS.act_phnompenh,
+    actImgSiemreap: IMGS.act_siemreap
+  };
+  Object.entries(ai).forEach(([id,src])=>{ const el=document.getElementById(id); if(el && src) el.src=src; else if(el && !src) { el.parentElement.innerHTML='<div class="act-photo-placeholder"><div class="act-photo-placeholder-inner"><span class="placeholder-icon"><svg aria-hidden="true" class="lucide lucide-camera" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" ><path d="M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3l-2.5-3z" /><circle cx="12" cy="13" r="3" /></svg></span><p>写真は近日追加予定</p></div></div>'; } });
+
+  // Mission cards background
+  const mc1 = document.getElementById('missionCard1');
+  const mc2 = document.getElementById('missionCard2');
+  if(mc1) mc1.style.backgroundImage = `url(${IMGS.mission1})`;
+  if(mc2) mc2.style.backgroundImage = `url(${IMGS.mission2})`;
+
+  document.querySelectorAll('img[src]').forEach(img => {
+    const s = img.getAttribute('src');
+    if (map[s]) img.src = map[s];
+  });
+});
+</script>
+</head>
+<body class="op-lock">
+<!-- OPENING -->
+<div id="opening" aria-hidden="true">
+  <svg class="op-pitch" viewBox="0 0 1600 1000" preserveAspectRatio="xMidYMid slice" fill="none" stroke="#fff" stroke-width="3">
+    <rect x="40" y="40" width="1520" height="920"/>
+    <line x1="800" y1="40" x2="800" y2="960"/>
+    <circle cx="800" cy="500" r="150"/>
+    <rect x="40" y="250" width="240" height="500"/><rect x="40" y="380" width="90" height="240"/>
+    <rect x="1320" y="250" width="240" height="500"/><rect x="1470" y="380" width="90" height="240"/>
+    <path d="M280 410 A110 110 0 0 1 280 590"/><path d="M1320 410 A110 110 0 0 0 1320 590"/>
+  </svg>
+  <div class="op-stage" id="opStage"></div>
+  <div class="op-dim"></div>
+  <div class="op-center">
+    <svg class="op-ring" viewBox="0 0 110 110"><circle cx="55" cy="55" r="50"/><circle class="spot" cx="55" cy="5" r="2.2"/></svg>
+    <div class="op-disc"><img id="opLogo" src="" alt=""/></div>
+  </div>
+  <button type="button" class="op-skip" id="opSkip">SKIP<svg aria-hidden="true" class="lucide lucide-chevrons-right" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" ><path d="m6 17 5-5-5-5" /><path d="m13 17 5-5-5-5" /></svg></button>
+</div>
+
+<nav>
+  <a class="nav-logo" href="#top">
+    <img id="navLogo" src="" alt="WorldFut"/>
+    <span>WorldFut</span>
+  </a>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="#top" class="nav-top-btn">TOP</a></li>
+    <li><a href="#about">団体概要</a></li>
+    <li><a href="#activities">活動内容</a></li>
+    <li><a href="#media">News & Topics</a></li>
+    <li><a href="#contact" class="nav-cta">お問い合わせ</a></li>
+  </ul>
+  <div class="hamburger" id="hamburger" onclick="toggleMenu()">
+    <span></span><span></span><span></span>
+  </div>
+</nav>
+
+<script>
+// OPENING：写真の列が流れる → センターサークルにロゴ → 円に吸い込まれてトップページへ
+(function(){
+  const op=document.getElementById('opening');
+  const body=document.body;
+  const reduce=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;
+  let seen=false;
+  try{ seen=sessionStorage.getItem('wf_opening')==='1'; }catch(e){}
+  if(reduce||seen){ op.remove(); body.classList.remove('op-lock'); return; }
+  try{ sessionStorage.setItem('wf_opening','1'); }catch(e){}
+
+  document.getElementById('opLogo').src=IMGS.logo;
+  // 使う写真（ロゴ以外の全写真）
+  const pics=Object.keys(IMGS).filter(k=>k!=='logo').map(k=>IMGS[k]);
+  const stage=document.getElementById('opStage');
+  const rows=innerWidth<640?6:5, perRow=12;
+  let k=0;
+  for(let r=0;r<rows;r++){
+    const row=document.createElement('div');
+    row.className='op-row'+(r%2?' rev':'');
+    for(let i=0;i<perRow;i++){
+      const t=document.createElement('div');
+      t.className='op-tile'+((i+r)%4===3?' dim':'');
+      const im=document.createElement('img'); im.src=pics[(k++*7)%pics.length]; im.alt='';
+      t.appendChild(im); row.appendChild(t);
+    }
+    stage.appendChild(row);
+  }
+
+  let finished=false;
+  function finish(){
+    if(finished) return; finished=true;
+    op.classList.add('go');
+    setTimeout(()=>{ body.classList.remove('op-lock'); },300);
+    setTimeout(()=>op.remove(),800);
+  }
+  document.getElementById('opSkip').addEventListener('click',finish);
+  setTimeout(finish,4400);
+})();
+</script>
+
+<!-- HERO -->
+<section class="hero" id="top">
+  <div class="slides-wrap" id="slidesWrap"></div>
+  <div class="hero-content">
+    <p class="hero-eyecatch">サッカー × 国際協力</p>
+    <h1 class="hero-tagline">幸せと笑顔で溢れる世界を<br>サッカーで創る。</h1>
+    <p class="hero-sub">学生団体WorldFut｜設立2008年</p>
+    <div class="hero-divider"></div>
+  </div>
+  <div class="slide-dots" id="slideDots"></div>
+</section>
+
+</div>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="si">
+    <p class="sl reveal">ABOUT US</p>
+    <h2 class="st reveal">団体概要</h2>
+    <div class="dv reveal"></div>
+    <div class="about-grid">
+      <div class="reveal">
+        <div class="about-text">
+          <p>学生団体WorldFutは、<strong>「サッカー×国際協力」</strong>を軸に、主にカンボジアの子どもたちへの支援を行っている団体です。2008年に設立され、都内近郊の複数大学のメンバーで構成されています。</p>
+          <p>日本でチャリティーフットサル大会などを開催して資金を調達し、その収益をカンボジアの子どもたちへの支援に充てています。<strong>「サッカーで資金調達し、サッカーで支援する」</strong>という唯一無二のスタイルで活動を続けています。</p>
+        </div>
+      </div>
+    </div>
+    <div class="mv reveal">
+      <div class="mv-col">
+        <p class="mv-en">PHILOSOPHY</p>
+        <h3 class="mv-ja">団体理念</h3>
+        <p class="mv-text">幸せと笑顔で溢れる世界を創るために、サッカーを通してすべての人々にキラキラ笑って暮らすきっかけを提供します。</p>
+      </div>
+      <div class="mv-col">
+        <p class="mv-en">VISION</p>
+        <h3 class="mv-ja">活動ビジョン</h3>
+        <p class="mv-text">子どもたちにサッカーを楽しみ、夢や目標に向かって挑戦できる環境を提供します。</p>
+      </div>
+    </div>
+  </div>
+  <div class="mq" aria-hidden="true"><div class="mq-track" id="mqTrack"></div></div>
+</section>
+
+<!-- ACTIVITIES -->
+<section id="activities" class="pitch-sec">
+  <div class="si">
+    <p class="sl reveal">ACTIVITIES</p>
+    <h2 class="st reveal">活動内容</h2>
+    <div class="dv reveal"></div>
+    <div class="tab-row reveal">
+      <button class="tab-btn active" onclick="switchMainTab('cambodia',this)"><svg aria-hidden="true" class="lucide lucide-globe" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" ><circle cx="12" cy="12" r="10" /><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20" /><path d="M2 12h20" /></svg>カンボジアでの活動</button>
+      <button class="tab-btn" onclick="switchMainTab('japan',this)"><svg aria-hidden="true" class="lucide lucide-map-pin" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" ><path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0" /><circle cx="12" cy="10" r="3" /></svg>日本での活動</button>
+      <button class="tab-btn" onclick="switchMainTab('history',this)"><svg aria-hidden="true" class="lucide lucide-calendar-days" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" ><path d="M8 2v4" /><path d="M16 2v4" /><rect width="18" height="18" x="3" y="4" rx="2" /><path d="M3 10h18" /><path d="M8 14h.01" /><path d="M12 14h.01" /><path d="M16 14h.01" /><path d="M8 18h.01" /><path d="M12 18h.01" /><path d="M16 18h.01" /></svg>沿革・実績</button>
+    </div>
+
+    <!-- ===== カンボジアでの活動 ===== -->
+    <div class="tab-content active" id="tab-cambodia">
+
+      <!-- 小学校支援 -->
+      <h3 class="history-section-label" style="margin-bottom:1rem"><span class="hsl-ico"><svg aria-hidden="true" class="lucide lucide-school" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" ><path d="M14 22v-4a2 2 0 1 0-4 0v4" /><path d="m18 10 3.447 1.724a1 1 0 0 1 .553.894V20a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2v-7.382a1 1 0 0 1 .553-.894L6 10" /><path d="M18 5v17" /><path d="m4 6 7.106-3.553a2 2 0 0 1 1.788 0L20 6" /><path d="M6 5v17" /><circle cx="12" cy="9" r="2" /></svg></span>小学校支援</h3>
+      <div class="act-grid" style="margin-bottom:2.5rem">
+        <div class="act-card">
+          <img id="actImgSmaong" src="" alt="スマオン小学校"/>
+          <div class="act-body">
+            <div class="act-year">2008年〜</div>
+            <h3>スマオン小学校</h3>
+            <p>WorldFutが最初にサポートを開始した小学校です。サッカーボールの寄付から始まり、グラウンド建設（2010年）・校舎建設（2013〜2014年）・FCスマオン設立（2019年）など、子どもたちが自立してサッカーを楽しめる環境づくりを続けています。</p>
+          </div>
+        </div>
+        <div class="act-card">
+          <img id="actImgKeothom" src="" alt="ケウトム小学校"/>
+          <div class="act-body">
+            <div class="act-year">2019年〜</div>
+            <h3>ケウトム小学校</h3>
+            <p>2019年より新たにサポートを開始。クラウドファンディングで1,217,000円を達成し、グラウンド建設（2020年）を実現。ルール理解・用具管理など、子どもたちが主体的にサッカーに取り組める環境を整えています。</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Dream Challenge Cup -->
+      <h3 class="history-section-label" style="margin-bottom:1rem"><span class="hsl-ico"><svg aria-hidden="true" class="lucide lucide-trophy" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" ><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6" /><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18" /><path d="M4 22h16" /><path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22" /><path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22" /><path d="M18 2H6v7a6 6 0 0 0 12 0V2Z" /></svg></span>Dream Challenge Cup</h3>
+      <div class="act-grid" style="margin-bottom:1.5rem">
+        <div class="act-card">
+          <img id="actImgPhnompenh" src="" alt="Dream Challenge Cup in Phnom Penh"/>
+          <div class="act-body">
+            <div class="act-year">2016年〜</div>
+            <h3>Dream Challenge Cup in Phnom Penh</h3>
+            <p>農村部の子どもたちをプロ使用スタジアムに無料招待。プロ選手との交流も実現し、子どもたちに「サッカー選手」という夢の原体験を提供します。2023年には初の女子チームも参加しました。</p>
+          </div>
+        </div>
+        <div class="act-card">
+          <img id="actImgSiemreap" src="" alt="Dream Challenge Cup in Siem Reap"/>
+          <div class="act-body">
+            <div class="act-year">2025年〜</div>
+            <h3>Dream Challenge Cup in Siem Reap</h3>
+            <p>2025年より新たにSiem Reapでの開催を開始。これまで首都Phnom Penh近郊に限定されていた参加対象を大きく拡大し、より多くの地域の子どもたちを招待できるようになりました。現在はPhnom Penhとの2都市同時開催を実現し、より多くの子どもたちに夢を届ける機会を創出しています。</p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- ===== 日本での活動 ===== -->
+    <div class="tab-content" id="tab-japan">
+      <div class="act-grid">
+
+        <!-- チャリティーイベント -->
+        <div class="act-card">
+          <img id="actImgCharity" src="" alt="チャリティーイベント" style="width:100%;height:190px;object-fit:cover;display:block;"/>
+          <div class="act-body">
+            <div class="act-year">年3回開催</div>
+            <h3>チャリティーイベント</h3>
+            <p>年3回・200人規模のチャリティーフットサル大会を開催。男女問わず楽しめるように多様な企画も展開しています。</p>
+          </div>
+        </div>
+
+        <!-- 児童養護施設訪問 -->
+        <div class="act-card">
+          <img id="actImgShisetsu" src="" alt="児童養護施設訪問で子どもたちと制作した手形アート" style="width:100%;height:190px;object-fit:cover;object-position:center 30%;display:block;"/>
+          <div class="act-body">
+            <div class="act-year">2021年〜</div>
+            <h3>児童養護施設訪問</h3>
+            <p>2021年より2つの児童養護施設をサポート。コロナ禍でカンボジアへ渡航ができない中、「日本にも、団体理念が届いていない子どもたちがいるのでは」という疑問から開始したPJ。</p>
+          </div>
+        </div>
+
+        <!-- ブラジル人学校 -->
+        <div class="act-card">
+          <img id="actImgAebj" src="" alt="ブラジル人学校" style="width:100%;height:190px;object-fit:cover;display:block;"/>
+          <div class="act-body">
+            <div class="act-year">2022年〜</div>
+            <h3>ブラジル人学校（AEBJ）</h3>
+            <p>2022年よりEAS浜松校・太田校へのサポート。サッカー大会運営・健康教室・日本文化普及など国際交流を通じた支援を展開。</p>
+          </div>
+        </div>
+
+        <!-- 活動報告会 -->
+        <div class="act-card">
+          <img id="actImgReport" src="" alt="活動報告会" style="width:100%;height:190px;object-fit:cover;display:block;"/>
+          <div class="act-body">
+            <div class="act-year">毎年12月</div>
+            <h3>活動報告会</h3>
+            <p>毎年12月に年間報告会を開催。協賛企業様・保護者・OB・OGの方々に活動内容と収支状況を報告します。</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ===== 沿革・実績 ===== -->
+    <div class="tab-content" id="tab-history">
+      <h3 class="history-section-label"><span class="hsl-ico"><svg aria-hidden="true" class="lucide lucide-history" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" ><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8" /><path d="M3 3v5h5" /><path d="M12 7v5l4 2" /></svg></span>沿革</h3>
+      <div class="tl">
+        <div class="tl-item"><div class="tl-dot"></div><div class="tl-y">2008年6月</div><h4>学生団体WorldFut設立・スマオン小学校サポート開始</h4></div>
+        <div class="tl-item"><div class="tl-dot"></div><div class="tl-y">2009年</div><h4>サッカーボール37個寄付</h4></div>
+        <div class="tl-item"><div class="tl-dot"></div><div class="tl-y">2010年</div><h4>スマオン小学校　グラウンド建設</h4></div>
+        <div class="tl-item"><div class="tl-dot"></div><div class="tl-y">2013〜2014年</div><h4>スマオン小学校　校舎建設</h4></div>
+        <div class="tl-item"><div class="tl-dot"></div><div class="tl-y">2015年</div><h4>クラウドファンディング1,336,000円達成</h4></div>
+        <div class="tl-item"><div class="tl-dot"></div><div class="tl-y">2015〜2017年</div><h4>サッカー教室・パブリックビューイング開始</h4></div>
+        <div class="tl-item"><div class="tl-dot"></div><div class="tl-y">2016年</div><h4>Dream Challenge Cup 初開催（Phnom Penh）</h4></div>
+        <div class="tl-item"><div class="tl-dot"></div><div class="tl-y">2018年</div><h4>クラウドファンディング531,000円達成</h4></div>
+        <div class="tl-item"><div class="tl-dot"></div><div class="tl-y">2019年</div><h4>ケウトム小学校サポート開始・FCスマオン設立</h4></div>
+        <div class="tl-item"><div class="tl-dot"></div><div class="tl-y">2019年</div><h4>クラウドファンディング461,000円達成</h4></div>
+        <div class="tl-item"><div class="tl-dot"></div><div class="tl-y">2020〜2021年</div><h4>コロナ禍　遠隔プロジェクトで継続支援</h4></div>
+        <div class="tl-item"><div class="tl-dot"></div><div class="tl-y">2021年</div><h4>クラウドファンディング1,217,000円達成　ケウトム小学校　グラウンド建設</h4></div>
+        <div class="tl-item"><div class="tl-dot"></div><div class="tl-y">2023年</div><h4>クラウドファンディング522,000円達成　DCC初の女子チーム参加</h4></div>
+        <div class="tl-item"><div class="tl-dot"></div><div class="tl-y">2024年</div><h4>ボール67個・スパイク57足寄付</h4></div>
+        <div class="tl-item"><div class="tl-dot"></div><div class="tl-y">2025年</div><h4>Dream Challenge Cup 2都市目開催（Siem Reap）</h4></div>
+        <div class="tl-item"><div class="tl-dot"></div><div class="tl-y">2026年〜</div><h4>17代目始動・活動継続中</h4></div>
+      </div>
+      <div style="margin-top:2.5rem">
+        <h3 class="history-section-label"><span class="hsl-ico"><svg aria-hidden="true" class="lucide lucide-hand-coins" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" ><path d="M11 15h2a2 2 0 1 0 0-4h-3c-.6 0-1.1.2-1.4.6L3 17" /><path d="m7 21 1.6-1.4c.3-.4.8-.6 1.4-.6h4c1.1 0 2.1-.4 2.8-1.2l4.6-4.4a2 2 0 0 0-2.75-2.91l-4.2 3.9" /><path d="m2 16 6 6" /><circle cx="16" cy="9" r="2.9" /><circle cx="6" cy="5" r="3" /></svg></span>クラウドファンディング実績</h3>
+        <div class="cf-grid" style="grid-template-columns:repeat(auto-fit,minmax(220px,1fr))">
+          <a class="cf-card" href="https://greenfunding.jp/lab/projects/1275-" target="_blank" rel="noopener">
+            <div class="cf-platform">GREENFUNDING</div>
+            <h3>カンボジアの農村からサッカー選手を輩出したい！</h3>
+            <p>1,336,000円達成。サッカーの感動を大画面で子どもたちに届けるパブリックビューイングプロジェクト。</p>
+            <span class="cf-link">プロジェクトを見る<svg aria-hidden="true" class="lucide lucide-arrow-up-right" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" ><path d="M7 7h10v10" /><path d="M7 17 17 7" /></svg></span>
+          </a>
+          <a class="cf-card" href="https://readyfor.jp/projects/worldfut9999/accomplish_report" target="_blank" rel="noopener">
+            <div class="cf-platform">READYFOR</div>
+            <h3>カンボジアの子どもたちが夢へ挑戦できるサッカー大会を創る！</h3>
+            <p>531,000円達成。DCC第3回大会開催を実現。</p>
+            <span class="cf-link">プロジェクトを見る<svg aria-hidden="true" class="lucide lucide-arrow-up-right" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" ><path d="M7 7h10v10" /><path d="M7 17 17 7" /></svg></span>
+          </a>
+          <a class="cf-card" href="https://readyfor.jp/projects/WorldFut" target="_blank" rel="noopener">
+            <div class="cf-platform">READYFOR</div>
+            <h3>カンボジアの子どもたちへサッカー用具を届けたい！</h3>
+            <p>461,000円達成。カンボジアの子どもたちにサッカー用具を届けるプロジェクト。</p>
+            <span class="cf-link">プロジェクトを見る<svg aria-hidden="true" class="lucide lucide-arrow-up-right" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" ><path d="M7 7h10v10" /><path d="M7 17 17 7" /></svg></span>
+          </a>
+          <a class="cf-card" href="https://readyfor.jp/projects/worldfut2020" target="_blank" rel="noopener">
+            <div class="cf-platform">READYFOR</div>
+            <h3>カンボジアの子どもたちのためにグラウンドを作りたい！</h3>
+            <p>1,217,000円達成。ケウトム小学校のグラウンド建設を実現。</p>
+            <span class="cf-link">プロジェクトを見る<svg aria-hidden="true" class="lucide lucide-arrow-up-right" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" ><path d="M7 7h10v10" /><path d="M7 17 17 7" /></svg></span>
+          </a>
+          <a class="cf-card" href="https://readyfor.jp/projects/wft142023/announcements" target="_blank" rel="noopener">
+            <div class="cf-platform">READYFOR</div>
+            <h3>カンボジアの子どもたちにDream Challenge Cupを！</h3>
+            <p>522,000円達成。初の女子チーム参加とDCC開催を実現。</p>
+            <span class="cf-link">プロジェクトを見る<svg aria-hidden="true" class="lucide lucide-arrow-up-right" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" ><path d="M7 7h10v10" /><path d="M7 17 17 7" /></svg></span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
+
+
+<!-- MEDIA -->
+<section id="media" style="background:#fff">
+  <div class="si">
+    <p class="sl reveal">NEWS & TOPICS</p>
+    <h2 class="st reveal">News &amp; Topics</h2>
+    <div class="dv reveal"></div>
+
+    <!-- サブタブ -->
+    <div class="news-tab-row reveal">
+      <button class="news-tab-btn active" onclick="switchNewsTab('new',this)"><svg aria-hidden="true" class="lucide lucide-sparkles" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" ><path d="M9.937 15.5A2 2 0 0 0 8.5 14.063l-6.135-1.582a.5.5 0 0 1 0-.962L8.5 9.936A2 2 0 0 0 9.937 8.5l1.582-6.135a.5.5 0 0 1 .963 0L14.063 8.5A2 2 0 0 0 15.5 9.937l6.135 1.581a.5.5 0 0 1 0 .964L15.5 14.063a2 2 0 0 0-1.437 1.437l-1.582 6.135a.5.5 0 0 1-.963 0z" /><path d="M20 3v4" /><path d="M22 5h-4" /><path d="M4 17v2" /><path d="M5 18H3" /></svg>新着</button>
+      <button class="news-tab-btn" onclick="switchNewsTab('press',this)"><svg aria-hidden="true" class="lucide lucide-newspaper" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" ><path d="M4 22h16a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v16a2 2 0 0 1-2 2Zm0 0a2 2 0 0 1-2-2v-9c0-1.1.9-2 2-2h2" /><path d="M18 14h-8" /><path d="M15 18h-5" /><path d="M10 6h8v4h-8V6Z" /></svg>掲載記事</button>
+    </div>
+
+    <!-- CMS_NEWS -->
+
+  </div>
+</section>
+
+
+<!-- JOIN -->
+<section id="join" class="pitch-sec">
+  <div class="si" style="text-align:center">
+    <p class="sl reveal">JOIN US</p>
+    <h2 class="st reveal">一緒に活動しませんか？</h2>
+    <div class="dv reveal" style="margin:0 auto 2rem"></div>
+    <div class="j-g reveal">
+      <div class="jc"><h4>MEMBER</h4><p>都内近郊の大学1・2年生大募集。サッカーが好き、国際協力に興味がある方、ぜひ一緒に活動しましょう。</p><p style="margin-top:.8rem;font-size:.82rem;color:rgba(255,255,255,.8);display:flex;flex-direction:column;gap:.3rem"><span class="jc-meta"><svg aria-hidden="true" class="lucide lucide-calendar-clock" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" ><path d="M21 7.5V6a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h3.5" /><path d="M16 2v4" /><path d="M8 2v4" /><path d="M3 10h5" /><path d="M17.5 17.5 16 16.3V14" /><circle cx="16" cy="16" r="6" /></svg>活動日：毎週火・木 18:00〜22:00</span><span class="jc-meta"><svg aria-hidden="true" class="lucide lucide-map-pin" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" ><path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0" /><circle cx="12" cy="10" r="3" /></svg>神田駅・飯田橋駅周辺の会議室</span></p></div>
+      <div class="jc"><h4>SPONSOR</h4><p>企業・団体様からのご協賛を募集しています。子どもたちの夢につながる支援にご協力お願いいたします。</p></div>
+      <div class="jc"><h4>SUPPORT</h4><p>チャリティーイベントへのご参加もお待ちしています。皆様の参加費が子どもたちの夢や未来を広げる活動に繋がります。</p></div>
+    </div>
+    <div class="reveal"><a href="#contact" class="btn-w">詳しくはこちら<svg aria-hidden="true" class="lucide lucide-arrow-right" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" ><path d="M5 12h14" /><path d="m12 5 7 7-7 7" /></svg></a></div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="si">
+    <p class="sl reveal">CONTACT</p>
+    <h2 class="st reveal">お問い合わせ</h2>
+    <div class="dv reveal"></div>
+    <div class="ct-grid">
+      <div class="ct-box reveal">
+        <h3>連絡先・SNS</h3>
+        <div class="ct-item"><div class="c-ico"><svg aria-hidden="true" class="lucide lucide-mail" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" ><rect width="20" height="16" x="2" y="4" rx="2" /><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" /></svg></div><div><div class="lbl">一般お問い合わせ</div><a href="mailto:worldfut@gmail.com">worldfut@gmail.com</a></div></div>
+        <div class="ct-item"><div class="c-ico"><svg aria-hidden="true" class="lucide lucide-briefcase" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" ><path d="M16 20V4a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16" /><rect width="20" height="14" x="2" y="6" rx="2" /></svg></div><div><div class="lbl">協賛・営業のお問い合わせ</div><a href="mailto:worldfut.e@gmail.com">worldfut.e@gmail.com</a></div></div>
+        <div class="sns-row">
+          <a class="sns-btn" href="https://twitter.com/WorldFutJA" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.746l7.73-8.835L1.254 2.25H8.08l4.258 5.622 5.906-5.622zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg> X</a>
+          <a class="sns-btn" href="https://instagram.com/worldfutja" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg> Instagram</a>
+          <a class="sns-btn" href="https://facebook.com/WorldFut" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M24 12.073C24 5.405 18.627 0 12 0S0 5.405 0 12.073C0 18.1 4.388 23.094 10.125 24v-8.437H7.078v-3.49h3.047V9.41c0-3.025 1.792-4.696 4.533-4.696 1.312 0 2.686.235 2.686.235v2.97h-1.513c-1.491 0-1.956.93-1.956 1.874v2.25h3.328l-.532 3.49h-2.796V24C19.612 23.094 24 18.1 24 12.073z"/></svg> Facebook</a>
+          <a class="sns-btn" href="https://note.com/worldfut12_note" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M3 3h10.5c.276 0 .5.224.5.5v1c0 .276-.224.5-.5.5H3.5a.5.5 0 00-.5.5v14c0 .276.224.5.5.5h17c.276 0 .5-.224.5-.5V10.5c0-.276.224-.5.5-.5h1c.276 0 .5.224.5.5V20a2 2 0 01-2 2H3a2 2 0 01-2-2V5a2 2 0 012-2zm12.5 0h5a.5.5 0 01.354.854l-8.5 8.5A.5.5 0 0112 12h-1.5a.5.5 0 01-.5-.5V10a.5.5 0 01.146-.354l8.5-8.5A.5.5 0 0115.5 3z"/></svg> note</a>
+          <a class="sns-btn" href="https://www.tiktok.com/@worldfut17" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1V9.01a6.32 6.32 0 00-.79-.05 6.34 6.34 0 00-6.34 6.34 6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.33-6.34V8.69a8.18 8.18 0 004.78 1.52V6.78a4.85 4.85 0 01-1.01-.09z"/></svg> TikTok</a>
+          </div>
+      </div>
+      <div class="ct-box reveal">
+        <h3>お問い合わせフォーム</h3>
+        <form id="contactForm" onsubmit="sendMail(event)">
+          <input type="hidden" name="access_key" value="21b5ed41-3b0a-46f3-aaa8-ac7e0a42fb69"/>
+          <div class="form-group">
+            <label>お名前 <span class="req">*</span></label>
+            <input type="text" id="fname" placeholder="山田 太郎" required />
+          </div>
+          <div class="form-group">
+            <label>メールアドレス <span class="req">*</span></label>
+            <input type="email" id="femail" placeholder="example@email.com" required />
+          </div>
+          <div class="form-group">
+            <label>お問い合わせ種別</label>
+            <select id="ftype">
+              <option value="一般のお問い合わせ">一般のお問い合わせ</option>
+              <option value="協賛・スポンサー">協賛・スポンサー</option>
+              <option value="メンバー参加について">メンバー参加について</option>
+              <option value="取材・メディア">取材・メディア</option>
+              <option value="その他">その他</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>お問い合わせ内容 <span class="req">*</span></label>
+            <textarea id="fmsg" rows="5" placeholder="お問い合わせ内容をご記入ください" required></textarea>
+          </div>
+          <button type="submit" class="form-submit" id="submitBtn">送信する</button>
+          <p id="formMsg" style="display:none;align-items:center;gap:.4rem;margin-top:1rem;font-weight:700;color:var(--green);font-size:.9rem;"></p>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="ft2">
+  <div class="ft2-in">
+    <div class="ft2-brand">
+      <a class="ft2-logo" href="#top"><img id="footerLogo" src="" alt="WorldFut"/><span>WorldFut</span></a>
+      <p class="ft2-tag">幸せと笑顔で溢れる世界を、サッカーで創る。</p>
+      <div class="ft2-sns">
+        <a href="https://twitter.com/WorldFutJA" target="_blank" rel="noopener" aria-label="X"><svg viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.746l7.73-8.835L1.254 2.25H8.08l4.258 5.622 5.906-5.622zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></a>
+        <a href="https://instagram.com/worldfutja" target="_blank" rel="noopener" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg></a>
+        <a href="https://facebook.com/WorldFut" target="_blank" rel="noopener" aria-label="Facebook"><svg viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M24 12.073C24 5.405 18.627 0 12 0S0 5.405 0 12.073C0 18.1 4.388 23.094 10.125 24v-8.437H7.078v-3.49h3.047V9.41c0-3.025 1.792-4.696 4.533-4.696 1.312 0 2.686.235 2.686.235v2.97h-1.513c-1.491 0-1.956.93-1.956 1.874v2.25h3.328l-.532 3.49h-2.796V24C19.612 23.094 24 18.1 24 12.073z"/></svg></a>
+        <a href="https://note.com/worldfut12_note" target="_blank" rel="noopener" aria-label="note"><svg viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M3 3h10.5c.276 0 .5.224.5.5v1c0 .276-.224.5-.5.5H3.5a.5.5 0 00-.5.5v14c0 .276.224.5.5.5h17c.276 0 .5-.224.5-.5V10.5c0-.276.224-.5.5-.5h1c.276 0 .5.224.5.5V20a2 2 0 01-2 2H3a2 2 0 01-2-2V5a2 2 0 012-2zm12.5 0h5a.5.5 0 01.354.854l-8.5 8.5A.5.5 0 0112 12h-1.5a.5.5 0 01-.5-.5V10a.5.5 0 01.146-.354l8.5-8.5A.5.5 0 0115.5 3z"/></svg></a>
+        <a href="https://www.tiktok.com/@worldfut17" target="_blank" rel="noopener" aria-label="TikTok"><svg viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1V9.01a6.32 6.32 0 00-.79-.05 6.34 6.34 0 00-6.34 6.34 6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.33-6.34V8.69a8.18 8.18 0 004.78 1.52V6.78a4.85 4.85 0 01-1.01-.09z"/></svg></a>
+      </div>
+      <div class="ft2-addr">
+        <p>学生団体 WorldFut</p>
+        <p><a href="mailto:worldfut@gmail.com">worldfut@gmail.com</a></p>
+        <p>協賛・営業：<a href="mailto:worldfut.e@gmail.com">worldfut.e@gmail.com</a></p>
+      </div>
+    </div>
+    <div class="ft2-col">
+      <h4>SITE</h4>
+      <ul>
+        <li><a href="#top">TOP</a></li>
+        <li><a href="#about">団体概要</a></li>
+        <li><a href="#activities">活動内容</a></li>
+        <li><a href="#media">News &amp; Topics</a></li>
+        <li><a href="#contact">お問い合わせ</a></li>
+      </ul>
+    </div>
+    <div class="ft2-col">
+      <h4>ACTIVITIES</h4>
+      <ul>
+        <li><a href="#activities" data-tab="cambodia">カンボジアでの活動</a></li>
+        <li><a href="#activities" data-tab="japan">日本での活動</a></li>
+        <li><a href="#activities" data-tab="history">沿革・実績</a></li>
+        <li><a href="#activities" data-tab="history">クラウドファンディング実績</a></li>
+      </ul>
+    </div>
+    <div class="ft2-col">
+      <h4>ACTION</h4>
+      <ul>
+        <li><a href="#join">メンバーとして参加する</a></li>
+        <li><a href="#join">協賛する</a></li>
+        <li><a href="#join">イベントに参加する</a></li>
+        <li><a href="#contact">お問い合わせ</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="ft2-bottom"><p>&copy; 2026 学生団体 WorldFut. All rights reserved.</p></div>
+</footer>
+
+<script>
+  // SLIDESHOW
+  const imgs=[IMGS.new1,IMGS.new4,IMGS.new3,IMGS.new5,IMGS.new2,IMGS.new6];
+  const wrap=document.getElementById('slidesWrap'),dots=document.getElementById('slideDots');
+  let cur=0;
+  imgs.forEach((s,i)=>{
+    const d=document.createElement('div');
+    d.className='slide'+(i===0?' active':'');
+    d.style.backgroundImage=`url(${s})`;
+    wrap.appendChild(d);
+    const b=document.createElement('button');
+    b.className='dot'+(i===0?' active':'');
+    b.onclick=()=>goTo(i);
+    dots.appendChild(b);
+  });
+  function goTo(n){
+    document.querySelectorAll('.slide')[cur].classList.remove('active');
+    document.querySelectorAll('.dot')[cur].classList.remove('active');
+    cur=n;
+    document.querySelectorAll('.slide')[cur].classList.add('active');
+    document.querySelectorAll('.dot')[cur].classList.add('active');
+  }
+  setInterval(()=>goTo((cur+1)%imgs.length),4500);
+
+  // NEWS TABS
+  function switchNewsTab(id, btn) {
+    document.querySelectorAll('.news-tab-content').forEach(e => e.classList.remove('active'));
+    document.querySelectorAll('.news-tab-btn').forEach(e => e.classList.remove('active'));
+    document.getElementById('news-tab-' + id).classList.add('active');
+    btn.classList.add('active');
+  }
+
+  // MAIN TABS
+  function switchMainTab(id,btn){
+    document.querySelectorAll('.tab-content').forEach(e=>e.classList.remove('active'));
+    document.querySelectorAll('.tab-btn').forEach(e=>e.classList.remove('active'));
+    document.getElementById('tab-'+id).classList.add('active');
+    btn.classList.add('active');
+  }
+  // Legacy alias
+  function switchTab(id,btn){ switchMainTab(id,btn); }
+
+
+  // HAMBURGER
+  function toggleMenu(){document.getElementById('navLinks').classList.toggle('open')}
+  document.querySelectorAll('.nav-links a').forEach(a=>a.addEventListener('click',()=>document.getElementById('navLinks').classList.remove('open')));
+
+
+  // CONTACT FORM - Web3Forms (直接送信)
+  async function sendMail(e) {
+    e.preventDefault();
+    const btn = document.getElementById('submitBtn');
+    const formMsg = document.getElementById('formMsg');
+    const name = document.getElementById('fname').value;
+    const email = document.getElementById('femail').value;
+    const type = document.getElementById('ftype').value;
+    const msg = document.getElementById('fmsg').value;
+
+    btn.disabled = true;
+    btn.textContent = '送信中...';
+    formMsg.style.display = 'none';
+
+    try {
+      const res = await fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+        body: JSON.stringify({
+          access_key: '21b5ed41-3b0a-46f3-aaa8-ac7e0a42fb69',
+          to: 'worldfut@gmail.com',
+          subject: '[WorldFut お問い合わせ] ' + type,
+          from_name: name,
+          reply_to: email,
+          message: 'お名前: ' + name + '\nメール: ' + email + '\n種別: ' + type + '\n\n' + msg
+        })
+      });
+      const data = await res.json();
+      if (data.success) {
+        formMsg.style.color = 'var(--green)';
+        formMsg.innerHTML = '<svg aria-hidden="true" class="lucide lucide-circle-check" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" ><circle cx="12" cy="12" r="10" /><path d="m9 12 2 2 4-4" /></svg>お問い合わせを受け付けました。ありがとうございます！';
+        document.getElementById('contactForm').reset();
+      } else {
+        throw new Error('送信失敗');
+      }
+    } catch(err) {
+      // フォールバック: mailtoで開く
+      const subject = encodeURIComponent('[WorldFut お問い合わせ] ' + type);
+      const body = encodeURIComponent('お名前: '+name+'\nメール: '+email+'\n種別: '+type+'\n\n'+msg);
+      window.location.href = 'mailto:worldfut@gmail.com?subject='+subject+'&body='+body;
+      formMsg.style.color = 'var(--muted)';
+      formMsg.textContent = 'メールアプリが開きます。送信後に完了となります。';
+    } finally {
+      formMsg.style.display = 'flex';
+      btn.disabled = false;
+      btn.textContent = '送信する';
+    }
+  }
+
+  // MISSION MARQUEE（全写真を横に流す）
+  (function(){
+    const tr=document.getElementById('mqTrack'); if(!tr) return;
+    const pics=Object.keys(IMGS).filter(k=>k!=='logo').map(k=>IMGS[k]);
+    [0,1].forEach(()=>pics.forEach(src=>{const im=document.createElement('img');im.src=src;im.alt='';im.loading='lazy';tr.appendChild(im);}));
+  })();
+
+  // ACTIVITY ROWS: 左右からスライドイン
+  const actObs=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');actObs.unobserve(e.target);}})},{threshold:.15});
+  document.querySelectorAll('.act-card').forEach(c=>actObs.observe(c));
+
+  // FOOTER → タブ切り替え
+  document.querySelectorAll('[data-tab]').forEach(a=>a.addEventListener('click',()=>{
+    const i={cambodia:0,japan:1,history:2}[a.dataset.tab];
+    switchMainTab(a.dataset.tab,document.querySelectorAll('.tab-btn')[i]);
+  }));
+
+  // REVEAL
+  const obs=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible')})},{threshold:.1});
+  document.querySelectorAll('.reveal').forEach(e=>obs.observe(e));
+</script>
+</body>
+</html>
