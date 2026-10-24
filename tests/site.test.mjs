@@ -22,3 +22,10 @@ test('不正なCSS値・危険なリンク・画像パス・不完全な表示�
  await fixture(async dir=>{await mutate(dir,'settings',d=>d.section_order.pop());await assert.rejects(renderSite(dir,''),/表示順/);});
  await fixture(async dir=>{await mutate(dir,'top',d=>d.slides=[{image:'/assets/../../private.png'}]);await assert.rejects(renderSite(dir,''),/写真/);});
 });
+
+test('トップも含め、管理画面で保存された順番どおりに既存セクションを出力する',()=>fixture(async dir=>{
+ await mutate(dir,'settings',d=>{d.section_order=[{section:'about'},{section:'top'},{section:'contact'},{section:'activities'},{section:'join'},{section:'media'}];});
+ const {html}=await renderSite(dir,'');
+ const actual=[...html.matchAll(/data-cms-section="(top|about|activities|media|join|contact)"/g)].map(m=>m[1]);
+ assert.deepEqual(actual,['about','top','contact','activities','join','media']);
+}));
