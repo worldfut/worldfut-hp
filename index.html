@@ -474,6 +474,93 @@
     .ft-links a{color:rgba(255,255,255,.6)}
     .ft-links a:hover{color:var(--sky)}
 
+    /* ===== MISSION / VISION (text only, 2 columns) ===== */
+    .about-grid{max-width:none}
+    .about-text p{max-width:820px}
+    .mv{position:relative;display:grid;grid-template-columns:1fr 1fr;margin-top:3.5rem;padding:3rem 0;border-top:1px solid #e3ebf5;border-bottom:1px solid #e3ebf5}
+    .mv::before{content:'';position:absolute;left:50%;top:2.5rem;bottom:2.5rem;width:1px;background:#d5e2f0}
+    .mv::after{content:'';position:absolute;left:50%;top:50%;width:18px;height:18px;border:2px solid var(--brand);border-radius:50%;background:#fff;transform:translate(-50%,-50%)}
+    .mv-col{padding:0 3.5rem}
+    .mv-col:first-child{padding-left:0}
+    .mv-col:last-child{padding-right:0}
+    .mv-en{font-family:'Outfit',sans-serif;font-size:.78rem;font-weight:700;letter-spacing:.32em;color:var(--brand);margin-bottom:.4rem}
+    .mv-ja{font-size:1rem;font-weight:700;color:var(--muted);margin-bottom:1.3rem}
+    .mv-text{font-size:clamp(1.15rem,2vw,1.5rem);font-weight:700;line-height:1.85;color:var(--navy);letter-spacing:.02em}
+    .mq{margin-top:3.5rem;overflow:hidden;-webkit-mask-image:linear-gradient(90deg,transparent,#000 5%,#000 95%,transparent);mask-image:linear-gradient(90deg,transparent,#000 5%,#000 95%,transparent)}
+    .mq-track{display:flex;gap:18px;width:max-content;padding:10px 0 24px;animation:mqMove 90s linear infinite}
+    .mq:hover .mq-track{animation-play-state:paused}
+    .mq-track img{height:230px;aspect-ratio:3/2;object-fit:cover;border-radius:14px;border:3px solid #fff;box-shadow:0 12px 30px rgba(7,31,59,.18);flex-shrink:0}
+    @keyframes mqMove{to{transform:translateX(-50%)}}
+    @media(max-width:760px){
+      .mv{grid-template-columns:1fr;padding:2rem 0}
+      .mv::before{left:0;right:0;top:50%;bottom:auto;width:auto;height:1px}
+      .mv-col{padding:0!important}
+      .mv-col:first-child{padding-bottom:2.6rem!important}
+      .mv-col:last-child{padding-top:2.6rem!important}
+      .mq-track img{height:150px}
+    }
+    @media(prefers-reduced-motion:reduce){.mq-track{animation:none}}
+
+    /* ===== ACTIVITIES: alternating rows ===== */
+    .tab-content{counter-reset:act}
+    .tab-content .act-grid{display:flex;flex-direction:column;gap:5rem;margin-bottom:5rem!important}
+    .act-card{counter-increment:act;display:grid;grid-template-columns:1.1fr 1fr;gap:4rem;align-items:center;background:none;border:none;box-shadow:none!important;padding:0;border-radius:0;overflow:visible;transform:none!important;opacity:0;translate:-48px 0;transition:opacity .8s ease,translate .8s cubic-bezier(.2,.7,.2,1)}
+    .act-card:nth-child(even){translate:48px 0}
+    .act-card.in{opacity:1;translate:0 0}
+    .act-card img,.act-card .act-photo-placeholder{width:100%!important;height:auto!important;aspect-ratio:3/2;border-radius:16px!important;border:4px solid #fff;box-shadow:0 22px 50px rgba(3,15,30,.45)}
+    .act-card:nth-child(even) img,.act-card:nth-child(even) .act-photo-placeholder{order:2}
+    .act-body{padding:0}
+    .act-body::before{content:counter(act,decimal-leading-zero);display:block;font-family:'Outfit',sans-serif;font-size:4.8rem;font-weight:800;line-height:1;color:transparent;-webkit-text-stroke:1.5px rgba(143,208,255,.75);margin-bottom:.9rem}
+    .pitch-sec .act-year{color:var(--sky);font-size:.8rem}
+    .pitch-sec .act-card h3{color:#fff;font-size:clamp(1.25rem,2.2vw,1.6rem);margin:.3rem 0 1rem}
+    .pitch-sec .act-card p{color:rgba(255,255,255,.8);font-size:.95rem;line-height:1.95}
+    .pitch-sec .history-section-label{margin-bottom:2.2rem!important;font-size:1.15rem}
+    @media(max-width:760px){
+      .act-card{grid-template-columns:1fr;gap:1.4rem;translate:0 32px}
+      .act-card:nth-child(even){translate:0 32px}
+      .act-card:nth-child(even) img,.act-card:nth-child(even) .act-photo-placeholder{order:0}
+      .act-body::before{font-size:3.4rem}
+      .tab-content .act-grid{gap:3.5rem;margin-bottom:3.5rem!important}
+    }
+    @media(prefers-reduced-motion:reduce){.act-card{opacity:1;translate:none;transition:none}}
+
+    /* ===== FOOTER ===== */
+    footer.ft2{position:relative;overflow:hidden;background:var(--navy);color:rgba(255,255,255,.72);padding:5rem 2rem 0}
+    footer.ft2::before{display:none}
+    footer.ft2::after{content:'';position:absolute;inset:0;pointer-events:none;background-image:radial-gradient(rgba(143,208,255,.28) 1.1px,transparent 1.5px);background-size:16px 16px;-webkit-mask-image:radial-gradient(55% 75% at 10% 20%,#000 0,#000 35%,transparent 70%);mask-image:radial-gradient(55% 75% at 10% 20%,#000 0,#000 35%,transparent 70%)}
+    .ft2-in{position:relative;z-index:1;max-width:1180px;margin:0 auto;display:grid;grid-template-columns:1.35fr 1fr 1fr 1fr}
+    .ft2-in>div{position:relative;padding:0 2.4rem}
+    .ft2-in>div:first-child{padding-left:0}
+    .ft2-col::before{content:'';position:absolute;left:0;top:0;bottom:0;width:1px;background:rgba(255,255,255,.12)}
+    .ft2-logo{display:inline-flex;align-items:center;gap:.7rem;text-decoration:none}
+    .ft2-logo img{width:46px;height:46px;background:#fff;border-radius:50%;padding:3px}
+    .ft2-logo span{color:#fff;font-family:'Noto Sans JP',sans-serif;font-weight:700;font-size:1.3rem}
+    .ft2-tag{margin-top:1.3rem;font-size:.9rem;color:rgba(255,255,255,.75)}
+    .ft2-sns{display:flex;gap:.6rem;margin-top:1.5rem}
+    .ft2-sns a{width:38px;height:38px;border-radius:50%;border:1px solid rgba(255,255,255,.25);display:flex;align-items:center;justify-content:center;color:#fff;transition:background .2s,border-color .2s}
+    .ft2-sns a:hover{background:rgba(255,255,255,.12);border-color:#fff}
+    .ft2-sns svg{width:16px;height:16px}
+    .ft2-addr{margin-top:1.8rem;font-size:.86rem;line-height:2}
+    .ft2-addr a{color:rgba(255,255,255,.85);text-decoration:none}
+    .ft2-addr a:hover{color:var(--sky)}
+    .ft2-col h4{font-family:'Outfit',sans-serif;font-size:.8rem;font-weight:700;letter-spacing:.3em;color:var(--sky);margin-bottom:1.6rem}
+    .ft2-col ul{list-style:none;display:flex;flex-direction:column;gap:1.05rem}
+    .ft2-col a{color:rgba(255,255,255,.75);text-decoration:none;font-size:.9rem;transition:color .2s}
+    .ft2-col a:hover{color:#fff}
+    .ft2-bottom{position:relative;z-index:1;max-width:1180px;margin:4rem auto 0;padding:1.6rem 0 2rem;border-top:1px solid rgba(255,255,255,.1);font-size:.76rem;color:rgba(255,255,255,.5)}
+    @media(max-width:900px){
+      .ft2-in{grid-template-columns:1fr 1fr;row-gap:2.8rem}
+      .ft2-brand{grid-column:1/-1;padding:0!important}
+      .ft2-in>div:nth-child(2){padding-left:0}
+      .ft2-in>div:nth-child(2)::before{display:none}
+    }
+    @media(max-width:560px){
+      footer.ft2{padding:3.5rem 1.25rem 0}
+      .ft2-in{grid-template-columns:1fr}
+      .ft2-col{padding:0!important}
+      .ft2-col::before{display:none}
+    }
+
   </style>
 <script>
 const IMGS = {
@@ -665,24 +752,23 @@ document.addEventListener('DOMContentLoaded', function() {
         <div class="about-text">
           <p>学生団体WorldFutは、<strong>「サッカー×国際協力」</strong>を軸に、主にカンボジアの子どもたちへの支援を行っている団体です。2008年に設立され、都内近郊の複数大学のメンバーで構成されています。</p>
           <p>日本でチャリティーフットサル大会などを開催して資金を調達し、その収益をカンボジアの子どもたちへの支援に充てています。<strong>「サッカーで資金調達し、サッカーで支援する」</strong>という唯一無二のスタイルで活動を続けています。</p>
-          <div class="about-mission">
-            <div class="mission-photo-card" id="missionCard1">
-              <div class="mission-photo-overlay">
-                <div class="mission-label">団体理念</div>
-                <p>幸せと笑顔で溢れる世界を創るために、サッカーを通してすべての人々にキラキラ笑って暮らすきっかけを提供します。</p>
-              </div>
-            </div>
-            <div class="mission-photo-card" id="missionCard2">
-              <div class="mission-photo-overlay">
-                <div class="mission-label">活動ビジョン</div>
-                <p>子どもたちにサッカーを楽しみ、夢や目標に向かって挑戦できる環境を提供します。</p>
-              </div>
-            </div>
-          </div>
         </div>
       </div>
     </div>
+    <div class="mv reveal">
+      <div class="mv-col">
+        <p class="mv-en">PHILOSOPHY</p>
+        <h3 class="mv-ja">団体理念</h3>
+        <p class="mv-text">幸せと笑顔で溢れる世界を創るために、サッカーを通してすべての人々にキラキラ笑って暮らすきっかけを提供します。</p>
+      </div>
+      <div class="mv-col">
+        <p class="mv-en">VISION</p>
+        <h3 class="mv-ja">活動ビジョン</h3>
+        <p class="mv-text">子どもたちにサッカーを楽しみ、夢や目標に向かって挑戦できる環境を提供します。</p>
+      </div>
+    </div>
   </div>
+  <div class="mq" aria-hidden="true"><div class="mq-track" id="mqTrack"></div></div>
 </section>
 
 <!-- ACTIVITIES -->
@@ -988,15 +1074,54 @@ document.addEventListener('DOMContentLoaded', function() {
   </div>
 </section>
 
-<footer>
-  <div class="ft">
-    <div class="ft-logo"><img id="footerLogo" src="" alt="WorldFut"/><span>WorldFut</span></div>
-    <div class="ft-links">
-      <a href="#about">団体概要</a><a href="#activities">活動内容</a>
-      <a href="#media">News & Topics</a><a href="#contact">お問い合わせ</a>
+<footer class="ft2">
+  <div class="ft2-in">
+    <div class="ft2-brand">
+      <a class="ft2-logo" href="#top"><img id="footerLogo" src="" alt="WorldFut"/><span>WorldFut</span></a>
+      <p class="ft2-tag">幸せと笑顔で溢れる世界を、サッカーで創る。</p>
+      <div class="ft2-sns">
+        <a href="https://twitter.com/WorldFutJA" target="_blank" rel="noopener" aria-label="X"><svg viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.746l7.73-8.835L1.254 2.25H8.08l4.258 5.622 5.906-5.622zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></a>
+        <a href="https://instagram.com/worldfutja" target="_blank" rel="noopener" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg></a>
+        <a href="https://facebook.com/WorldFut" target="_blank" rel="noopener" aria-label="Facebook"><svg viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M24 12.073C24 5.405 18.627 0 12 0S0 5.405 0 12.073C0 18.1 4.388 23.094 10.125 24v-8.437H7.078v-3.49h3.047V9.41c0-3.025 1.792-4.696 4.533-4.696 1.312 0 2.686.235 2.686.235v2.97h-1.513c-1.491 0-1.956.93-1.956 1.874v2.25h3.328l-.532 3.49h-2.796V24C19.612 23.094 24 18.1 24 12.073z"/></svg></a>
+        <a href="https://note.com/worldfut12_note" target="_blank" rel="noopener" aria-label="note"><svg viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M3 3h10.5c.276 0 .5.224.5.5v1c0 .276-.224.5-.5.5H3.5a.5.5 0 00-.5.5v14c0 .276.224.5.5.5h17c.276 0 .5-.224.5-.5V10.5c0-.276.224-.5.5-.5h1c.276 0 .5.224.5.5V20a2 2 0 01-2 2H3a2 2 0 01-2-2V5a2 2 0 012-2zm12.5 0h5a.5.5 0 01.354.854l-8.5 8.5A.5.5 0 0112 12h-1.5a.5.5 0 01-.5-.5V10a.5.5 0 01.146-.354l8.5-8.5A.5.5 0 0115.5 3z"/></svg></a>
+        <a href="https://www.tiktok.com/@worldfut17" target="_blank" rel="noopener" aria-label="TikTok"><svg viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1V9.01a6.32 6.32 0 00-.79-.05 6.34 6.34 0 00-6.34 6.34 6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.33-6.34V8.69a8.18 8.18 0 004.78 1.52V6.78a4.85 4.85 0 01-1.01-.09z"/></svg></a>
+      </div>
+      <div class="ft2-addr">
+        <p>学生団体 WorldFut</p>
+        <p><a href="mailto:worldfut@gmail.com">worldfut@gmail.com</a></p>
+        <p>協賛・営業：<a href="mailto:worldfut.e@gmail.com">worldfut.e@gmail.com</a></p>
+      </div>
     </div>
-    <p class="ft-copy">© 2026 学生団体 WorldFut. All rights reserved.</p>
+    <div class="ft2-col">
+      <h4>SITE</h4>
+      <ul>
+        <li><a href="#top">TOP</a></li>
+        <li><a href="#about">団体概要</a></li>
+        <li><a href="#activities">活動内容</a></li>
+        <li><a href="#media">News &amp; Topics</a></li>
+        <li><a href="#contact">お問い合わせ</a></li>
+      </ul>
+    </div>
+    <div class="ft2-col">
+      <h4>ACTIVITIES</h4>
+      <ul>
+        <li><a href="#activities" data-tab="cambodia">カンボジアでの活動</a></li>
+        <li><a href="#activities" data-tab="japan">日本での活動</a></li>
+        <li><a href="#activities" data-tab="history">沿革・実績</a></li>
+        <li><a href="#activities" data-tab="history">クラウドファンディング実績</a></li>
+      </ul>
+    </div>
+    <div class="ft2-col">
+      <h4>ACTION</h4>
+      <ul>
+        <li><a href="#join">メンバーとして参加する</a></li>
+        <li><a href="#join">協賛する</a></li>
+        <li><a href="#join">イベントに参加する</a></li>
+        <li><a href="#contact">お問い合わせ</a></li>
+      </ul>
+    </div>
   </div>
+  <div class="ft2-bottom"><p>&copy; 2026 学生団体 WorldFut. All rights reserved.</p></div>
 </footer>
 
 <script>
@@ -1095,6 +1220,23 @@ document.addEventListener('DOMContentLoaded', function() {
       btn.textContent = '送信する';
     }
   }
+
+  // MISSION MARQUEE（全写真を横に流す）
+  (function(){
+    const tr=document.getElementById('mqTrack'); if(!tr) return;
+    const pics=Object.keys(IMGS).filter(k=>k!=='logo').map(k=>IMGS[k]);
+    [0,1].forEach(()=>pics.forEach(src=>{const im=document.createElement('img');im.src=src;im.alt='';im.loading='lazy';tr.appendChild(im);}));
+  })();
+
+  // ACTIVITY ROWS: 左右からスライドイン
+  const actObs=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');actObs.unobserve(e.target);}})},{threshold:.15});
+  document.querySelectorAll('.act-card').forEach(c=>actObs.observe(c));
+
+  // FOOTER → タブ切り替え
+  document.querySelectorAll('[data-tab]').forEach(a=>a.addEventListener('click',()=>{
+    const i={cambodia:0,japan:1,history:2}[a.dataset.tab];
+    switchMainTab(a.dataset.tab,document.querySelectorAll('.tab-btn')[i]);
+  }));
 
   // REVEAL
   const obs=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible')})},{threshold:.1});
