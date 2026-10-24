@@ -71,7 +71,7 @@
     const settingsFields=siteSchema.globalFields.map(f=>f.name==='extra_sections'?{...f,widget:'hidden'}:f);
     const config = {
       backend:{name:local?'github':'worldfut-github',repo:settings.repo || 'local/worldfut',branch:settings.branch,base_url:settings.origin || location.origin,auth_endpoint:'api/auth'},
-      load_config_file:false,locale:'ja',media_folder:'public/uploads',public_folder:'/uploads',
+      load_config_file:false,show_preview_links:false,locale:'ja',media_folder:'public/uploads',public_folder:'/uploads',
       site_url:local?location.origin:settings.origin,display_url:local?location.origin:settings.origin,
       logo_url:'/assets/logo.png',
       slug:{encoding:'unicode',clean_accents:false,sanitize_replacement:'-'},
@@ -105,7 +105,7 @@
       CMS.registerEventListener({name:'postSave',handler:()=>window.parent.postMessage({type:'wf-editor-saved'},location.origin)});
       document.documentElement.classList.add('embedded');
       let lastVisibleStatus='';
-      const enablePreview=()=>{const toolbar=document.querySelector('[class*="-ToolbarContainer"]');const message={type:'wf-editor-status',dirty:!!toolbar?.textContent.includes('未保存'),text:document.getElementById('environment')?.textContent||''};const serialized=JSON.stringify(message);if(serialized!==lastVisibleStatus){lastVisibleStatus=serialized;window.parent.postMessage(message,location.origin);}const hidden=document.querySelector('[class*="-NoPreviewContainer"]');const button=document.querySelector('button[title="プレビュー表示を切り替える"]');if(hidden&&button)button.click();};
+      const enablePreview=()=>{const toolbar=document.querySelector('[class*="-ToolbarContainer"]')||document.querySelector('a[href^="#/collections/"]');const message={type:'wf-editor-status',dirty:!!toolbar?.textContent.includes('未保存'),text:document.getElementById('environment')?.textContent||''};const serialized=JSON.stringify(message);if(serialized!==lastVisibleStatus){lastVisibleStatus=serialized;window.parent.postMessage(message,location.origin);}const hidden=document.querySelector('[class*="-NoPreviewContainer"]');const button=document.querySelector('button[title="プレビュー表示を切り替える"]');if(hidden&&button)button.click();};
       new MutationObserver(enablePreview).observe(document.body,{childList:true,subtree:true});
       window.addEventListener('hashchange',()=>window.parent.postMessage({type:'wf-editor-route',hash:location.hash},location.origin));
     }

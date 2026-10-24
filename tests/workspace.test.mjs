@@ -66,7 +66,7 @@ test('12デザイン×7表示場所の候補が有効な保存データとなり
 test('③の編集では汎用iframeプレビューに依存せず直接のスナップショットで更新する',async()=>{
  const {sectionSnapshot}=await import('../public/admin/section-state.js');
  const vm=await import('node:vm');let widget;const sent=[];
- const context={window:{WorldFutDesigns:{},createClass:spec=>spec,parent:{postMessage:(data,origin)=>sent.push({data,origin})}},location:{origin:'https://example.test'}};
+ const context={URLSearchParams,window:{WorldFutDesigns:{},createClass:spec=>spec,parent:{postMessage:(data,origin)=>sent.push({data,origin})}},location:{origin:'https://example.test'}};
  vm.runInNewContext(await readFile(resolve(root,'public/admin/section-builder.js'),'utf8'),context);
  context.window.WorldFutSectionBuilder.register({getWidget:()=>({control:()=>null}),registerWidget:(name,definition)=>widget=definition});
  const entry={anchor:'extra-direct',title:'③で編集した見出し',layout:'text',after:'join',published:true,body:'編集中も表示する'};
@@ -78,4 +78,13 @@ test('③の編集では汎用iframeプレビューに依存せず直接のス�
  assert.equal(result.extra_sections[0].title,'③で編集した見出し');assert.equal(result.title,'HP名');assert.deepEqual(result.style,global.style);
  assert.throws(()=>sectionSnapshot(global,{sections:null}));
  const app=await readFile(resolve(root,'public/admin/app.js'),'utf8');assert.match(app,/fields:sectionFields,editor:\{preview:false\}/);
+});
+test('レイアウトの欠損画像・不正anchorを安全に扱い、プレビューは画像の遅延表示に依存しない',async()=>{
+ const {extraSection}=await import('../lib/site.mjs');
+ const html=extraSection({anchor:'extra-x" onclick="evil()',layout:'split',title:'画像なし',body:'説明'},0);
+ assert.match(html,/cms-no-photo/);assert.match(html,/id="extra-0"/);assert.doesNotMatch(html,/onclick/);
+ const src=await readFile(resolve(root,'public/admin/workspace.js'),'utf8');
+ assert.match(src,/next\.addEventListener\('load'/);assert.match(src,/preview=next/);assert.match(src,/setTimeout\(render,160\)/);
+ assert.match(src,/message\.session!==editorSession/);
+ const previewSrc=await readFile(resolve(root,'public/admin/preview.js'),'utf8');assert.match(previewSrc,/loading="eager"/);
 });

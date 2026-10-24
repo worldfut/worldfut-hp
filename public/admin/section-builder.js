@@ -4,8 +4,8 @@ window.WorldFutSectionBuilder={register(CMS){
   getInitialState(){return {selected:0,mode:'new',after:'',design:'',category:'all'};},
   componentDidMount(){this.syncPreview();},
   componentDidUpdate(previous){if(previous.value!==this.props.value)this.syncPreview();},
-  syncPreview(){if(!this.props.value?.toJS)return;this.send('wf-sections-update',{sections:this.props.value.toJS()});},
-  send(type,data={}){window.parent.postMessage({type,...data},location.origin);},
+  syncPreview(){if(!this.props.value?.toJS)return;const focus=this.pendingFocus;this.pendingFocus=null;this.send('wf-sections-update',{sections:this.props.value.toJS(),...(focus?{focus}:{})});},
+  send(type,data={}){window.parent.postMessage({type,session:new URLSearchParams(location.search||'').get('session'),...data},location.origin);},
   render(){
    const props=this.props,h=window.h,map=props.field.clear(),list=props.field.get('fields').clear();
    const immutable=value=>Array.isArray(value)?list.concat(value.map(immutable)):value&&typeof value==='object'?map.merge(Object.fromEntries(Object.entries(value).map(([k,v])=>[k,immutable(v)]))):value;
@@ -14,7 +14,7 @@ window.WorldFutSectionBuilder={register(CMS){
    const places=['start',...order];
    const placeLabel=key=>key==='start'?'ページの最初（'+catalog.labels[order[0]]+'の前）':catalog.labels[key]+'の後'+(order.indexOf(key)<order.length-1?' → '+catalog.labels[order[order.indexOf(key)+1]]+'の前':'（ページ末尾）');
    const preview=(after,design)=>this.send('wf-section-candidate',{data:design?catalog.create(design,after,'extra-candidate'):{anchor:'extra-candidate',title:'ここに新しいセクションを追加',body:'下のデザイン候補を選ぶと、この位置で見え方を確認できます。',published:true,after,layout:'text'}});
-   const add=()=>{const {after,design}=this.state;if(!after||!design)return;const entry=catalog.create(design,after,'extra-'+crypto.randomUUID()),next=items.push(immutable(entry));props.onChange(next);this.setState({mode:'edit',selected:items.size});this.send('wf-sections-update',{sections:next.toJS(),focus:entry.anchor});};
+   const add=()=>{const {after,design}=this.state;if(!after||!design)return;const entry=catalog.create(design,after,'extra-'+crypto.randomUUID()),next=items.push(immutable(entry));this.pendingFocus=entry.anchor;props.onChange(next);this.setState({mode:'edit',selected:items.size});};
    const focus=index=>{this.setState({selected:index,mode:'edit'});this.send('wf-section-candidate-clear');const entry=items.get(index);if(entry)this.send('wf-section-focus',{anchor:entry.get('anchor')||'extra-'+index});};
    const change=(updated,...args)=>props.onChange(updated.size?items.set(selected,updated.get(0)):items.delete(selected),...args);
    const layout=items.get(selected)?.get('layout'),irrelevant=catalog.listLayouts.includes(layout)?['body','image','alt','link','link_label']:['cards'];
