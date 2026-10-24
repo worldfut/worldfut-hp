@@ -1,8 +1,9 @@
 <!doctype html>
-<html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,nofollow"><title>更新管理 | WorldFut</title>
-<style>body{margin:0;font-family:system-ui,sans-serif;color:#1a2332}#setup{max-width:720px;margin:12vh auto;padding:24px;line-height:1.9}#environment{position:fixed;bottom:0;left:0;right:0;z-index:99999;background:#12395a;color:white;padding:6px 16px;font-size:12px;text-align:center}a{color:#2a7fc1}
-@media(max-width:899px){body{overflow-x:hidden}[class*="-EditorContainer"]{min-width:0!important}[class*="-Editor "]{width:100%!important}[class*="-NoPreviewContainer"],[class*="-PreviewPaneContainer"],[class*="-ControlPaneContainer"]{box-sizing:border-box;min-width:0!important;width:100%!important;max-width:100%!important}input,textarea{max-width:100%}}
-</style>
-<script>window.CMS_MANUAL_INIT=true;</script>
-</head><body><div id="setup"><h1>WorldFut 更新管理</h1><p id="status">管理画面を読み込んでいます…</p></div>
-<script src="/admin/vendor/decap-cms.js"></script><script src="/admin/publication.js"></script><script src="/admin/app.js"></script></body></html>
+<html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,nofollow"><title>HP編集スタジオ | WorldFut</title><link rel="stylesheet" href="/admin/workspace.css"></head>
+<body>
+<header class="studio-header"><a class="brand" href="/admin/"><img src="/assets/logo.png" alt="WorldFut"><span>HP編集スタジオ<small>WORLD FUT / WEBSITE EDITOR</small></span></a><span class="staging">確認用サイト</span><a class="visit" href="/" target="_blank" rel="noopener">公開中のHPを見る ↗</a></header>
+<div class="workspace">
+<aside class="sidebar"><div class="sidebar-intro"><span class="eyebrow">PAGE STRUCTURE</span><h1>編集したい場所を選ぶ</h1><p>HPの流れに沿って編集できます。</p></div><nav id="sections" aria-label="HPの編集項目"></nav><div class="sidebar-note">ここで保存した内容は確認用サイトに反映されます。<br><strong>本番 worldfut.jp は変わりません。</strong></div></aside>
+<main class="editor-column"><div class="panel-heading"><div><span class="eyebrow">EDIT CONTENT</span><h2 id="editing-title">トップ</h2></div><span class="step">① 選ぶ → ② 編集 → ③ 公開して保存</span></div><p class="edit-help" id="editing-help">文章や画像を変更し、右側で見え方を確認してください。</p><iframe id="editor" title="文章・画像の編集" src="about:blank"></iframe></main>
+<section class="preview-column" aria-label="保存前のプレビュー"><div class="panel-heading"><div><span class="eyebrow">LIVE PREVIEW</span><h2>HPの見え方</h2></div><div class="device-toggle" aria-label="プレビューの画面幅"><button type="button" data-device="desktop" aria-pressed="true">PC</button><button type="button" data-device="mobile" aria-pressed="false">スマホ</button></div></div><p class="preview-help" id="preview-note">編集中の変更を表示します。保存するまでHPには反映されません。</p><div class="preview-stage"><div id="preview-device"><iframe id="preview" title="編集中のHPプレビュー" sandbox="allow-same-origin"></iframe></div></div><p class="preview-foot">操作や送信は無効です。PC表示は縮小しています。</p></section>
+</div><div id="environment" role="status">確認用サイトの公開状況を確認しています…</div><script type="module" src="/admin/workspace.js"></script></body></html>

@@ -50,7 +50,7 @@
           h('h1',{style:{fontSize:24}},'WorldFut 更新管理'),
           h('p',{},'WorldFutの更新権限があるGitHubアカウントでログインしてください。'),
           props.error?h('p',{role:'alert'},String(props.error)):null,
-          h('button',{type:'button',disabled:!!props.inProgress,onClick:()=>location.assign(settings.origin+'/api/auth?flow=redirect'),style:{background:'#12395a',color:'white',border:0,borderRadius:8,padding:'14px 24px',fontSize:16,cursor:'pointer'}},props.inProgress?'ログインを確認しています…':'GitHubでログインする'),
+          h('button',{type:'button',disabled:!!props.inProgress,onClick:()=>window.top.location.assign(settings.origin+'/api/auth?flow=redirect'),style:{background:'#12395a',color:'white',border:0,borderRadius:8,padding:'14px 24px',fontSize:16,cursor:'pointer'}},props.inProgress?'ログインを確認しています…':'GitHubでログインする'),
           h('p',{},h('a',{href:settings.origin+'/'},'サイトに戻る')));
       }
       CMS.registerBackend('worldfut-github',class extends GithubBackend{authComponent(){return Login;}});
@@ -60,13 +60,19 @@
       if(!data.has('extra_sections'))return;
       return data.update('extra_sections',items=>items?.map(item=>item.get('anchor')?item:item.set('anchor','extra-'+crypto.randomUUID())));
     }});
+    for(const section of siteSchema.sections){
+      const style=section.fields.find(f=>f.name==='style');
+      if(style){style.collapsed=true;section.fields=section.fields.filter(f=>f!==style).concat(style);}
+    }
+    const top=siteSchema.sections.find(e=>e.name==='top');
+    if(top)for(const field of top.fields){const label={field_1:'小見出し',field_2:'メインメッセージ',field_3:'メッセージ下の説明'}[field.name];if(label)field.label=label;}
     const config = {
       backend:{name:local?'github':'worldfut-github',repo:settings.repo || 'local/worldfut',branch:settings.branch,base_url:settings.origin || location.origin,auth_endpoint:'api/auth'},
       load_config_file:false,locale:'ja',media_folder:'public/uploads',public_folder:'/uploads',
       site_url:local?location.origin:settings.origin,display_url:local?location.origin:settings.origin,
       logo_url:'/assets/logo.png',
       slug:{encoding:'unicode',clean_accents:false,sanitize_replacement:'-'},
-      collections:[{name:'site',label:'HP全体・新規セクション',files:[{name:'settings',label:'全体設定・文字・セクション追加',file:'content/pages/settings.json',fields:siteSchema.globalFields,editor:{preview:false}}]},{name:'pages',label:'既存HPの各項目',files:siteSchema.sections.map(e=>({...e,editor:{preview:false}}))},{name:'news',label:'お知らせ・掲載記事',label_singular:'記事',folder:'content/news',create:true,delete:true,extension:'json',format:'json',slug:'{{year}}-{{month}}-{{day}}-{{slug}}',identifier_field:'title',summary:'{{title}}',editor:{preview:window.innerWidth>=900},sortable_fields:['date','title','order'],view_filters:[{label:'新着',field:'section',pattern:'new'},{label:'掲載記事',field:'section',pattern:'press'},{label:'HPに掲載しない記事',field:'published',pattern:false}],fields}]
+      collections:[{name:'site',label:'HP全体・新規セクション',files:[{name:'settings',label:'全体設定・文字・セクション追加',file:'content/pages/settings.json',fields:siteSchema.globalFields,editor:{preview:true}}]},{name:'pages',label:'既存HPの各項目',files:siteSchema.sections.map(e=>({...e,editor:{preview:true}}))},{name:'news',label:'お知らせ・掲載記事',label_singular:'記事',folder:'content/news',create:true,delete:true,extension:'json',format:'json',slug:'{{year}}-{{month}}-{{day}}-{{slug}}',identifier_field:'title',summary:'{{title}}',editor:{preview:window.innerWidth>=900},sortable_fields:['date','title','order'],view_filters:[{label:'新着',field:'section',pattern:'new'},{label:'掲載記事',field:'section',pattern:'press'},{label:'HPに掲載しない記事',field:'published',pattern:false}],fields}]
     };
     if (local) config.local_backend={url:'http://localhost:8081/api/v1',allowed_hosts:['localhost','127.0.0.1']};
     const banner=document.createElement('div');banner.id='environment';
@@ -77,6 +83,27 @@
       const img=e.image?props.getAsset(e.image):null;
       return h('article',{},h('p',{className:'meta'},e.published?'HPに掲載する記事':'HPには掲載しない記事'),h('p',{className:'meta'},(e.source||'')+' '+(e.date_label||e.date||'')),h('h1',{},e.title||'タイトル'),img?h('img',{src:img.toString(),alt:e.image_alt||e.title}):null,h('p',{},e.summary||''),h('div',{className:'body'},e.body||''),e.link?h('p',{},(e.link_label||'関連リンク')+'：'+e.link):null);
     });
+    // The parent workspace owns the visual preview; Decap keeps authentication and saves.
+    if(window.parent&&window.parent!==window){
+      const livePreview=function(props){
+        const data=props.entry.get('data').toJS();
+        const collection=props.collection.get('name');
+        const slug=props.entry.get('slug');
+        const resolveImages=(value)=>{if(Array.isArray(value))return value.map(resolveImages);if(value&&typeof value==='object')return Object.fromEntries(Object.entries(value).map(([k,v])=>[k,resolveImages(v)]));if(typeof value==='string'&&/^\/(assets|uploads)\//.test(value)){try{return props.getAsset(value).toString();}catch{}}return value;};
+        const message={type:'wf-editor-change',collection,slug,data:resolveImages(data)};
+        setTimeout(()=>window.parent.postMessage(message,location.origin),0);
+        return window.h('p',{},'右側のHPプレビューに編集中の内容を表示しています。');
+      };
+      for(const section of siteSchema.sections)CMS.registerPreviewTemplate(section.name,livePreview);
+      CMS.registerPreviewTemplate('settings',livePreview);
+      CMS.registerPreviewTemplate('news',livePreview);
+      CMS.registerEventListener({name:'postSave',handler:()=>window.parent.postMessage({type:'wf-editor-saved'},location.origin)});
+      document.documentElement.classList.add('embedded');
+      let lastVisibleStatus='';
+      const enablePreview=()=>{const toolbar=document.querySelector('[class*="-ToolbarContainer"]');const message={type:'wf-editor-status',dirty:!!toolbar?.textContent.includes('未保存'),text:document.getElementById('environment')?.textContent||''};const serialized=JSON.stringify(message);if(serialized!==lastVisibleStatus){lastVisibleStatus=serialized;window.parent.postMessage(message,location.origin);}const hidden=document.querySelector('[class*="-NoPreviewContainer"]');const button=document.querySelector('button[title="プレビュー表示を切り替える"]');if(hidden&&button)button.click();};
+      new MutationObserver(enablePreview).observe(document.body,{childList:true,subtree:true});
+      window.addEventListener('hashchange',()=>window.parent.postMessage({type:'wf-editor-route',hash:location.hash},location.origin));
+    }
     document.getElementById('setup').remove();
     await CMS.init({config});
     if(!local&&window.WorldFutPublication)window.WorldFutPublication.start({settings,banner,CMS});
