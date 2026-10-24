@@ -3,6 +3,7 @@ import assert from 'node:assert/strict';
 import {readFile,writeFile,mkdtemp,cp,symlink,rm} from 'node:fs/promises';
 import {resolve} from 'node:path';
 import {tmpdir} from 'node:os';
+import {applySeo} from '../lib/seo.mjs';
 import {renderSite,styleFields,globalFields} from '../lib/site.mjs';
 const root=resolve(import.meta.dirname,'..');
 function leaves(data,fields,path=[]){return fields.flatMap(f=>{
@@ -19,7 +20,8 @@ test('全既存編集欄は単独の変更がHTML・属性・CSSまたはスラ�
   const schema=JSON.parse(await readFile(resolve(dir,'src/site-schema.json'),'utf8'));
   for(const e of schema){const f=e.fields.find(f=>f.name==='style');if(f)f.fields=styleFields;}
   schema.push({name:'settings',file:'content/pages/settings.json',fields:globalFields});
-  const baseline=(await renderSite(dir,'')).html;
+  const fullRender=async()=>{const site=await renderSite(dir,'');const top=JSON.parse(await readFile(resolve(dir,'content/pages/top.json'),'utf8'));return applySeo(site.html,{title:site.global.title,description:site.global.description,origin:'https://worldfut-hp.pages.dev',image:site.global.seo?.image||top.slides[0].image,home:true});};
+  const baseline=await fullRender();
   for(const entry of schema){
    const file=resolve(dir,entry.file),original=await readFile(file,'utf8'),data=JSON.parse(original);
    for(const {field:f,path,value:v} of leaves(data,entry.fields)){
@@ -33,7 +35,7 @@ test('全既存編集欄は単独の変更がHTML・属性・CSSまたはスラ�
     else if(f.label.startsWith('リンク先：'))value='https://example.com/audit-'+count;
     else value='編集反映確認'+count;
     set(changed,path,value);await writeFile(file,JSON.stringify(changed));
-    try{const html=(await renderSite(dir,'')).html;assert.notEqual(html,baseline);}
+    try{const html=await fullRender();assert.notEqual(html,baseline);}
     catch(error){failed.push(entry.name+'.'+path.join('.')+': '+error.message);}
     count++;
     await writeFile(file,original);
