@@ -1,0 +1,84 @@
+{
+  "links_2": [
+    {
+      "field_1": "#top",
+      "field_2": "TOP"
+    },
+    {
+      "field_1": "#about",
+      "field_2": "団体概要"
+    },
+    {
+      "field_1": "#activities",
+      "field_2": "活動内容"
+    },
+    {
+      "field_1": "#media",
+      "field_2": "News & Topics"
+    },
+    {
+      "field_1": "#contact",
+      "field_2": "お問い合わせ"
+    }
+  ],
+  "links_3": [
+    {
+      "field_1": "#activities",
+      "field_2": "カンボジアでの活動",
+      "tab": "cambodia"
+    },
+    {
+      "field_1": "#activities",
+      "field_2": "日本での活動",
+      "tab": "japan"
+    },
+    {
+      "field_1": "#activities",
+      "field_2": "沿革・実績",
+      "tab": "history"
+    },
+    {
+      "field_1": "#activities",
+      "field_2": "クラウドファンディング実績",
+      "tab": "history"
+    }
+  ],
+  "links_4": [
+    {
+      "field_1": "#join",
+      "field_2": "メンバーとして参加する"
+    },
+    {
+      "field_1": "#join",
+      "field_2": "協賛する"
+    },
+    {
+      "field_1": "#join",
+      "field_2": "イベントに参加する"
+    },
+    {
+      "field_1": "#contact",
+      "field_2": "お問い合わせ"
+    }
+  ],
+  "field_1": "/assets/logo.png",
+  "field_2": "WorldFut",
+  "field_3": "#top",
+  "field_4": "https://twitter.com/WorldFutJA",
+  "field_5": "https://instagram.com/worldfutja",
+  "field_6": "https://facebook.com/WorldFut",
+  "field_7": "https://note.com/worldfut12_note",
+  "field_8": "https://www.tiktok.com/@worldfut17",
+  "field_9": "mailto:worldfut@gmail.com",
+  "field_10": "mailto:worldfut.e@gmail.com",
+  "field_11": "幸せと笑顔で溢れる世界を、サッカーで創る。",
+  "field_12": "学生団体 WorldFut",
+  "field_13": "SITE",
+  "field_14": "ACTIVITIES",
+  "field_15": "ACTION",
+  "field_16": "© 2026 学生団体 WorldFut. All rights reserved.",
+  "field_17": "WorldFut",
+  "field_18": "worldfut@gmail.com",
+  "field_19": "協賛・営業：",
+  "field_20": "worldfut.e@gmail.com"
+}

@@ -1,0 +1,112 @@
+{
+  "field_1": "ABOUT US",
+  "field_2": "団体概要",
+  "field_3": "学生団体WorldFutは、「サッカー×国際協力」を軸に、主にカンボジアの子どもたちへの支援を行っている団体です。2008年に設立され、都内近郊の複数大学のメンバーで構成されています。",
+  "field_4": "日本でチャリティーフットサル大会などを開催して資金を調達し、その収益をカンボジアの子どもたちへの支援に充てています。「サッカーで資金調達し、サッカーで支援する」という唯一無二のスタイルで活動を続けています。",
+  "field_5": "PHILOSOPHY",
+  "field_6": "団体理念",
+  "field_7": "幸せと笑顔で溢れる世界を創るために、サッカーを通してすべての人々にキラキラ笑って暮らすきっかけを提供します。",
+  "field_8": "VISION",
+  "field_9": "活動ビジョン",
+  "field_10": "子どもたちにサッカーを楽しみ、夢や目標に向かって挑戦できる環境を提供します。",
+  "style": {
+    "font": "inherit",
+    "heading_scale": "inherit",
+    "body_scale": "inherit"
+  },
+  "gallery": [
+    {
+      "image": "/assets/img_1.jpg"
+    },
+    {
+      "image": "/assets/img_2.jpg"
+    },
+    {
+      "image": "/assets/img_3.jpg"
+    },
+    {
+      "image": "/assets/img_4.jpg"
+    },
+    {
+      "image": "/assets/img_5.jpg"
+    },
+    {
+      "image": "/assets/img_8.jpg"
+    },
+    {
+      "image": "/assets/img_9.jpg"
+    },
+    {
+      "image": "/assets/img_11.jpg"
+    },
+    {
+      "image": "/assets/img_12.jpg"
+    },
+    {
+      "image": "/assets/img_14.jpg"
+    },
+    {
+      "image": "/assets/img_16.jpg"
+    },
+    {
+      "image": "/assets/img_17.jpg"
+    },
+    {
+      "image": "/assets/img_a1.jpg"
+    },
+    {
+      "image": "/assets/img_a3.jpg"
+    },
+    {
+      "image": "/assets/img_a4.jpg"
+    },
+    {
+      "image": "/assets/new1.jpg"
+    },
+    {
+      "image": "/assets/new2.jpg"
+    },
+    {
+      "image": "/assets/new3.jpg"
+    },
+    {
+      "image": "/assets/new4.jpg"
+    },
+    {
+      "image": "/assets/new5.jpg"
+    },
+    {
+      "image": "/assets/new6.jpg"
+    },
+    {
+      "image": "/assets/mission1.jpg"
+    },
+    {
+      "image": "/assets/mission2.jpg"
+    },
+    {
+      "image": "/assets/act_smaong.jpg"
+    },
+    {
+      "image": "/assets/act_keothom.jpg"
+    },
+    {
+      "image": "/assets/act_phnompenh.jpg"
+    },
+    {
+      "image": "/assets/act_siemreap.jpg"
+    },
+    {
+      "image": "/assets/jpn_charity.jpg"
+    },
+    {
+      "image": "/assets/jpn_aebj.jpg"
+    },
+    {
+      "image": "/assets/jpn_shisetsu.jpg"
+    },
+    {
+      "image": "/assets/jpn_report.jpg"
+    }
+  ]
+}

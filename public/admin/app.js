@@ -13,6 +13,9 @@
       const a = document.createElement('a');a.href=settings.origin+'/admin/';a.textContent='正規の管理画面を開く';
       status.textContent='管理画面は次のURLから利用してください。 ';status.append(a);return;
     }
+    const siteResponse=await fetch('/admin/site-schema.json',{cache:'no-store'});
+    if(!siteResponse.ok)throw new Error('HP全体の編集設定を取得できませんでした。');
+    const siteSchema=await siteResponse.json();
     const fields = [
       {name:'title',label:'タイトル',widget:'string',hint:'HPに表示する見出しです。'},
       {name:'section',label:'掲載場所',widget:'select',options:[{label:'新着',value:'new'},{label:'掲載記事',value:'press'}],default:'new'},
@@ -35,11 +38,11 @@
       site_url:local?location.origin:settings.origin,display_url:local?location.origin:settings.origin,
       logo_url:'/assets/logo.png',
       slug:{encoding:'unicode',clean_accents:false,sanitize_replacement:'-'},
-      collections:[{name:'news',label:'お知らせ・掲載記事',label_singular:'記事',folder:'content/news',create:true,delete:true,extension:'json',format:'json',slug:'{{year}}-{{month}}-{{day}}-{{slug}}',identifier_field:'title',summary:'{{title}}',editor:{preview:window.innerWidth>=900},sortable_fields:['date','title','order'],view_filters:[{label:'新着',field:'section',pattern:'new'},{label:'掲載記事',field:'section',pattern:'press'},{label:'HPに掲載しない記事',field:'published',pattern:false}],fields}]
+      collections:[{name:'site',label:'HP全体・新規セクション',files:[{name:'settings',label:'全体設定・文字・セクション追加',file:'content/pages/settings.json',fields:siteSchema.globalFields,editor:{preview:false}}]},{name:'pages',label:'既存HPの各項目',files:siteSchema.sections.map(e=>({...e,editor:{preview:false}}))},{name:'news',label:'お知らせ・掲載記事',label_singular:'記事',folder:'content/news',create:true,delete:true,extension:'json',format:'json',slug:'{{year}}-{{month}}-{{day}}-{{slug}}',identifier_field:'title',summary:'{{title}}',editor:{preview:window.innerWidth>=900},sortable_fields:['date','title','order'],view_filters:[{label:'新着',field:'section',pattern:'new'},{label:'掲載記事',field:'section',pattern:'press'},{label:'HPに掲載しない記事',field:'published',pattern:false}],fields}]
     };
     if (local) config.local_backend={url:'http://localhost:8081/api/v1',allowed_hosts:['localhost','127.0.0.1']};
     const banner=document.createElement('div');banner.id='environment';
-    banner.textContent=local?'ローカル確認用：保存はこのパソコン内だけに反映されます。本番サイトは変わりません。':'WorldFut 更新管理：公開後、HPへの反映が完了したことを確認してください。';document.body.append(banner);
+    banner.textContent=local?'ローカル確認用：保存はこのパソコン内だけに反映されます。本番サイトは変わりません。':'確認用サイトの編集：保存内容は worldfut-hp.pages.dev に反映されます。本番 worldfut.jp は変わりません。';document.body.append(banner);
     CMS.registerPreviewStyle('body{font-family:system-ui,sans-serif;color:#1a2332;line-height:1.9;padding:24px}h1{line-height:1.5}img{max-width:100%;border-radius:8px}.body{white-space:pre-wrap}.meta{color:#6b7280}',{raw:true});
     CMS.registerPreviewTemplate('news',function(props){
       const e=props.entry.get('data').toJS();const h=window.h;

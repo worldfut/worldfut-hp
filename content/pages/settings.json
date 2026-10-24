@@ -1,0 +1,34 @@
+{
+  "title": "学生団体 WorldFut",
+  "description": "サッカー×国際協力。学生団体WorldFutの活動やお知らせを紹介します。",
+  "opening_logo": "/assets/logo.png",
+  "opening_enabled": true,
+  "style": {
+    "font": "inherit",
+    "heading_scale": "inherit",
+    "body_scale": "inherit",
+    "align": "inherit",
+    "heading_weight": "inherit"
+  },
+  "section_order": [
+    {
+      "section": "top"
+    },
+    {
+      "section": "about"
+    },
+    {
+      "section": "activities"
+    },
+    {
+      "section": "media"
+    },
+    {
+      "section": "join"
+    },
+    {
+      "section": "contact"
+    }
+  ],
+  "extra_sections": []
+}

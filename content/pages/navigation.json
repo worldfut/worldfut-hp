@@ -1,0 +1,28 @@
+{
+  "menu": [
+    {
+      "field_1": "#top",
+      "field_2": "TOP"
+    },
+    {
+      "field_1": "#about",
+      "field_2": "団体概要"
+    },
+    {
+      "field_1": "#activities",
+      "field_2": "活動内容"
+    },
+    {
+      "field_1": "#media",
+      "field_2": "News & Topics"
+    },
+    {
+      "field_1": "#contact",
+      "field_2": "お問い合わせ"
+    }
+  ],
+  "field_1": "/assets/logo.png",
+  "field_2": "WorldFut",
+  "field_3": "#top",
+  "field_4": "WorldFut"
+}
