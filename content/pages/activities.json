@@ -1,0 +1,199 @@
+{
+  "timeline": [
+    {
+      "date": "2008年6月",
+      "title": "学生団体WorldFut設立・スマオン小学校サポート開始",
+      "body": ""
+    },
+    {
+      "date": "2009年",
+      "title": "サッカーボール37個寄付",
+      "body": ""
+    },
+    {
+      "date": "2010年",
+      "title": "スマオン小学校　グラウンド建設",
+      "body": ""
+    },
+    {
+      "date": "2013〜2014年",
+      "title": "スマオン小学校　校舎建設",
+      "body": ""
+    },
+    {
+      "date": "2015年",
+      "title": "クラウドファンディング1,336,000円達成",
+      "body": ""
+    },
+    {
+      "date": "2015〜2017年",
+      "title": "サッカー教室・パブリックビューイング開始",
+      "body": ""
+    },
+    {
+      "date": "2016年",
+      "title": "Dream Challenge Cup 初開催（Phnom Penh）",
+      "body": ""
+    },
+    {
+      "date": "2018年",
+      "title": "クラウドファンディング531,000円達成",
+      "body": ""
+    },
+    {
+      "date": "2019年",
+      "title": "ケウトム小学校サポート開始・FCスマオン設立",
+      "body": ""
+    },
+    {
+      "date": "2019年",
+      "title": "クラウドファンディング461,000円達成",
+      "body": ""
+    },
+    {
+      "date": "2020〜2021年",
+      "title": "コロナ禍　遠隔プロジェクトで継続支援",
+      "body": ""
+    },
+    {
+      "date": "2021年",
+      "title": "クラウドファンディング1,217,000円達成　ケウトム小学校　グラウンド建設",
+      "body": ""
+    },
+    {
+      "date": "2023年",
+      "title": "クラウドファンディング522,000円達成　DCC初の女子チーム参加",
+      "body": ""
+    },
+    {
+      "date": "2024年",
+      "title": "ボール67個・スパイク57足寄付",
+      "body": ""
+    },
+    {
+      "date": "2025年",
+      "title": "Dream Challenge Cup 2都市目開催（Siem Reap）",
+      "body": ""
+    },
+    {
+      "date": "2026年〜",
+      "title": "17代目始動・活動継続中",
+      "body": ""
+    }
+  ],
+  "dcc": [
+    {
+      "field_1": "/assets/act_phnompenh.jpg",
+      "field_2": "Dream Challenge Cup in Phnom Penh",
+      "field_3": "Dream Challenge Cup in Phnom Penh",
+      "field_4": "農村部の子どもたちをプロ使用スタジアムに無料招待。プロ選手との交流も実現し、子どもたちに「サッカー選手」という夢の原体験を提供します。2023年には初の女子チームも参加しました。",
+      "field_5": "2016年〜"
+    },
+    {
+      "field_1": "/assets/act_siemreap.jpg",
+      "field_2": "Dream Challenge Cup in Siem Reap",
+      "field_3": "Dream Challenge Cup in Siem Reap",
+      "field_4": "2025年より新たにSiem Reapでの開催を開始。これまで首都Phnom Penh近郊に限定されていた参加対象を大きく拡大し、より多くの地域の子どもたちを招待できるようになりました。現在はPhnom Penhとの2都市同時開催を実現し、より多くの子どもたちに夢を届ける機会を創出しています。",
+      "field_5": "2025年〜"
+    }
+  ],
+  "japan": [
+    {
+      "field_1": "/assets/jpn_charity.jpg",
+      "field_2": "チャリティーイベント",
+      "field_3": "チャリティーイベント",
+      "field_4": "年3回・200人規模のチャリティーフットサル大会を開催。男女問わず楽しめるように多様な企画も展開しています。",
+      "field_5": "年3回開催"
+    },
+    {
+      "field_1": "/assets/jpn_shisetsu.jpg",
+      "field_2": "児童養護施設訪問で子どもたちと制作した手形アート",
+      "field_3": "児童養護施設訪問",
+      "field_4": "2021年より2つの児童養護施設をサポート。コロナ禍でカンボジアへ渡航ができない中、「日本にも、団体理念が届いていない子どもたちがいるのでは」という疑問から開始したPJ。",
+      "field_5": "2021年〜"
+    },
+    {
+      "field_1": "/assets/jpn_aebj.jpg",
+      "field_2": "ブラジル人学校",
+      "field_3": "ブラジル人学校（AEBJ）",
+      "field_4": "2022年よりEAS浜松校・太田校へのサポート。サッカー大会運営・健康教室・日本文化普及など国際交流を通じた支援を展開。",
+      "field_5": "2022年〜"
+    },
+    {
+      "field_1": "/assets/jpn_report.jpg",
+      "field_2": "活動報告会",
+      "field_3": "活動報告会",
+      "field_4": "毎年12月に年間報告会を開催。協賛企業様・保護者・OB・OGの方々に活動内容と収支状況を報告します。",
+      "field_5": "毎年12月"
+    }
+  ],
+  "field_1": "ACTIVITIES",
+  "field_2": "活動内容",
+  "field_3": "カンボジアでの活動",
+  "field_4": "日本での活動",
+  "field_5": "沿革・実績",
+  "style": {
+    "font": "inherit",
+    "heading_scale": "inherit",
+    "body_scale": "inherit",
+    "align": "inherit",
+    "heading_weight": "inherit"
+  },
+  "field_6": "小学校支援",
+  "field_7": "Dream Challenge Cup",
+  "field_8": "沿革",
+  "field_9": "クラウドファンディング実績",
+  "funding": [
+    {
+      "field_1": "https://greenfunding.jp/lab/projects/1275-",
+      "field_2": "カンボジアの農村からサッカー選手を輩出したい！",
+      "field_3": "1,336,000円達成。サッカーの感動を大画面で子どもたちに届けるパブリックビューイングプロジェクト。",
+      "field_4": "GREENFUNDING",
+      "field_5": "プロジェクトを見る"
+    },
+    {
+      "field_1": "https://readyfor.jp/projects/worldfut9999/accomplish_report",
+      "field_2": "カンボジアの子どもたちが夢へ挑戦できるサッカー大会を創る！",
+      "field_3": "531,000円達成。DCC第3回大会開催を実現。",
+      "field_4": "READYFOR",
+      "field_5": "プロジェクトを見る"
+    },
+    {
+      "field_1": "https://readyfor.jp/projects/WorldFut",
+      "field_2": "カンボジアの子どもたちへサッカー用具を届けたい！",
+      "field_3": "461,000円達成。カンボジアの子どもたちにサッカー用具を届けるプロジェクト。",
+      "field_4": "READYFOR",
+      "field_5": "プロジェクトを見る"
+    },
+    {
+      "field_1": "https://readyfor.jp/projects/worldfut2020",
+      "field_2": "カンボジアの子どもたちのためにグラウンドを作りたい！",
+      "field_3": "1,217,000円達成。ケウトム小学校のグラウンド建設を実現。",
+      "field_4": "READYFOR",
+      "field_5": "プロジェクトを見る"
+    },
+    {
+      "field_1": "https://readyfor.jp/projects/wft142023/announcements",
+      "field_2": "カンボジアの子どもたちにDream Challenge Cupを！",
+      "field_3": "522,000円達成。初の女子チーム参加とDCC開催を実現。",
+      "field_4": "READYFOR",
+      "field_5": "プロジェクトを見る"
+    }
+  ],
+  "schools": [
+    {
+      "field_1": "/assets/act_smaong.jpg",
+      "field_2": "スマオン小学校",
+      "field_3": "スマオン小学校",
+      "field_4": "WorldFutが最初にサポートを開始した小学校です。サッカーボールの寄付から始まり、グラウンド建設（2010年）・校舎建設（2013〜2014年）・FCスマオン設立（2019年）など、子どもたちが自立してサッカーを楽しめる環境づくりを続けています。",
+      "field_5": "2008年〜"
+    },
+    {
+      "field_1": "/assets/act_keothom.jpg",
+      "field_2": "ケウトム小学校",
+      "field_3": "ケウトム小学校",
+      "field_4": "2019年より新たにサポートを開始。クラウドファンディングで1,217,000円を達成し、グラウンド建設（2020年）を実現。ルール理解・用具管理など、子どもたちが主体的にサッカーに取り組める環境を整えています。",
+      "field_5": "2019年〜"
+    }
+  ]
+}
