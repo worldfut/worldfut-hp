@@ -1,4 +1,4 @@
-import {settings,unseal,cookieName,errorPage,popup} from '../../lib/oauth.js';
+import {settings,unseal,cookieName,errorPage,popup,redirectLogin} from '../../lib/oauth.js';
 export async function onRequestGet({request,env}){
   try{
     const s=settings(env,request),url=new URL(request.url);
@@ -14,6 +14,6 @@ export async function onRequestGet({request,env}){
     if(!permission.ok)return errorPage('WorldFutの更新権限を確認できませんでした。管理者にGitHubの招待設定を確認してもらってください。',403);
     const repository=await permission.json();
     if(repository.permissions?.push!==true)return errorPage('このアカウントにはWorldFutの更新権限がありません。管理者に連絡してください。',403);
-    return popup(data.access_token,s.origin);
+    return session.flow==='redirect'?redirectLogin(data.access_token,s.origin):popup(data.access_token,s.origin);
   }catch{return errorPage('ログイン処理を完了できませんでした。設定を確認してやり直してください。',503);}
 }

@@ -1,5 +1,12 @@
 (async function () {
   const status = document.getElementById('status');
+  let pendingLogin=null;
+  try {
+    const raw=sessionStorage.getItem('wf-cms-login');
+    sessionStorage.removeItem('wf-cms-login');
+    if(raw){const data=JSON.parse(raw);if(typeof data.token==='string'&&data.token&&data.provider==='github'&&Number.isFinite(data.expires)&&data.expires>Date.now()&&data.expires<=Date.now()+60000)pendingLogin={token:data.token,provider:'github'};}
+  } catch { /* A new login can be started if temporary browser storage is unavailable. */ }
+
   try {
     const response = await fetch('/admin/settings.json', {cache:'no-store'});
     if (!response.ok) throw new Error('管理設定を取得できませんでした。');
@@ -32,8 +39,24 @@
       {name:'order',label:'表示優先度',widget:'number',value_type:'int',default:0,hint:'数字が大きい記事を先に表示します。同じ数字では掲載日の新しい順です。'},
       {name:'published',label:'HPに掲載する',widget:'boolean',default:false,hint:'オンにして公開するとHPに表示されます。オフの記事もGitHubには保存されるので、個人情報は入力しないでください。'}
     ];
+    if(!local){
+      const GithubBackend=CMS.getBackend('github').BackendClass;
+      let handingOff=false;
+      function Login(props){
+        if(pendingLogin&&!handingOff){handingOff=true;const credentials=pendingLogin;pendingLogin=null;setTimeout(()=>props.onLogin(credentials),0);}
+        const h=window.h;
+        return h('div',{style:{maxWidth:440,margin:'12vh auto',padding:28,textAlign:'center',lineHeight:1.8}},
+          h('img',{src:'/assets/logo.png',alt:'WorldFut',style:{width:140,maxWidth:'100%'}}),
+          h('h1',{style:{fontSize:24}},'WorldFut 更新管理'),
+          h('p',{},'WorldFutの更新権限があるGitHubアカウントでログインしてください。'),
+          props.error?h('p',{role:'alert'},String(props.error)):null,
+          h('button',{type:'button',disabled:!!props.inProgress,onClick:()=>location.assign(settings.origin+'/api/auth?flow=redirect'),style:{background:'#12395a',color:'white',border:0,borderRadius:8,padding:'14px 24px',fontSize:16,cursor:'pointer'}},props.inProgress?'ログインを確認しています…':'GitHubでログインする'),
+          h('p',{},h('a',{href:settings.origin+'/'},'サイトに戻る')));
+      }
+      CMS.registerBackend('worldfut-github',class extends GithubBackend{authComponent(){return Login;}});
+    }
     const config = {
-      backend:{name:'github',repo:settings.repo || 'local/worldfut',branch:settings.branch,base_url:settings.origin || location.origin,auth_endpoint:'api/auth'},
+      backend:{name:local?'github':'worldfut-github',repo:settings.repo || 'local/worldfut',branch:settings.branch,base_url:settings.origin || location.origin,auth_endpoint:'api/auth'},
       load_config_file:false,locale:'ja',media_folder:'public/uploads',public_folder:'/uploads',
       site_url:local?location.origin:settings.origin,display_url:local?location.origin:settings.origin,
       logo_url:'/assets/logo.png',
