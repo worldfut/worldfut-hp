@@ -66,13 +66,16 @@
     }
     const top=siteSchema.sections.find(e=>e.name==='top');
     if(top)for(const field of top.fields){const label={field_1:'小見出し',field_2:'メインメッセージ',field_3:'メッセージ下の説明'}[field.name];if(label)field.label=label;}
+    window.WorldFutSectionBuilder?.register(CMS);
+    const sectionFields=siteSchema.globalFields.map(f=>f.name==='extra_sections'?{...f,widget:'section-builder',label:'追加したセクション',collapsed:false,fields:f.fields.map(child=>child.name==='style'?{...child,collapsed:true}:child)}:{...f,widget:'hidden'});
+    const settingsFields=siteSchema.globalFields.map(f=>f.name==='extra_sections'?{...f,widget:'hidden'}:f);
     const config = {
       backend:{name:local?'github':'worldfut-github',repo:settings.repo || 'local/worldfut',branch:settings.branch,base_url:settings.origin || location.origin,auth_endpoint:'api/auth'},
       load_config_file:false,locale:'ja',media_folder:'public/uploads',public_folder:'/uploads',
       site_url:local?location.origin:settings.origin,display_url:local?location.origin:settings.origin,
       logo_url:'/assets/logo.png',
       slug:{encoding:'unicode',clean_accents:false,sanitize_replacement:'-'},
-      collections:[{name:'site',label:'HP全体・新規セクション',files:[{name:'settings',label:'全体設定・文字・セクション追加',file:'content/pages/settings.json',fields:siteSchema.globalFields,editor:{preview:true}}]},{name:'pages',label:'既存HPの各項目',files:siteSchema.sections.map(e=>({...e,editor:{preview:true}}))},{name:'news',label:'お知らせ・掲載記事',label_singular:'記事',folder:'content/news',create:true,delete:true,extension:'json',format:'json',slug:'{{year}}-{{month}}-{{day}}-{{slug}}',identifier_field:'title',summary:'{{title}}',editor:{preview:window.innerWidth>=900},sortable_fields:['date','title','order'],view_filters:[{label:'新着',field:'section',pattern:'new'},{label:'掲載記事',field:'section',pattern:'press'},{label:'HPに掲載しない記事',field:'published',pattern:false}],fields}]
+      collections:[{name:'sections',label:'新規セクションを追加・編集',files:[{name:'builder',label:'セクションを作る',file:'content/pages/settings.json',fields:sectionFields,editor:{preview:true}}]},{name:'site',label:'全体・デザイン設定',files:[{name:'settings',label:'全体設定・文字・表示順',file:'content/pages/settings.json',fields:settingsFields,editor:{preview:true}}]},{name:'pages',label:'既存HPの各項目',files:siteSchema.sections.map(e=>({...e,editor:{preview:true}}))},{name:'news',label:'お知らせ・掲載記事',label_singular:'記事',folder:'content/news',create:true,delete:true,extension:'json',format:'json',slug:'{{year}}-{{month}}-{{day}}-{{slug}}',identifier_field:'title',summary:'{{title}}',editor:{preview:true},sortable_fields:['date','title','order'],view_filters:[{label:'新着',field:'section',pattern:'new'},{label:'掲載記事',field:'section',pattern:'press'},{label:'HPに掲載しない記事',field:'published',pattern:false}],fields}]
     };
     if (local) config.local_backend={url:'http://localhost:8081/api/v1',allowed_hosts:['localhost','127.0.0.1']};
     const banner=document.createElement('div');banner.id='environment';
@@ -96,6 +99,7 @@
       };
       for(const section of siteSchema.sections)CMS.registerPreviewTemplate(section.name,livePreview);
       CMS.registerPreviewTemplate('settings',livePreview);
+      CMS.registerPreviewTemplate('builder',livePreview);
       CMS.registerPreviewTemplate('news',livePreview);
       CMS.registerEventListener({name:'postSave',handler:()=>window.parent.postMessage({type:'wf-editor-saved'},location.origin)});
       document.documentElement.classList.add('embedded');

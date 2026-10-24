@@ -28,6 +28,21 @@ test('編集とプレビューを同一オリジンに限定し、プレビュ�
  const headers=await readFile(resolve(root,'public/_headers'),'utf8');
  assert.match(shell,/sandbox="allow-same-origin"/);assert.doesNotMatch(shell,/allow-scripts/);
  assert.match(script,/event.origin!==location.origin\|\|event.source!==editor.contentWindow/);
- assert.match(script,/replace\(\/<script/);assert.match(script,/addEventListener\('submit',e=>e.preventDefault\(\)\)/);
+ const previewSource=await readFile(resolve(root,'public/admin/preview.js'),'utf8');assert.match(previewSource,/replace\(\/<script/);assert.match(script,/addEventListener\('submit',e=>e.preventDefault\(\)\)/);
  assert.match(headers,/frame-ancestors 'self'/);
+});
+test('活動カードの透明状態を解除し、非公開の追加セクションも専用画面にプレビューする',async()=>{
+ await build({local:true});
+ const {renderWorkspacePreview}=await import(pathToFileURL(resolve(root,'dist/admin/preview.js')).href+'?test='+Date.now());
+ const data=JSON.parse(await readFile(resolve(root,'dist/admin/preview-data.json'),'utf8'));
+ data.global.extra_sections=[{anchor:'extra-preview-check',title:'保存前の新規見出し',body:'プレビュー本文',published:false,layout:'text',after:'activities'}];
+ const activities=renderWorkspacePreview(data,'activities');
+ assert.match(activities,/\.act-card\{opacity:1!important;translate:none!important/);
+ assert.match(activities,/スマオン小学校/);assert.match(activities,/jpn_charity/);
+ assert.doesNotMatch(activities,/保存前の新規見出し/);
+ const section=renderWorkspacePreview(data,'sections');
+ assert.match(section,/保存前の新規見出し/);assert.match(section,/プレビュー本文/);
+ assert.ok(section.indexOf('id="activities"')<section.indexOf('id="extra-preview-check"'));
+ assert.ok(section.indexOf('id="extra-preview-check"')<section.indexOf('id="media"'));
+ assert.doesNotMatch(section,/<script\b/i);
 });

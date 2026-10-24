@@ -21,6 +21,8 @@ test('全既存編集欄は単独の変更がHTML・属性・CSSまたはスラ�
   for(const e of schema){const f=e.fields.find(f=>f.name==='style');if(f)f.fields=styleFields;}
   schema.push({name:'settings',file:'content/pages/settings.json',fields:globalFields});
   const fullRender=async()=>{const site=await renderSite(dir,'');const top=JSON.parse(await readFile(resolve(dir,'content/pages/top.json'),'utf8'));return applySeo(site.html,{title:site.global.title,description:site.global.description,origin:'https://worldfut-hp.pages.dev',image:site.global.seo?.image||top.slides[0].image,home:true});};
+  // Audit existing fields independently of the user's unpublished custom sections.
+  const settingsPath=resolve(dir,'content/pages/settings.json');const existingSettings=JSON.parse(await readFile(settingsPath,'utf8'));existingSettings.extra_sections=[];await writeFile(settingsPath,JSON.stringify(existingSettings));
   const baseline=await fullRender();
   for(const entry of schema){
    const file=resolve(dir,entry.file),original=await readFile(file,'utf8'),data=JSON.parse(original);
