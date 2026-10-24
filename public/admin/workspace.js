@@ -1,3 +1,4 @@
+import {sectionSnapshot} from './section-state.js';
 import {renderWorkspacePreview} from './preview.js';
 const $=id=>document.getElementById(id),editor=$('editor'),preview=$('preview');
 const labels={top:['トップ','最初のメッセージ・写真'],about:['団体概要','理念・団体紹介'],activities:['活動内容','支援活動・沿革'],media:['お知らせ','見出し・タブの名前'],join:['募集案内','参加方法・募集カード'],contact:['お問い合わせ','連絡先・フォーム'],navigation:['メニュー','上部のナビゲーション'],footer:['フッター','ページ下部の情報'],sections:['新規セクションを追加','文章・写真・カードを作る'],settings:['全体・デザイン設定','文字・既存セクションの順番'],news:['お知らせ・掲載記事','記事を追加・編集']};
@@ -37,14 +38,18 @@ function updateSectionPicker(){
 $('section-preview-target').addEventListener('change',event=>{previewTarget=event.target.value;render();});
 
 
-function render(){try{updateSectionPicker();const view=previewCandidate?{...payload,global:{...payload.global,extra_sections:[...(payload.global.extra_sections||[]),previewCandidate]}}:payload;preview.srcdoc=renderWorkspacePreview(view,current,newsEntry);$('preview-note').textContent=previewCandidate?'追加前のデザイン見本です。まだセクションの追加・HPへの保存は行われていません。':current==='sections'?'追加したセクションを保存前に表示中です。「HPに表示する」がオフの項目も、この画面では確認できます。':'保存前の見え方です。「公開」→「公開する」で確認用HPへ保存します。';}catch(error){$('preview-note').textContent='プレビューを作れませんでした。入力内容をご確認ください：'+error.message;}}
+let renderedHtml='';
+function render(){try{updateSectionPicker();const view=previewCandidate?{...payload,global:{...payload.global,extra_sections:[...(payload.global.extra_sections||[]),previewCandidate]}}:payload;const html=renderWorkspacePreview(view,current,newsEntry);if(html!==renderedHtml){renderedHtml=html;preview.srcdoc=html;}else focusPreview();$('preview-note').textContent=previewCandidate?'追加前のデザイン見本です。まだセクションの追加・HPへの保存は行われていません。':current==='sections'?'追加したセクションを保存前に表示中です。「HPに表示する」がオフの項目も、この画面では確認できます。':'保存前の見え方です。「公開」→「公開する」で確認用HPへ保存します。';}catch(error){$('preview-note').textContent='プレビューを作れませんでした。入力内容をご確認ください：'+error.message;}}
 function resize(){const box=$('preview-device');const width=device==='mobile'?375:1280;box.style.maxWidth=device==='mobile'?'375px':'';const scale=Math.min(1,box.clientWidth/width);preview.style.width=width+'px';preview.style.height=Math.max(600,box.clientHeight/scale)+'px';preview.style.transform=`scale(${scale})`;}
-preview.addEventListener('load',()=>{resize();try{const doc=preview.contentDocument;doc.addEventListener('click',e=>{e.preventDefault();const button=e.target.closest('.tab-btn,.news-tab-btn');if(!button)return;const news=button.classList.contains('news-tab-btn');const buttons=Array.from(doc.querySelectorAll(news?'.news-tab-btn':'.tab-btn'));const ids=news?['new','press']:['cambodia','japan','history'];const selected=ids[buttons.indexOf(button)];buttons.forEach(b=>b.classList.toggle('active',b===button));doc.querySelectorAll(news?'.news-tab-content':'.tab-content').forEach(p=>p.classList.toggle('active',p.id===(news?'news-tab-':'tab-')+selected));});doc.addEventListener('submit',e=>e.preventDefault());const target=current==='sections'?doc.querySelector('[data-cms-section="'+(previewTarget||'extra-0')+'"]'):['settings','sections'].includes(current)?null:doc.querySelector(`[data-cms-section="${current==='news'?'media':current}"]`);if(target)doc.defaultView.scrollTo(0,target.offsetTop);}catch{}});
+function focusPreview(){try{const doc=preview.contentDocument;if(!doc?.body)return;const target=current==='sections'?doc.querySelector('[data-cms-section="'+(previewTarget||'extra-0')+'"]'):['settings','sections'].includes(current)?null:doc.querySelector(`[data-cms-section="${current==='news'?'media':current}"]`);if(target)doc.defaultView.scrollTo(0,target.offsetTop);}catch{}}
+preview.addEventListener('load',()=>{resize();try{const doc=preview.contentDocument;doc.addEventListener('click',e=>{e.preventDefault();const button=e.target.closest('.tab-btn,.news-tab-btn');if(!button)return;const news=button.classList.contains('news-tab-btn');const buttons=Array.from(doc.querySelectorAll(news?'.news-tab-btn':'.tab-btn'));const ids=news?['new','press']:['cambodia','japan','history'];const selected=ids[buttons.indexOf(button)];buttons.forEach(b=>b.classList.toggle('active',b===button));doc.querySelectorAll(news?'.news-tab-content':'.tab-content').forEach(p=>p.classList.toggle('active',p.id===(news?'news-tab-':'tab-')+selected));});doc.addEventListener('submit',e=>e.preventDefault());focusPreview();}catch{}});
 document.querySelectorAll('[data-device]').forEach(button=>button.addEventListener('click',()=>{device=button.dataset.device;document.querySelectorAll('[data-device]').forEach(b=>b.setAttribute('aria-pressed',String(b===button)));resize();}));
 new ResizeObserver(resize).observe($('preview-device'));
 window.addEventListener('message',event=>{
  if(event.origin!==location.origin||event.source!==editor.contentWindow||!payload)return;
  const message=event.data;
+ if(typeof message?.type==='string'&&message.type.startsWith('wf-section')&&current!=='sections')return;
+ if(message?.type==='wf-sections-update'&&Array.isArray(message.sections)){payload.global=sectionSnapshot(payload.global,message);previewCandidate=null;if(typeof message.focus==='string')previewTarget=message.focus;select('sections');render();return;}
  if(message?.type==='wf-section-candidate'&&message.data&&typeof message.data==='object'){previewCandidate={...message.data,anchor:'extra-candidate'};previewTarget='extra-candidate';render();return;}
  if(message?.type==='wf-section-candidate-clear'){previewCandidate=null;render();return;}
  if(message?.type==='wf-section-focus'&&typeof message.anchor==='string'&&/^extra-[a-z0-9-]+$/.test(message.anchor)){previewTarget=message.anchor;render();return;}
@@ -52,7 +57,8 @@ window.addEventListener('message',event=>{
  if(message?.type==='wf-editor-route'){if(dirty&&savedEntries.has(current)){if(['settings','sections'].includes(current))payload.global=structuredClone(savedEntries.get(current));else if(current!=='news')payload.docs[current]=structuredClone(savedEntries.get(current));}dirty=false;select(keyFromHash(message.hash));location.hash=message.hash;render();return;}
  if(message?.type==='wf-editor-saved'){savedEntries.set(current,structuredClone(['settings','sections'].includes(current)?payload.global:current==='news'?newsEntry:payload.docs[current]));dirty=false;return;}
  if(message?.type!=='wf-editor-change'||!message.data||typeof message.data!=='object')return;
- const key=message.collection==='sections'?'sections':message.collection==='site'?'settings':message.collection==='news'?'news':message.slug;
+ if(message.collection==='sections')return;
+ const key=message.collection==='site'?'settings':message.collection==='news'?'news':message.slug;
  if(!labels[key])return;
  if(!savedEntries.has(key))savedEntries.set(key,structuredClone(message.data));
  if(key==='settings'||key==='sections'){if(JSON.stringify(payload.global)===JSON.stringify(message.data))return;payload.global=message.data;}

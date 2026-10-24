@@ -46,10 +46,10 @@ test('活動カードの透明状態を解除し、非公開の追加セクシ�
  assert.ok(section.indexOf('id="extra-preview-check"')<section.indexOf('id="media"'));
  assert.doesNotMatch(section,/<script\b/i);
 });
-test('5デザイン×7表示場所の候補が有効な保存データとなり、選択位置へ描画される',async()=>{
+test('12デザイン×7表示場所の候補が有効な保存データとなり、選択位置へ描画される',async()=>{
  const vm=await import('node:vm');const sandbox={window:{}};
  vm.runInNewContext(await readFile(resolve(root,'public/admin/design-catalog.js'),'utf8'),sandbox);
- const catalog=sandbox.window.WorldFutDesigns;
+ const catalog=sandbox.window.WorldFutDesigns;assert.equal(catalog.designs.length,12);
  const {validateFields,globalFields}=await import('../lib/site.mjs');
  await build({local:true});
  const {renderWorkspacePreview}=await import(pathToFileURL(resolve(root,'dist/admin/preview.js')).href+'?catalog='+Date.now());
@@ -62,4 +62,20 @@ test('5デザイン×7表示場所の候補が有効な保存データとなり�
   if(after==='start')assert.ok(pos<html.indexOf('id="top"'));else assert.ok(pos>html.indexOf('id="'+after+'"'));
   assert.ok(catalog.designs.some(d=>d.id===catalog.recommended(after)));
  }
+});
+test('③の編集では汎用iframeプレビューに依存せず直接のスナップショットで更新する',async()=>{
+ const {sectionSnapshot}=await import('../public/admin/section-state.js');
+ const vm=await import('node:vm');let widget;const sent=[];
+ const context={window:{WorldFutDesigns:{},createClass:spec=>spec,parent:{postMessage:(data,origin)=>sent.push({data,origin})}},location:{origin:'https://example.test'}};
+ vm.runInNewContext(await readFile(resolve(root,'public/admin/section-builder.js'),'utf8'),context);
+ context.window.WorldFutSectionBuilder.register({getWidget:()=>({control:()=>null}),registerWidget:(name,definition)=>widget=definition});
+ const entry={anchor:'extra-direct',title:'③で編集した見出し',layout:'text',after:'join',published:true,body:'編集中も表示する'};
+ const owner={props:{value:{toJS:()=>[entry]}},send:widget.send,syncPreview:widget.syncPreview};
+ widget.componentDidMount.call(owner);
+ assert.equal(sent[0].data.type,'wf-sections-update');assert.equal(sent[0].origin,'https://example.test');
+ const global={title:'HP名',style:{font:'sans'},section_order:[{section:'top'}],extra_sections:[]};
+ const result=sectionSnapshot(global,sent[0].data);
+ assert.equal(result.extra_sections[0].title,'③で編集した見出し');assert.equal(result.title,'HP名');assert.deepEqual(result.style,global.style);
+ assert.throws(()=>sectionSnapshot(global,{sections:null}));
+ const app=await readFile(resolve(root,'public/admin/app.js'),'utf8');assert.match(app,/fields:sectionFields,editor:\{preview:false\}/);
 });

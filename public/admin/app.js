@@ -75,7 +75,7 @@
       site_url:local?location.origin:settings.origin,display_url:local?location.origin:settings.origin,
       logo_url:'/assets/logo.png',
       slug:{encoding:'unicode',clean_accents:false,sanitize_replacement:'-'},
-      collections:[{name:'sections',label:'新規セクションを追加・編集',files:[{name:'builder',label:'セクションを作る',file:'content/pages/settings.json',fields:sectionFields,editor:{preview:true}}]},{name:'site',label:'全体・デザイン設定',files:[{name:'settings',label:'全体設定・文字・表示順',file:'content/pages/settings.json',fields:settingsFields,editor:{preview:true}}]},{name:'pages',label:'既存HPの各項目',files:siteSchema.sections.map(e=>({...e,editor:{preview:true}}))},{name:'news',label:'お知らせ・掲載記事',label_singular:'記事',folder:'content/news',create:true,delete:true,extension:'json',format:'json',slug:'{{year}}-{{month}}-{{day}}-{{slug}}',identifier_field:'title',summary:'{{title}}',editor:{preview:true},sortable_fields:['date','title','order'],view_filters:[{label:'新着',field:'section',pattern:'new'},{label:'掲載記事',field:'section',pattern:'press'},{label:'HPに掲載しない記事',field:'published',pattern:false}],fields}]
+      collections:[{name:'sections',label:'新規セクションを追加・編集',files:[{name:'builder',label:'セクションを作る',file:'content/pages/settings.json',fields:sectionFields,editor:{preview:false}}]},{name:'site',label:'全体・デザイン設定',files:[{name:'settings',label:'全体設定・文字・表示順',file:'content/pages/settings.json',fields:settingsFields,editor:{preview:true}}]},{name:'pages',label:'既存HPの各項目',files:siteSchema.sections.map(e=>({...e,editor:{preview:true}}))},{name:'news',label:'お知らせ・掲載記事',label_singular:'記事',folder:'content/news',create:true,delete:true,extension:'json',format:'json',slug:'{{year}}-{{month}}-{{day}}-{{slug}}',identifier_field:'title',summary:'{{title}}',editor:{preview:true},sortable_fields:['date','title','order'],view_filters:[{label:'新着',field:'section',pattern:'new'},{label:'掲載記事',field:'section',pattern:'press'},{label:'HPに掲載しない記事',field:'published',pattern:false}],fields}]
     };
     if (local) config.local_backend={url:'http://localhost:8081/api/v1',allowed_hosts:['localhost','127.0.0.1']};
     const banner=document.createElement('div');banner.id='environment';
@@ -92,6 +92,7 @@
         const data=props.entry.get('data').toJS();
         const collection=props.collection.get('name');
         const slug=props.entry.get('slug');
+        if(collection==='sections')return window.h('p',{},'セクション編集欄から直接プレビューを更新しています。');
         const resolveImages=(value)=>{if(Array.isArray(value))return value.map(resolveImages);if(value&&typeof value==='object')return Object.fromEntries(Object.entries(value).map(([k,v])=>[k,resolveImages(v)]));if(typeof value==='string'&&/^\/(assets|uploads)\//.test(value)){try{return props.getAsset(value).toString();}catch{}}return value;};
         const message={type:'wf-editor-change',collection,slug,data:resolveImages(data)};
         setTimeout(()=>window.parent.postMessage(message,location.origin),0);
