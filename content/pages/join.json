@@ -2,11 +2,11 @@
   "recruitment": [
     {
       "title": "MEMBER",
-      "body": "都内近郊の大学1・2年生大募集。サッカーが好き、国際協力に興味がある方、ぜひ一緒に活動しましょう。\n活動日：毎週火・木 18:00〜22:00 神田駅・飯田橋駅周辺の会議室"
+      "body": "都内近郊の大学1・2年生大募集。\nサッカーが好き、国際協力に興味がある方、\nぜひ一緒に活動しましょう。\n活動日：毎週火・木 18:00〜22:00\n神田駅・飯田橋駅周辺の会議室"
     },
     {
       "title": "SPONSOR",
-      "body": "企業・団体様からのご協賛を募集しています。子どもたちの夢につながる支援にご協力お願いいたします。"
+      "body": "企業・団体様からのご協賛を募集しています。子どもたちの夢につながる支援に\nご協力お願いいたします。"
     },
     {
       "title": "SUPPORT",
@@ -20,6 +20,9 @@
   "style": {
     "font": "inherit",
     "heading_scale": "inherit",
-    "body_scale": "inherit"
+    "body_scale": "inherit",
+    "align": "inherit",
+    "heading_weight": "inherit",
+    "heading_color": ""
   }
 }
