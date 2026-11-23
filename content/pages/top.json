@@ -1,0 +1,32 @@
+{
+  "field_1": "サッカー × 国際協力",
+  "field_2": "幸せと笑顔で溢れる世界を\nサッカーで創る。",
+  "field_3": "学生団体WorldFut｜設立2008年",
+  "style": {
+    "font": "inherit",
+    "heading_scale": "inherit",
+    "body_scale": "inherit",
+    "align": "inherit",
+    "heading_weight": "inherit"
+  },
+  "slides": [
+    {
+      "image": "/assets/new1.jpg"
+    },
+    {
+      "image": "/assets/new4.jpg"
+    },
+    {
+      "image": "/assets/new3.jpg"
+    },
+    {
+      "image": "/assets/new5.jpg"
+    },
+    {
+      "image": "/assets/new2.jpg"
+    },
+    {
+      "image": "/assets/new6.jpg"
+    }
+  ]
+}

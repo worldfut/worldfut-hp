@@ -1,0 +1,1804 @@
+[
+  {
+    "name": "top",
+    "label": "トップページ",
+    "file": "content/pages/top.json",
+    "fields": [
+      {
+        "name": "style",
+        "label": "文字の見た目",
+        "widget": "object",
+        "collapsed": true,
+        "fields": [
+          {
+            "name": "font",
+            "label": "フォント",
+            "widget": "select",
+            "options": [
+              {
+                "label": "全体設定に合わせる",
+                "value": "inherit"
+              },
+              {
+                "label": "ゴシック体",
+                "value": "sans"
+              },
+              {
+                "label": "明朝体",
+                "value": "serif"
+              },
+              {
+                "label": "丸ゴシック体",
+                "value": "rounded"
+              }
+            ],
+            "default": "inherit"
+          },
+          {
+            "name": "heading_scale",
+            "label": "見出しの大きさ",
+            "widget": "select",
+            "options": [
+              {
+                "label": "全体設定に合わせる",
+                "value": "inherit"
+              },
+              {
+                "label": "小",
+                "value": "small"
+              },
+              {
+                "label": "標準",
+                "value": "normal"
+              },
+              {
+                "label": "大",
+                "value": "large"
+              }
+            ],
+            "default": "inherit"
+          },
+          {
+            "name": "body_scale",
+            "label": "本文の大きさ",
+            "widget": "select",
+            "options": [
+              {
+                "label": "全体設定に合わせる",
+                "value": "inherit"
+              },
+              {
+                "label": "小",
+                "value": "small"
+              },
+              {
+                "label": "標準",
+                "value": "normal"
+              },
+              {
+                "label": "大",
+                "value": "large"
+              }
+            ],
+            "default": "inherit"
+          },
+          {
+            "name": "align",
+            "label": "文字の配置",
+            "widget": "select",
+            "options": [
+              {
+                "label": "元の配置・全体設定に合わせる",
+                "value": "inherit"
+              },
+              {
+                "label": "左寄せ",
+                "value": "left"
+              },
+              {
+                "label": "中央寄せ",
+                "value": "center"
+              }
+            ],
+            "default": "inherit"
+          },
+          {
+            "name": "heading_weight",
+            "label": "見出しの太さ",
+            "widget": "select",
+            "options": [
+              {
+                "label": "元の太さ・全体設定に合わせる",
+                "value": "inherit"
+              },
+              {
+                "label": "標準",
+                "value": "normal"
+              },
+              {
+                "label": "太字",
+                "value": "bold"
+              }
+            ],
+            "default": "inherit"
+          },
+          {
+            "name": "heading_color",
+            "label": "見出しの文字色",
+            "widget": "color",
+            "allowInput": true,
+            "required": false,
+            "hint": "空欄なら元の配色・全体設定を使用。背景との読みやすさを確認してください。"
+          },
+          {
+            "name": "body_color",
+            "label": "本文の文字色",
+            "widget": "color",
+            "allowInput": true,
+            "required": false,
+            "hint": "空欄なら元の配色・全体設定を使用。"
+          }
+        ]
+      },
+      {
+        "name": "field_1",
+        "label": "見出し・表示名：サッカー × 国際協力",
+        "widget": "string",
+        "required": false
+      },
+      {
+        "name": "field_2",
+        "label": "見出し・表示名：幸せと笑顔で溢れる世界を サッカーで創る。",
+        "widget": "text",
+        "required": false
+      },
+      {
+        "name": "field_3",
+        "label": "見出し・表示名：学生団体WorldFut｜設立2008年",
+        "widget": "string",
+        "required": false
+      },
+      {
+        "name": "slides",
+        "label": "スライド写真（上から表示順）",
+        "widget": "list",
+        "min": 1,
+        "fields": [
+          {
+            "name": "image",
+            "label": "写真",
+            "widget": "image",
+            "allow_multiple": false
+          }
+        ],
+        "default": [],
+        "required": false,
+        "max": 30
+      }
+    ],
+    "groups": []
+  },
+  {
+    "name": "about",
+    "label": "団体概要・理念",
+    "file": "content/pages/about.json",
+    "fields": [
+      {
+        "name": "style",
+        "label": "文字の見た目",
+        "widget": "object",
+        "collapsed": true,
+        "fields": [
+          {
+            "name": "font",
+            "label": "フォント",
+            "widget": "select",
+            "options": [
+              {
+                "label": "全体設定に合わせる",
+                "value": "inherit"
+              },
+              {
+                "label": "ゴシック体",
+                "value": "sans"
+              },
+              {
+                "label": "明朝体",
+                "value": "serif"
+              },
+              {
+                "label": "丸ゴシック体",
+                "value": "rounded"
+              }
+            ],
+            "default": "inherit"
+          },
+          {
+            "name": "heading_scale",
+            "label": "見出しの大きさ",
+            "widget": "select",
+            "options": [
+              {
+                "label": "全体設定に合わせる",
+                "value": "inherit"
+              },
+              {
+                "label": "小",
+                "value": "small"
+              },
+              {
+                "label": "標準",
+                "value": "normal"
+              },
+              {
+                "label": "大",
+                "value": "large"
+              }
+            ],
+            "default": "inherit"
+          },
+          {
+            "name": "body_scale",
+            "label": "本文の大きさ",
+            "widget": "select",
+            "options": [
+              {
+                "label": "全体設定に合わせる",
+                "value": "inherit"
+              },
+              {
+                "label": "小",
+                "value": "small"
+              },
+              {
+                "label": "標準",
+                "value": "normal"
+              },
+              {
+                "label": "大",
+                "value": "large"
+              }
+            ],
+            "default": "inherit"
+          },
+          {
+            "name": "align",
+            "label": "文字の配置",
+            "widget": "select",
+            "options": [
+              {
+                "label": "元の配置・全体設定に合わせる",
+                "value": "inherit"
+              },
+              {
+                "label": "左寄せ",
+                "value": "left"
+              },
+              {
+                "label": "中央寄せ",
+                "value": "center"
+              }
+            ],
+            "default": "inherit"
+          },
+          {
+            "name": "heading_weight",
+            "label": "見出しの太さ",
+            "widget": "select",
+            "options": [
+              {
+                "label": "元の太さ・全体設定に合わせる",
+                "value": "inherit"
+              },
+              {
+                "label": "標準",
+                "value": "normal"
+              },
+              {
+                "label": "太字",
+                "value": "bold"
+              }
+            ],
+            "default": "inherit"
+          },
+          {
+            "name": "heading_color",
+            "label": "見出しの文字色",
+            "widget": "color",
+            "allowInput": true,
+            "required": false,
+            "hint": "空欄なら元の配色・全体設定を使用。背景との読みやすさを確認してください。"
+          },
+          {
+            "name": "body_color",
+            "label": "本文の文字色",
+            "widget": "color",
+            "allowInput": true,
+            "required": false,
+            "hint": "空欄なら元の配色・全体設定を使用。"
+          }
+        ]
+      },
+      {
+        "name": "field_1",
+        "label": "見出し・表示名：ABOUT US",
+        "widget": "string",
+        "required": false
+      },
+      {
+        "name": "field_2",
+        "label": "見出し・表示名：団体概要",
+        "widget": "string",
+        "required": false
+      },
+      {
+        "name": "field_3",
+        "label": "文章：学生団体WorldFutは、「サッカー×国際協力」を軸に、主にカ",
+        "widget": "text",
+        "required": false
+      },
+      {
+        "name": "field_4",
+        "label": "文章：日本でチャリティーフットサル大会などを開催して資金を調達し、その",
+        "widget": "text",
+        "required": false
+      },
+      {
+        "name": "field_5",
+        "label": "見出し・表示名：PHILOSOPHY",
+        "widget": "string",
+        "required": false
+      },
+      {
+        "name": "field_6",
+        "label": "見出し・表示名：団体理念",
+        "widget": "string",
+        "required": false
+      },
+      {
+        "name": "field_7",
+        "label": "見出し・表示名：幸せと笑顔で溢れる世界を創るために、サッカーを通してすべての人々",
+        "widget": "string",
+        "required": false
+      },
+      {
+        "name": "field_8",
+        "label": "見出し・表示名：VISION",
+        "widget": "string",
+        "required": false
+      },
+      {
+        "name": "field_9",
+        "label": "見出し・表示名：活動ビジョン",
+        "widget": "string",
+        "required": false
+      },
+      {
+        "name": "field_10",
+        "label": "見出し・表示名：子どもたちにサッカーを楽しみ、夢や目標に向かって挑戦できる環境を",
+        "widget": "string",
+        "required": false
+      },
+      {
+        "name": "gallery",
+        "label": "流れる写真（上から表示順）",
+        "widget": "list",
+        "fields": [
+          {
+            "name": "image",
+            "label": "写真",
+            "widget": "image",
+            "allow_multiple": false
+          }
+        ],
+        "default": [],
+        "required": false
+      }
+    ],
+    "groups": []
+  },
+  {
+    "name": "activities",
+    "label": "活動内容・沿革・実績",
+    "file": "content/pages/activities.json",
+    "fields": [
+      {
+        "name": "style",
+        "label": "文字の見た目",
+        "widget": "object",
+        "collapsed": true,
+        "fields": [
+          {
+            "name": "font",
+            "label": "フォント",
+            "widget": "select",
+            "options": [
+              {
+                "label": "全体設定に合わせる",
+                "value": "inherit"
+              },
+              {
+                "label": "ゴシック体",
+                "value": "sans"
+              },
+              {
+                "label": "明朝体",
+                "value": "serif"
+              },
+              {
+                "label": "丸ゴシック体",
+                "value": "rounded"
+              }
+            ],
+            "default": "inherit"
+          },
+          {
+            "name": "heading_scale",
+            "label": "見出しの大きさ",
+            "widget": "select",
+            "options": [
+              {
+                "label": "全体設定に合わせる",
+                "value": "inherit"
+              },
+              {
+                "label": "小",
+                "value": "small"
+              },
+              {
+                "label": "標準",
+                "value": "normal"
+              },
+              {
+                "label": "大",
+                "value": "large"
+              }
+            ],
+            "default": "inherit"
+          },
+          {
+            "name": "body_scale",
+            "label": "本文の大きさ",
+            "widget": "select",
+            "options": [
+              {
+                "label": "全体設定に合わせる",
+                "value": "inherit"
+              },
+              {
+                "label": "小",
+                "value": "small"
+              },
+              {
+                "label": "標準",
+                "value": "normal"
+              },
+              {
+                "label": "大",
+                "value": "large"
+              }
+            ],
+            "default": "inherit"
+          },
+          {
+            "name": "align",
+            "label": "文字の配置",
+            "widget": "select",
+            "options": [
+              {
+                "label": "元の配置・全体設定に合わせる",
+                "value": "inherit"
+              },
+              {
+                "label": "左寄せ",
+                "value": "left"
+              },
+              {
+                "label": "中央寄せ",
+                "value": "center"
+              }
+            ],
+            "default": "inherit"
+          },
+          {
+            "name": "heading_weight",
+            "label": "見出しの太さ",
+            "widget": "select",
+            "options": [
+              {
+                "label": "元の太さ・全体設定に合わせる",
+                "value": "inherit"
+              },
+              {
+                "label": "標準",
+                "value": "normal"
+              },
+              {
+                "label": "太字",
+                "value": "bold"
+              }
+            ],
+            "default": "inherit"
+          },
+          {
+            "name": "heading_color",
+            "label": "見出しの文字色",
+            "widget": "color",
+            "allowInput": true,
+            "required": false,
+            "hint": "空欄なら元の配色・全体設定を使用。背景との読みやすさを確認してください。"
+          },
+          {
+            "name": "body_color",
+            "label": "本文の文字色",
+            "widget": "color",
+            "allowInput": true,
+            "required": false,
+            "hint": "空欄なら元の配色・全体設定を使用。"
+          }
+        ]
+      },
+      {
+        "name": "schools",
+        "label": "小学校支援",
+        "widget": "list",
+        "summary": "{{fields.field_3}}",
+        "fields": [
+          {
+            "name": "field_1",
+            "label": "写真",
+            "widget": "image",
+            "required": false,
+            "allow_multiple": false
+          },
+          {
+            "name": "field_2",
+            "label": "写真の説明",
+            "widget": "string",
+            "required": false
+          },
+          {
+            "name": "field_3",
+            "label": "活動名",
+            "widget": "string",
+            "required": false
+          },
+          {
+            "name": "field_4",
+            "label": "活動の説明",
+            "widget": "text",
+            "required": false
+          },
+          {
+            "name": "field_5",
+            "label": "開始年・時期",
+            "widget": "string",
+            "required": false
+          }
+        ],
+        "collapsed": true,
+        "default": [],
+        "required": false
+      },
+      {
+        "name": "dcc",
+        "label": "Dream Challenge Cup",
+        "widget": "list",
+        "summary": "{{fields.field_3}}",
+        "fields": [
+          {
+            "name": "field_1",
+            "label": "写真",
+            "widget": "image",
+            "required": false,
+            "allow_multiple": false
+          },
+          {
+            "name": "field_2",
+            "label": "写真の説明",
+            "widget": "string",
+            "required": false
+          },
+          {
+            "name": "field_3",
+            "label": "活動名",
+            "widget": "string",
+            "required": false
+          },
+          {
+            "name": "field_4",
+            "label": "活動の説明",
+            "widget": "text",
+            "required": false
+          },
+          {
+            "name": "field_5",
+            "label": "開始年・時期",
+            "widget": "string",
+            "required": false
+          }
+        ],
+        "collapsed": true,
+        "default": [],
+        "required": false
+      },
+      {
+        "name": "japan",
+        "label": "日本での活動",
+        "widget": "list",
+        "summary": "{{fields.field_3}}",
+        "fields": [
+          {
+            "name": "field_1",
+            "label": "写真",
+            "widget": "image",
+            "required": false,
+            "allow_multiple": false
+          },
+          {
+            "name": "field_2",
+            "label": "写真の説明",
+            "widget": "string",
+            "required": false
+          },
+          {
+            "name": "field_3",
+            "label": "活動名",
+            "widget": "string",
+            "required": false
+          },
+          {
+            "name": "field_4",
+            "label": "活動の説明",
+            "widget": "string",
+            "required": false
+          },
+          {
+            "name": "field_5",
+            "label": "開始年・時期",
+            "widget": "string",
+            "required": false
+          }
+        ],
+        "collapsed": true,
+        "default": [],
+        "required": false
+      },
+      {
+        "name": "timeline",
+        "label": "沿革",
+        "widget": "list",
+        "summary": "{{fields.field_3}}{{fields.title}}",
+        "fields": [
+          {
+            "name": "date",
+            "label": "年月",
+            "widget": "string"
+          },
+          {
+            "name": "title",
+            "label": "出来事",
+            "widget": "string"
+          },
+          {
+            "name": "body",
+            "label": "説明",
+            "widget": "text",
+            "required": false
+          }
+        ],
+        "collapsed": true,
+        "default": [],
+        "required": false
+      },
+      {
+        "name": "funding",
+        "label": "クラウドファンディング実績",
+        "widget": "list",
+        "summary": "{{fields.field_2}}",
+        "fields": [
+          {
+            "name": "field_1",
+            "label": "リンク先：プロジェクト",
+            "widget": "string",
+            "required": false,
+            "hint": "https://、mailto:、または # から始まるページ内リンク。"
+          },
+          {
+            "name": "field_2",
+            "label": "プロジェクト名",
+            "widget": "string",
+            "required": false
+          },
+          {
+            "name": "field_3",
+            "label": "説明",
+            "widget": "string",
+            "required": false
+          },
+          {
+            "name": "field_4",
+            "label": "掲載サービス名",
+            "widget": "string",
+            "required": false
+          },
+          {
+            "name": "field_5",
+            "label": "リンクの表示名",
+            "widget": "string",
+            "required": false
+          }
+        ],
+        "collapsed": true,
+        "default": [],
+        "required": false
+      },
+      {
+        "name": "field_1",
+        "label": "見出し・表示名：ACTIVITIES",
+        "widget": "string",
+        "required": false
+      },
+      {
+        "name": "field_2",
+        "label": "見出し・表示名：活動内容",
+        "widget": "string",
+        "required": false
+      },
+      {
+        "name": "field_3",
+        "label": "表示テキスト：カンボジアでの活動",
+        "widget": "string",
+        "required": false
+      },
+      {
+        "name": "field_4",
+        "label": "表示テキスト：日本での活動",
+        "widget": "string",
+        "required": false
+      },
+      {
+        "name": "field_5",
+        "label": "表示テキスト：沿革・実績",
+        "widget": "string",
+        "required": false
+      },
+      {
+        "name": "field_6",
+        "label": "表示テキスト：小学校支援",
+        "widget": "string",
+        "required": false
+      },
+      {
+        "name": "field_7",
+        "label": "表示テキスト：Dream Challenge Cup",
+        "widget": "string",
+        "required": false
+      },
+      {
+        "name": "field_8",
+        "label": "表示テキスト：沿革",
+        "widget": "string",
+        "required": false
+      },
+      {
+        "name": "field_9",
+        "label": "表示テキスト：クラウドファンディング実績",
+        "widget": "string",
+        "required": false
+      }
+    ],
+    "groups": [
+      {
+        "name": "schools",
+        "template": "<div class=\"act-card\">\n<img alt=\"@@field_2@@\" src=\"@@field_1@@\"/>\n<div class=\"act-body\">\n<div class=\"act-year\">@@field_5@@</div>\n<h3>@@field_3@@</h3>\n<p>@@field_4@@</p>\n</div>\n</div>"
+      },
+      {
+        "name": "dcc",
+        "template": "<div class=\"act-card\">\n<img alt=\"@@field_2@@\" src=\"@@field_1@@\"/>\n<div class=\"act-body\">\n<div class=\"act-year\">@@field_5@@</div>\n<h3>@@field_3@@</h3>\n<p>@@field_4@@</p>\n</div>\n</div>"
+      },
+      {
+        "name": "japan",
+        "template": "<div class=\"act-card\">\n<img alt=\"@@field_2@@\" src=\"@@field_1@@\" style=\"width:100%;height:190px;object-fit:cover;display:block;\"/>\n<div class=\"act-body\">\n<div class=\"act-year\">@@field_5@@</div>\n<h3>@@field_3@@</h3>\n<p>@@field_4@@</p>\n</div>\n</div>"
+      },
+      {
+        "name": "timeline",
+        "template": "<div class=\"tl-item\"><div class=\"tl-dot\"></div><div class=\"tl-y\">@@date@@</div><h4>@@title@@</h4><p>@@body@@</p></div>"
+      },
+      {
+        "name": "funding",
+        "template": "<a class=\"cf-card\" href=\"@@field_1@@\" rel=\"noopener\" target=\"_blank\">\n<div class=\"cf-platform\">@@field_4@@</div>\n<h3>@@field_2@@</h3>\n<p>@@field_3@@</p>\n<span class=\"cf-link\">@@field_5@@<svg aria-hidden=\"true\" class=\"lucide lucide-arrow-up-right\" fill=\"none\" stroke=\"currentColor\" stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-width=\"2\" viewbox=\"0 0 24 24\" xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M7 7h10v10\"></path><path d=\"M7 17 17 7\"></path></svg></span>\n</a>"
+      }
+    ]
+  },
+  {
+    "name": "media",
+    "label": "お知らせ欄の見出し",
+    "file": "content/pages/media.json",
+    "fields": [
+      {
+        "name": "style",
+        "label": "文字の見た目",
+        "widget": "object",
+        "collapsed": true,
+        "fields": [
+          {
+            "name": "font",
+            "label": "フォント",
+            "widget": "select",
+            "options": [
+              {
+                "label": "全体設定に合わせる",
+                "value": "inherit"
+              },
+              {
+                "label": "ゴシック体",
+                "value": "sans"
+              },
+              {
+                "label": "明朝体",
+                "value": "serif"
+              },
+              {
+                "label": "丸ゴシック体",
+                "value": "rounded"
+              }
+            ],
+            "default": "inherit"
+          },
+          {
+            "name": "heading_scale",
+            "label": "見出しの大きさ",
+            "widget": "select",
+            "options": [
+              {
+                "label": "全体設定に合わせる",
+                "value": "inherit"
+              },
+              {
+                "label": "小",
+                "value": "small"
+              },
+              {
+                "label": "標準",
+                "value": "normal"
+              },
+              {
+                "label": "大",
+                "value": "large"
+              }
+            ],
+            "default": "inherit"
+          },
+          {
+            "name": "body_scale",
+            "label": "本文の大きさ",
+            "widget": "select",
+            "options": [
+              {
+                "label": "全体設定に合わせる",
+                "value": "inherit"
+              },
+              {
+                "label": "小",
+                "value": "small"
+              },
+              {
+                "label": "標準",
+                "value": "normal"
+              },
+              {
+                "label": "大",
+                "value": "large"
+              }
+            ],
+            "default": "inherit"
+          },
+          {
+            "name": "align",
+            "label": "文字の配置",
+            "widget": "select",
+            "options": [
+              {
+                "label": "元の配置・全体設定に合わせる",
+                "value": "inherit"
+              },
+              {
+                "label": "左寄せ",
+                "value": "left"
+              },
+              {
+                "label": "中央寄せ",
+                "value": "center"
+              }
+            ],
+            "default": "inherit"
+          },
+          {
+            "name": "heading_weight",
+            "label": "見出しの太さ",
+            "widget": "select",
+            "options": [
+              {
+                "label": "元の太さ・全体設定に合わせる",
+                "value": "inherit"
+              },
+              {
+                "label": "標準",
+                "value": "normal"
+              },
+              {
+                "label": "太字",
+                "value": "bold"
+              }
+            ],
+            "default": "inherit"
+          },
+          {
+            "name": "heading_color",
+            "label": "見出しの文字色",
+            "widget": "color",
+            "allowInput": true,
+            "required": false,
+            "hint": "空欄なら元の配色・全体設定を使用。背景との読みやすさを確認してください。"
+          },
+          {
+            "name": "body_color",
+            "label": "本文の文字色",
+            "widget": "color",
+            "allowInput": true,
+            "required": false,
+            "hint": "空欄なら元の配色・全体設定を使用。"
+          }
+        ]
+      },
+      {
+        "name": "field_1",
+        "label": "見出し・表示名：NEWS & TOPICS",
+        "widget": "string",
+        "required": false
+      },
+      {
+        "name": "field_2",
+        "label": "見出し・表示名：News & Topics",
+        "widget": "string",
+        "required": false
+      },
+      {
+        "name": "field_3",
+        "label": "表示テキスト：新着",
+        "widget": "string",
+        "required": false
+      },
+      {
+        "name": "field_4",
+        "label": "表示テキスト：掲載記事",
+        "widget": "string",
+        "required": false
+      }
+    ],
+    "groups": []
+  },
+  {
+    "name": "join",
+    "label": "メンバー・協賛募集",
+    "file": "content/pages/join.json",
+    "fields": [
+      {
+        "name": "style",
+        "label": "文字の見た目",
+        "widget": "object",
+        "collapsed": true,
+        "fields": [
+          {
+            "name": "font",
+            "label": "フォント",
+            "widget": "select",
+            "options": [
+              {
+                "label": "全体設定に合わせる",
+                "value": "inherit"
+              },
+              {
+                "label": "ゴシック体",
+                "value": "sans"
+              },
+              {
+                "label": "明朝体",
+                "value": "serif"
+              },
+              {
+                "label": "丸ゴシック体",
+                "value": "rounded"
+              }
+            ],
+            "default": "inherit"
+          },
+          {
+            "name": "heading_scale",
+            "label": "見出しの大きさ",
+            "widget": "select",
+            "options": [
+              {
+                "label": "全体設定に合わせる",
+                "value": "inherit"
+              },
+              {
+                "label": "小",
+                "value": "small"
+              },
+              {
+                "label": "標準",
+                "value": "normal"
+              },
+              {
+                "label": "大",
+                "value": "large"
+              }
+            ],
+            "default": "inherit"
+          },
+          {
+            "name": "body_scale",
+            "label": "本文の大きさ",
+            "widget": "select",
+            "options": [
+              {
+                "label": "全体設定に合わせる",
+                "value": "inherit"
+              },
+              {
+                "label": "小",
+                "value": "small"
+              },
+              {
+                "label": "標準",
+                "value": "normal"
+              },
+              {
+                "label": "大",
+                "value": "large"
+              }
+            ],
+            "default": "inherit"
+          },
+          {
+            "name": "align",
+            "label": "文字の配置",
+            "widget": "select",
+            "options": [
+              {
+                "label": "元の配置・全体設定に合わせる",
+                "value": "inherit"
+              },
+              {
+                "label": "左寄せ",
+                "value": "left"
+              },
+              {
+                "label": "中央寄せ",
+                "value": "center"
+              }
+            ],
+            "default": "inherit"
+          },
+          {
+            "name": "heading_weight",
+            "label": "見出しの太さ",
+            "widget": "select",
+            "options": [
+              {
+                "label": "元の太さ・全体設定に合わせる",
+                "value": "inherit"
+              },
+              {
+                "label": "標準",
+                "value": "normal"
+              },
+              {
+                "label": "太字",
+                "value": "bold"
+              }
+            ],
+            "default": "inherit"
+          },
+          {
+            "name": "heading_color",
+            "label": "見出しの文字色",
+            "widget": "color",
+            "allowInput": true,
+            "required": false,
+            "hint": "空欄なら元の配色・全体設定を使用。背景との読みやすさを確認してください。"
+          },
+          {
+            "name": "body_color",
+            "label": "本文の文字色",
+            "widget": "color",
+            "allowInput": true,
+            "required": false,
+            "hint": "空欄なら元の配色・全体設定を使用。"
+          }
+        ]
+      },
+      {
+        "name": "recruitment",
+        "label": "募集案内",
+        "widget": "list",
+        "summary": "{{fields.field_3}}{{fields.title}}",
+        "fields": [
+          {
+            "name": "title",
+            "label": "見出し",
+            "widget": "string"
+          },
+          {
+            "name": "body",
+            "label": "案内文",
+            "widget": "text"
+          }
+        ],
+        "collapsed": true,
+        "default": [],
+        "required": false
+      },
+      {
+        "name": "field_1",
+        "label": "リンク先：詳しくはこちら",
+        "widget": "string",
+        "required": false,
+        "hint": "https://、mailto:、または # から始まるページ内リンク。"
+      },
+      {
+        "name": "field_2",
+        "label": "見出し・表示名：JOIN US",
+        "widget": "string",
+        "required": false
+      },
+      {
+        "name": "field_3",
+        "label": "見出し・表示名：一緒に活動しませんか？",
+        "widget": "string",
+        "required": false
+      },
+      {
+        "name": "field_4",
+        "label": "表示テキスト：詳しくはこちら",
+        "widget": "string",
+        "required": false
+      }
+    ],
+    "groups": [
+      {
+        "name": "recruitment",
+        "template": "<div class=\"jc\"><h4>@@title@@</h4><p>@@body@@</p></div>"
+      }
+    ]
+  },
+  {
+    "name": "contact",
+    "label": "連絡先・お問い合わせ",
+    "file": "content/pages/contact.json",
+    "fields": [
+      {
+        "name": "style",
+        "label": "文字の見た目",
+        "widget": "object",
+        "collapsed": true,
+        "fields": [
+          {
+            "name": "font",
+            "label": "フォント",
+            "widget": "select",
+            "options": [
+              {
+                "label": "全体設定に合わせる",
+                "value": "inherit"
+              },
+              {
+                "label": "ゴシック体",
+                "value": "sans"
+              },
+              {
+                "label": "明朝体",
+                "value": "serif"
+              },
+              {
+                "label": "丸ゴシック体",
+                "value": "rounded"
+              }
+            ],
+            "default": "inherit"
+          },
+          {
+            "name": "heading_scale",
+            "label": "見出しの大きさ",
+            "widget": "select",
+            "options": [
+              {
+                "label": "全体設定に合わせる",
+                "value": "inherit"
+              },
+              {
+                "label": "小",
+                "value": "small"
+              },
+              {
+                "label": "標準",
+                "value": "normal"
+              },
+              {
+                "label": "大",
+                "value": "large"
+              }
+            ],
+            "default": "inherit"
+          },
+          {
+            "name": "body_scale",
+            "label": "本文の大きさ",
+            "widget": "select",
+            "options": [
+              {
+                "label": "全体設定に合わせる",
+                "value": "inherit"
+              },
+              {
+                "label": "小",
+                "value": "small"
+              },
+              {
+                "label": "標準",
+                "value": "normal"
+              },
+              {
+                "label": "大",
+                "value": "large"
+              }
+            ],
+            "default": "inherit"
+          },
+          {
+            "name": "align",
+            "label": "文字の配置",
+            "widget": "select",
+            "options": [
+              {
+                "label": "元の配置・全体設定に合わせる",
+                "value": "inherit"
+              },
+              {
+                "label": "左寄せ",
+                "value": "left"
+              },
+              {
+                "label": "中央寄せ",
+                "value": "center"
+              }
+            ],
+            "default": "inherit"
+          },
+          {
+            "name": "heading_weight",
+            "label": "見出しの太さ",
+            "widget": "select",
+            "options": [
+              {
+                "label": "元の太さ・全体設定に合わせる",
+                "value": "inherit"
+              },
+              {
+                "label": "標準",
+                "value": "normal"
+              },
+              {
+                "label": "太字",
+                "value": "bold"
+              }
+            ],
+            "default": "inherit"
+          },
+          {
+            "name": "heading_color",
+            "label": "見出しの文字色",
+            "widget": "color",
+            "allowInput": true,
+            "required": false,
+            "hint": "空欄なら元の配色・全体設定を使用。背景との読みやすさを確認してください。"
+          },
+          {
+            "name": "body_color",
+            "label": "本文の文字色",
+            "widget": "color",
+            "allowInput": true,
+            "required": false,
+            "hint": "空欄なら元の配色・全体設定を使用。"
+          }
+        ]
+      },
+      {
+        "name": "field_1",
+        "label": "リンク先：worldfut@gmail.com",
+        "widget": "string",
+        "required": false,
+        "hint": "https://、mailto:、または # から始まるページ内リンク。"
+      },
+      {
+        "name": "field_2",
+        "label": "リンク先：worldfut.e@gmail.com",
+        "widget": "string",
+        "required": false,
+        "hint": "https://、mailto:、または # から始まるページ内リンク。"
+      },
+      {
+        "name": "field_3",
+        "label": "リンク先：X",
+        "widget": "string",
+        "required": false,
+        "hint": "https://、mailto:、または # から始まるページ内リンク。"
+      },
+      {
+        "name": "field_4",
+        "label": "リンク先：Instagram",
+        "widget": "string",
+        "required": false,
+        "hint": "https://、mailto:、または # から始まるページ内リンク。"
+      },
+      {
+        "name": "field_5",
+        "label": "リンク先：Facebook",
+        "widget": "string",
+        "required": false,
+        "hint": "https://、mailto:、または # から始まるページ内リンク。"
+      },
+      {
+        "name": "field_6",
+        "label": "リンク先：note",
+        "widget": "string",
+        "required": false,
+        "hint": "https://、mailto:、または # から始まるページ内リンク。"
+      },
+      {
+        "name": "field_7",
+        "label": "リンク先：TikTok",
+        "widget": "string",
+        "required": false,
+        "hint": "https://、mailto:、または # から始まるページ内リンク。"
+      },
+      {
+        "name": "field_8",
+        "label": "見出し・表示名：CONTACT",
+        "widget": "string",
+        "required": false
+      },
+      {
+        "name": "field_9",
+        "label": "見出し・表示名：お問い合わせ",
+        "widget": "string",
+        "required": false
+      },
+      {
+        "name": "field_10",
+        "label": "見出し・表示名：連絡先・SNS",
+        "widget": "string",
+        "required": false
+      },
+      {
+        "name": "field_11",
+        "label": "見出し・表示名：お問い合わせフォーム",
+        "widget": "string",
+        "required": false
+      },
+      {
+        "name": "field_12",
+        "label": "見出し・表示名：お名前 *",
+        "widget": "string",
+        "required": false
+      },
+      {
+        "name": "field_13",
+        "label": "見出し・表示名：メールアドレス *",
+        "widget": "string",
+        "required": false
+      },
+      {
+        "name": "field_14",
+        "label": "見出し・表示名：お問い合わせ種別",
+        "widget": "string",
+        "required": false
+      },
+      {
+        "name": "field_15",
+        "label": "見出し・表示名：一般のお問い合わせ",
+        "widget": "string",
+        "required": false
+      },
+      {
+        "name": "field_16",
+        "label": "見出し・表示名：協賛・スポンサー",
+        "widget": "string",
+        "required": false
+      },
+      {
+        "name": "field_17",
+        "label": "見出し・表示名：メンバー参加について",
+        "widget": "string",
+        "required": false
+      },
+      {
+        "name": "field_18",
+        "label": "見出し・表示名：取材・メディア",
+        "widget": "string",
+        "required": false
+      },
+      {
+        "name": "field_19",
+        "label": "見出し・表示名：その他",
+        "widget": "string",
+        "required": false
+      },
+      {
+        "name": "field_20",
+        "label": "見出し・表示名：お問い合わせ内容 *",
+        "widget": "string",
+        "required": false
+      },
+      {
+        "name": "field_21",
+        "label": "表示テキスト：一般お問い合わせ",
+        "widget": "string",
+        "required": false
+      },
+      {
+        "name": "field_22",
+        "label": "表示テキスト：worldfut@gmail.com",
+        "widget": "string",
+        "required": false
+      },
+      {
+        "name": "field_23",
+        "label": "表示テキスト：協賛・営業のお問い合わせ",
+        "widget": "string",
+        "required": false
+      },
+      {
+        "name": "field_24",
+        "label": "表示テキスト：worldfut.e@gmail.com",
+        "widget": "string",
+        "required": false
+      },
+      {
+        "name": "field_25",
+        "label": "表示テキスト：X",
+        "widget": "string",
+        "required": false
+      },
+      {
+        "name": "field_26",
+        "label": "表示テキスト：Instagram",
+        "widget": "string",
+        "required": false
+      },
+      {
+        "name": "field_27",
+        "label": "表示テキスト：Facebook",
+        "widget": "string",
+        "required": false
+      },
+      {
+        "name": "field_28",
+        "label": "表示テキスト：note",
+        "widget": "string",
+        "required": false
+      },
+      {
+        "name": "field_29",
+        "label": "表示テキスト：TikTok",
+        "widget": "string",
+        "required": false
+      },
+      {
+        "name": "field_30",
+        "label": "表示テキスト：送信する",
+        "widget": "string",
+        "required": false
+      }
+    ],
+    "groups": []
+  },
+  {
+    "name": "navigation",
+    "label": "上部メニュー",
+    "file": "content/pages/navigation.json",
+    "fields": [
+      {
+        "name": "menu",
+        "label": "メニュー",
+        "widget": "list",
+        "summary": "{{fields.field_2}}",
+        "fields": [
+          {
+            "name": "field_1",
+            "label": "リンク先：ページ内または外部URL",
+            "widget": "string",
+            "required": false,
+            "hint": "https://、mailto:、または # から始まるページ内リンク。"
+          },
+          {
+            "name": "field_2",
+            "label": "メニューの表示名",
+            "widget": "string",
+            "required": false
+          }
+        ],
+        "collapsed": true,
+        "default": [],
+        "required": false
+      },
+      {
+        "name": "field_1",
+        "label": "写真：WorldFut",
+        "widget": "image",
+        "required": false,
+        "allow_multiple": false
+      },
+      {
+        "name": "field_2",
+        "label": "写真の説明",
+        "widget": "string",
+        "required": false
+      },
+      {
+        "name": "field_3",
+        "label": "リンク先：WorldFut",
+        "widget": "string",
+        "required": false,
+        "hint": "https://、mailto:、または # から始まるページ内リンク。"
+      },
+      {
+        "name": "field_4",
+        "label": "表示テキスト：WorldFut",
+        "widget": "string",
+        "required": false
+      }
+    ],
+    "groups": [
+      {
+        "name": "menu",
+        "template": "<li><a href=\"@@field_1@@\">@@field_2@@</a></li>"
+      }
+    ]
+  },
+  {
+    "name": "footer",
+    "label": "フッター",
+    "file": "content/pages/footer.json",
+    "fields": [
+      {
+        "name": "links_2",
+        "label": "リンク一覧",
+        "widget": "list",
+        "summary": "{{fields.field_2}}",
+        "fields": [
+          {
+            "name": "field_1",
+            "label": "リンク先：ページ内または外部URL",
+            "widget": "string",
+            "required": false,
+            "hint": "https://、mailto:、または # から始まるページ内リンク。"
+          },
+          {
+            "name": "field_2",
+            "label": "メニューの表示名",
+            "widget": "string",
+            "required": false
+          }
+        ],
+        "collapsed": true,
+        "default": [],
+        "required": false
+      },
+      {
+        "name": "links_3",
+        "label": "リンク一覧",
+        "widget": "list",
+        "summary": "{{fields.field_2}}",
+        "fields": [
+          {
+            "name": "field_1",
+            "label": "リンク先：ページ内または外部URL",
+            "widget": "string",
+            "required": false,
+            "hint": "https://、mailto:、または # から始まるページ内リンク。"
+          },
+          {
+            "name": "field_2",
+            "label": "メニューの表示名",
+            "widget": "string",
+            "required": false
+          },
+          {
+            "name": "tab",
+            "label": "開く活動タブ",
+            "widget": "select",
+            "options": [
+              "cambodia",
+              "japan",
+              "history"
+            ],
+            "default": "cambodia"
+          }
+        ],
+        "collapsed": true,
+        "default": [],
+        "required": false
+      },
+      {
+        "name": "links_4",
+        "label": "リンク一覧",
+        "widget": "list",
+        "summary": "{{fields.field_2}}",
+        "fields": [
+          {
+            "name": "field_1",
+            "label": "リンク先：ページ内または外部URL",
+            "widget": "string",
+            "required": false,
+            "hint": "https://、mailto:、または # から始まるページ内リンク。"
+          },
+          {
+            "name": "field_2",
+            "label": "メニューの表示名",
+            "widget": "string",
+            "required": false
+          }
+        ],
+        "collapsed": true,
+        "default": [],
+        "required": false
+      },
+      {
+        "name": "field_1",
+        "label": "写真：WorldFut",
+        "widget": "image",
+        "required": false,
+        "allow_multiple": false
+      },
+      {
+        "name": "field_2",
+        "label": "写真の説明",
+        "widget": "string",
+        "required": false
+      },
+      {
+        "name": "field_3",
+        "label": "リンク先：WorldFut",
+        "widget": "string",
+        "required": false,
+        "hint": "https://、mailto:、または # から始まるページ内リンク。"
+      },
+      {
+        "name": "field_4",
+        "label": "リンク先：",
+        "widget": "string",
+        "required": false,
+        "hint": "https://、mailto:、または # から始まるページ内リンク。"
+      },
+      {
+        "name": "field_5",
+        "label": "リンク先：",
+        "widget": "string",
+        "required": false,
+        "hint": "https://、mailto:、または # から始まるページ内リンク。"
+      },
+      {
+        "name": "field_6",
+        "label": "リンク先：",
+        "widget": "string",
+        "required": false,
+        "hint": "https://、mailto:、または # から始まるページ内リンク。"
+      },
+      {
+        "name": "field_7",
+        "label": "リンク先：",
+        "widget": "string",
+        "required": false,
+        "hint": "https://、mailto:、または # から始まるページ内リンク。"
+      },
+      {
+        "name": "field_8",
+        "label": "リンク先：",
+        "widget": "string",
+        "required": false,
+        "hint": "https://、mailto:、または # から始まるページ内リンク。"
+      },
+      {
+        "name": "field_9",
+        "label": "リンク先：worldfut@gmail.com",
+        "widget": "string",
+        "required": false,
+        "hint": "https://、mailto:、または # から始まるページ内リンク。"
+      },
+      {
+        "name": "field_10",
+        "label": "リンク先：worldfut.e@gmail.com",
+        "widget": "string",
+        "required": false,
+        "hint": "https://、mailto:、または # から始まるページ内リンク。"
+      },
+      {
+        "name": "field_11",
+        "label": "見出し・表示名：幸せと笑顔で溢れる世界を、サッカーで創る。",
+        "widget": "string",
+        "required": false
+      },
+      {
+        "name": "field_12",
+        "label": "見出し・表示名：学生団体 WorldFut",
+        "widget": "string",
+        "required": false
+      },
+      {
+        "name": "field_13",
+        "label": "見出し・表示名：SITE",
+        "widget": "string",
+        "required": false
+      },
+      {
+        "name": "field_14",
+        "label": "見出し・表示名：ACTIVITIES",
+        "widget": "string",
+        "required": false
+      },
+      {
+        "name": "field_15",
+        "label": "見出し・表示名：ACTION",
+        "widget": "string",
+        "required": false
+      },
+      {
+        "name": "field_16",
+        "label": "見出し・表示名：© 2026 学生団体 WorldFut. All rights",
+        "widget": "string",
+        "required": false
+      },
+      {
+        "name": "field_17",
+        "label": "表示テキスト：WorldFut",
+        "widget": "string",
+        "required": false
+      },
+      {
+        "name": "field_18",
+        "label": "表示テキスト：worldfut@gmail.com",
+        "widget": "string",
+        "required": false
+      },
+      {
+        "name": "field_19",
+        "label": "表示テキスト：協賛・営業：",
+        "widget": "string",
+        "required": false
+      },
+      {
+        "name": "field_20",
+        "label": "表示テキスト：worldfut.e@gmail.com",
+        "widget": "string",
+        "required": false
+      }
+    ],
+    "groups": [
+      {
+        "name": "links_2",
+        "template": "<li><a href=\"@@field_1@@\">@@field_2@@</a></li>"
+      },
+      {
+        "name": "links_3",
+        "template": "<li><a data-tab=\"@@tab@@\" href=\"@@field_1@@\">@@field_2@@</a></li>"
+      },
+      {
+        "name": "links_4",
+        "template": "<li><a href=\"@@field_1@@\">@@field_2@@</a></li>"
+      }
+    ]
+  }
+]
