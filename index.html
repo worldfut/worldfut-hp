@@ -588,6 +588,55 @@
     .ft2-bottom{display:flex;justify-content:space-between;align-items:center;gap:1rem;flex-wrap:wrap}
     .ft2-bottom a{color:rgba(255,255,255,.6);text-decoration:none;font-size:.76rem}
     .ft2-bottom a:hover{color:#fff}
+    /* 詳細ページへのリンク */
+    .more-link{display:inline-flex;align-items:center;gap:.35rem;margin-top:.9rem;font-weight:700;font-size:.9rem;color:var(--brand);text-decoration:none;border-bottom:1.5px solid currentColor;padding-bottom:.1rem;transition:gap .2s}
+    .more-link:hover{gap:.6rem}
+    .pitch-sec .more-link{color:var(--sky)}
+    .more-row{text-align:center;margin-top:2.2rem}
+    .jc .more-link{font-size:.82rem;margin-top:.7rem;color:var(--sky)}
+    html{scroll-padding-top:84px}
+    /* ===== 団体概要：見出し＋写真の重ね／理念・ビジョンの写真カード（詳細ページと共通） ===== */
+    .ab-lead{display:grid;grid-template-columns:1fr 1.05fr;gap:4rem;align-items:center}
+    .ab-catch{font-size:clamp(2rem,4.6vw,3.3rem);font-weight:900;line-height:1.3;color:var(--navy);margin:1rem 0 1.8rem;letter-spacing:.01em}
+    .ab-catch span{color:var(--brand)}
+    .ab-lead-text>p:not(.sl){line-height:2;color:var(--ink)}
+    .ab-lead-text>p+p{margin-top:.9rem}
+    .ab-photos{position:relative;aspect-ratio:1/1}
+    .ab-photos img{position:absolute;object-fit:cover;border-radius:18px;border:4px solid #fff;box-shadow:0 22px 50px rgba(7,31,59,.22)}
+    .ab-ph1{width:72%;aspect-ratio:4/3;top:0;right:0}
+    .ab-ph2{width:62%;aspect-ratio:4/3;bottom:4%;left:0;z-index:1}
+    .ab-tag{position:absolute;z-index:2;font-family:'Outfit',sans-serif;font-weight:700;font-size:.72rem;letter-spacing:.24em;background:var(--navy);color:#fff;padding:.45rem .95rem;border-radius:50px}
+    .ab-tag1{top:4%;right:4%}
+    .ab-tag2{bottom:8%;left:4%;background:var(--brand)}
+    .ab-mv{display:grid;grid-template-columns:1fr 1fr;gap:1.6rem}
+    .ab-mv .mission-photo-card{aspect-ratio:4/3}
+    .ab-mv .mission-photo-overlay{padding:2rem}
+    .ab-mv-text{font-size:clamp(1.05rem,1.8vw,1.3rem)!important;font-weight:700;line-height:1.85!important}
+    #about .ab-catch{line-height:1.3}
+    .ab-lead-text .about-text p{max-width:none}
+    .ab-lead-text .more-link{margin-top:.4rem}
+    #about .ab-mv{margin-top:4rem}
+    @media(max-width:900px){
+      .ab-lead{grid-template-columns:1fr;gap:2.4rem}
+      .ab-photos{max-width:520px;width:100%;margin:0 auto}
+    }
+    @media(max-width:640px){
+      .ab-mv{grid-template-columns:1fr}
+      #about .ab-mv{margin-top:3rem}
+      .ab-mv .mission-photo-card{aspect-ratio:4/5}
+      .ab-mv .mission-photo-overlay{padding:1.4rem}
+    }
+    /* 狭い画面でもメニューを常に表示する（項目が多いので1180px以下は2段目に横並び） */
+    @media(max-width:1180px){
+      nav{flex-wrap:wrap;height:auto;padding:.45rem 1rem 0}
+      .nav-logo{height:46px}
+      .hamburger{display:none!important}
+      .nav-links,.nav-links.open{display:flex!important;position:static;flex-direction:row;width:100%;overflow-x:auto;gap:.15rem;padding:.15rem 0 .5rem;background:none;box-shadow:none;scrollbar-width:none;-webkit-overflow-scrolling:touch}
+      .nav-links::-webkit-scrollbar{display:none}
+      .nav-links li{flex:0 0 auto}
+      .nav-links a{white-space:nowrap;font-size:.8rem;padding:.4rem .7rem}
+      html{scroll-padding-top:112px}
+    }
   </style>
 <script>
 const THUMBS = {"img_1": "images/thumb/img_1.jpg", "img_2": "images/thumb/img_2.jpg", "img_3": "images/thumb/img_3.jpg", "img_4": "images/thumb/img_4.jpg", "img_5": "images/thumb/img_5.jpg", "img_8": "images/thumb/img_8.jpg", "img_9": "images/thumb/img_9.jpg", "img_11": "images/thumb/img_11.jpg", "img_12": "images/thumb/img_12.jpg", "img_14": "images/thumb/img_14.jpg", "img_16": "images/thumb/img_16.jpg", "img_17": "images/thumb/img_17.jpg", "img_a1": "images/thumb/img_a1.jpg", "img_a3": "images/thumb/img_a3.jpg", "img_a4": "images/thumb/img_a4.jpg", "new1": "images/thumb/new1.jpg", "new2": "images/thumb/new2.jpg", "new3": "images/thumb/new3.jpg", "new4": "images/thumb/new4.jpg", "new5": "images/thumb/new5.jpg", "new6": "images/thumb/new6.jpg", "mission1": "images/thumb/mission1.jpg", "mission2": "images/thumb/mission2.jpg", "act_smaong": "images/thumb/act_smaong.jpg", "act_keothom": "images/thumb/act_keothom.jpg", "act_phnompenh": "images/thumb/act_phnompenh.jpg", "act_siemreap": "images/thumb/act_siemreap.jpg", "jpn_charity": "images/thumb/jpn_charity.jpg", "jpn_aebj": "images/thumb/jpn_aebj.jpg", "jpn_shisetsu": "images/thumb/jpn_shisetsu.jpg", "jpn_report": "images/thumb/jpn_report.jpg"};
@@ -654,7 +703,6 @@ document.addEventListener('DOMContentLoaded', function() {
   // Activity card images
   const ai = {
     actImgCharity: IMGS.jpn_charity,
-    actImgAebj: IMGS.jpn_aebj,
     actImgReport: IMGS.jpn_report,
     actImgShisetsu: IMGS.jpn_shisetsu,
     actImgSmaong: IMGS.act_smaong,
@@ -704,9 +752,12 @@ document.addEventListener('DOMContentLoaded', function() {
   </a>
   <ul class="nav-links" id="navLinks">
     <li><a href="#top" class="nav-top-btn">TOP</a></li>
-    <li><a href="#about">団体概要</a></li>
-    <li><a href="#activities">活動内容</a></li>
-    <li><a href="#media">News & Topics</a></li>
+    <li><a href="about.html">団体概要</a></li>
+    <li><a href="cambodia.html">カンボジアでの活動</a></li>
+    <li><a href="japan.html">日本での活動</a></li>
+    <li><a href="history.html">沿革・実績</a></li>
+    <li><a href="news.html">News &amp; Topics</a></li>
+    <li><a href="join.html">参加・応援</a></li>
     <li><a href="#contact" class="nav-cta">お問い合わせ</a></li>
   </ul>
   <div class="hamburger" id="hamburger" onclick="toggleMenu()">
@@ -775,25 +826,24 @@ document.addEventListener('DOMContentLoaded', function() {
     <p class="sl reveal">ABOUT US</p>
     <h2 class="st reveal">団体概要</h2>
     <div class="dv reveal"></div>
-    <div class="about-grid">
-      <div class="reveal">
+    <div class="ab-lead">
+      <div class="ab-lead-text reveal">
+        <p class="ab-catch">サッカーで<br>資金調達し、<br><span>サッカーで</span><br><span>支援する。</span></p>
         <div class="about-text">
           <p>学生団体WorldFutは、<strong>「サッカー×国際協力」</strong>を軸に、主にカンボジアの子どもたちへの支援を行っている団体です。2008年に設立され、都内近郊の複数大学のメンバーで構成されています。</p>
           <p>日本でチャリティーフットサル大会などを開催して資金を調達し、その収益をカンボジアの子どもたちへの支援に充てています。<strong>「サッカーで資金調達し、サッカーで支援する」</strong>という唯一無二のスタイルで活動を続けています。</p>
         </div>
+        <a class="more-link" href="about.html">団体概要を詳しく見る<span aria-hidden="true">→</span></a>
+      </div>
+      <div class="ab-photos reveal">
+        <img class="ab-ph1" src="images/jpn_charity.jpg" alt="日本でのチャリティーフットサル大会" loading="lazy"/>
+        <img class="ab-ph2" src="images/new5.jpg" alt="カンボジアで喜ぶ子どもたち" loading="lazy"/>
+        <span class="ab-tag ab-tag1">JAPAN</span><span class="ab-tag ab-tag2">CAMBODIA</span>
       </div>
     </div>
-    <div class="mv reveal">
-      <div class="mv-col">
-        <p class="mv-en">PHILOSOPHY</p>
-        <h3 class="mv-ja">団体理念</h3>
-        <p class="mv-text">幸せと笑顔で溢れる世界を創るために、サッカーを通してすべての人々にキラキラ笑って暮らすきっかけを提供します。</p>
-      </div>
-      <div class="mv-col">
-        <p class="mv-en">VISION</p>
-        <h3 class="mv-ja">活動ビジョン</h3>
-        <p class="mv-text">子どもたちにサッカーを楽しみ、夢や目標に向かって挑戦できる環境を提供します。</p>
-      </div>
+    <div class="ab-mv reveal">
+      <div class="mission-photo-card" style="background-image:url('images/mission1.jpg')"><div class="mission-photo-overlay"><p class="mission-label">PHILOSOPHY　団体理念</p><p class="ab-mv-text">幸せと笑顔で溢れる世界を創るために、サッカーを通してすべての人々にキラキラ笑って暮らすきっかけを提供します。</p></div></div>
+      <div class="mission-photo-card" style="background-image:url('images/img_17.jpg')"><div class="mission-photo-overlay"><p class="mission-label">VISION　活動ビジョン</p><p class="ab-mv-text">子どもたちにサッカーを楽しみ、夢や目標に向かって挑戦できる環境を提供します。</p></div></div>
     </div>
   </div>
   <div class="mq" aria-hidden="true"><div class="mq-track" id="mqTrack"></div></div>
@@ -823,6 +873,7 @@ document.addEventListener('DOMContentLoaded', function() {
             <div class="act-year">2008年〜</div>
             <h3>スマオン小学校</h3>
             <p>WorldFutが最初にサポートを開始した小学校です。サッカーボールの寄付から始まり、グラウンド建設（2010年）・校舎建設（2013〜2014年）・FCスマオン設立（2019年）など、子どもたちが自立してサッカーを楽しめる環境づくりを続けています。</p>
+            <a class="more-link" href="cambodia.html#smaong">詳しく見る<span aria-hidden="true">→</span></a>
           </div>
         </div>
         <div class="act-card">
@@ -831,6 +882,7 @@ document.addEventListener('DOMContentLoaded', function() {
             <div class="act-year">2019年〜</div>
             <h3>ケウトム小学校</h3>
             <p>2019年より新たにサポートを開始。クラウドファンディングで1,217,000円を達成し、グラウンド建設（2020年）を実現。ルール理解・用具管理など、子どもたちが主体的にサッカーに取り組める環境を整えています。</p>
+            <a class="more-link" href="cambodia.html#keothom">詳しく見る<span aria-hidden="true">→</span></a>
           </div>
         </div>
       </div>
@@ -844,6 +896,7 @@ document.addEventListener('DOMContentLoaded', function() {
             <div class="act-year">2016年〜</div>
             <h3>Dream Challenge Cup in Phnom Penh</h3>
             <p>農村部の子どもたちをプロ使用スタジアムに無料招待。プロ選手との交流も実現し、子どもたちに「サッカー選手」という夢の原体験を提供します。2023年には初の女子チームも参加しました。</p>
+            <a class="more-link" href="cambodia.html#dcc-phnompenh">詳しく見る<span aria-hidden="true">→</span></a>
           </div>
         </div>
         <div class="act-card">
@@ -852,6 +905,7 @@ document.addEventListener('DOMContentLoaded', function() {
             <div class="act-year">2025年〜</div>
             <h3>Dream Challenge Cup in Siem Reap</h3>
             <p>2025年より新たにSiem Reapでの開催を開始。これまで首都Phnom Penh近郊に限定されていた参加対象を大きく拡大し、より多くの地域の子どもたちを招待できるようになりました。現在はPhnom Penhとの2都市同時開催を実現し、より多くの子どもたちに夢を届ける機会を創出しています。</p>
+            <a class="more-link" href="cambodia.html#dcc-siemreap">詳しく見る<span aria-hidden="true">→</span></a>
           </div>
         </div>
       </div>
@@ -869,6 +923,7 @@ document.addEventListener('DOMContentLoaded', function() {
             <div class="act-year">年3回開催</div>
             <h3>チャリティーイベント</h3>
             <p>年3回・200人規模のチャリティーフットサル大会を開催。男女問わず楽しめるように多様な企画も展開しています。</p>
+            <a class="more-link" href="japan.html#charity">詳しく見る<span aria-hidden="true">→</span></a>
           </div>
         </div>
 
@@ -879,16 +934,7 @@ document.addEventListener('DOMContentLoaded', function() {
             <div class="act-year">2021年〜</div>
             <h3>児童養護施設訪問</h3>
             <p>2021年より2つの児童養護施設をサポート。コロナ禍でカンボジアへ渡航ができない中、「日本にも、団体理念が届いていない子どもたちがいるのでは」という疑問から開始したPJ。</p>
-          </div>
-        </div>
-
-        <!-- ブラジル人学校 -->
-        <div class="act-card">
-          <img loading="lazy" decoding="async" id="actImgAebj" src="" alt="ブラジル人学校" style="width:100%;height:190px;object-fit:cover;display:block;"/>
-          <div class="act-body">
-            <div class="act-year">2022年〜</div>
-            <h3>ブラジル人学校（AEBJ）</h3>
-            <p>2022年よりEAS浜松校・太田校へのサポート。サッカー大会運営・健康教室・日本文化普及など国際交流を通じた支援を展開。</p>
+            <a class="more-link" href="japan.html#children">詳しく見る<span aria-hidden="true">→</span></a>
           </div>
         </div>
 
@@ -899,6 +945,7 @@ document.addEventListener('DOMContentLoaded', function() {
             <div class="act-year">毎年12月</div>
             <h3>活動報告会</h3>
             <p>毎年12月に年間報告会を開催。協賛企業様・保護者・OB・OGの方々に活動内容と収支状況を報告します。</p>
+            <a class="more-link" href="japan.html#report">詳しく見る<span aria-hidden="true">→</span></a>
           </div>
         </div>
 
@@ -960,6 +1007,7 @@ document.addEventListener('DOMContentLoaded', function() {
             <span class="cf-link">プロジェクトを見る<svg aria-hidden="true" class="lucide lucide-arrow-up-right" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" ><path d="M7 7h10v10" /><path d="M7 17 17 7" /></svg></span>
           </a>
         </div>
+        <div class="more-row"><a class="more-link" href="history.html">沿革・実績の詳細を見る<span aria-hidden="true">→</span></a></div>
       </div>
     </div>
   </div>
@@ -1030,6 +1078,7 @@ document.addEventListener('DOMContentLoaded', function() {
       </div>
     </div>
 
+    <div class="more-row reveal"><a class="more-link" href="news.html">お知らせ・掲載記事の一覧へ<span aria-hidden="true">→</span></a></div>
   </div>
 </section>
 
@@ -1042,10 +1091,10 @@ document.addEventListener('DOMContentLoaded', function() {
     <div class="dv reveal" style="margin:0 auto 2rem"></div>
     <div class="j-g reveal">
       <div class="jc"><h4>MEMBER</h4><p>都内近郊の大学1・2年生大募集。サッカーが好き、国際協力に興味がある方、ぜひ一緒に活動しましょう。</p><p style="margin-top:.8rem;font-size:.82rem;color:rgba(255,255,255,.8);display:flex;flex-direction:column;gap:.3rem"><span class="jc-meta"><svg aria-hidden="true" class="lucide lucide-calendar-clock" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" ><path d="M21 7.5V6a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h3.5" /><path d="M16 2v4" /><path d="M8 2v4" /><path d="M3 10h5" /><path d="M17.5 17.5 16 16.3V14" /><circle cx="16" cy="16" r="6" /></svg>活動日：毎週火・木 18:00〜22:00</span><span class="jc-meta"><svg aria-hidden="true" class="lucide lucide-map-pin" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" ><path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0" /><circle cx="12" cy="10" r="3" /></svg>神田駅・飯田橋駅周辺の会議室</span></p></div>
-      <div class="jc"><h4>SPONSOR</h4><p>企業・団体様からのご協賛を募集しています。子どもたちの夢につながる支援にご協力お願いいたします。</p></div>
-      <div class="jc"><h4>SUPPORT</h4><p>チャリティーイベントへのご参加もお待ちしています。皆様の参加費が子どもたちの夢や未来を広げる活動に繋がります。</p></div>
+      <div class="jc"><h4>SPONSOR</h4><p>企業・団体様からのご協賛を募集しています。子どもたちの夢につながる支援にご協力お願いいたします。</p><a class="more-link" href="sponsor.html">協賛について<span aria-hidden="true">→</span></a></div>
+      <div class="jc"><h4>SUPPORT</h4><p>チャリティーイベントへのご参加もお待ちしています。皆様の参加費が子どもたちの夢や未来を広げる活動に繋がります。</p><a class="more-link" href="japan.html#charity">イベントについて<span aria-hidden="true">→</span></a></div>
     </div>
-    <div class="reveal"><a href="#contact" class="btn-w">詳しくはこちら<svg aria-hidden="true" class="lucide lucide-arrow-right" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" ><path d="M5 12h14" /><path d="m12 5 7 7-7 7" /></svg></a></div>
+    <div class="reveal"><a href="join.html" class="btn-w">詳しくはこちら<svg aria-hidden="true" class="lucide lucide-arrow-right" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" ><path d="M5 12h14" /><path d="m12 5 7 7-7 7" /></svg></a></div>
   </div>
 </section>
 
@@ -1134,18 +1183,19 @@ document.addEventListener('DOMContentLoaded', function() {
     <div class="ft2-col">
       <h4>ACTIVITIES</h4>
       <ul>
-        <li><a href="#activities" data-tab="cambodia">カンボジアでの活動</a></li>
-        <li><a href="#activities" data-tab="japan">日本での活動</a></li>
-        <li><a href="#activities" data-tab="history">沿革・実績</a></li>
-        <li><a href="#activities" data-tab="history">クラウドファンディング実績</a></li>
+        <li><a href="about.html">団体概要</a></li>
+        <li><a href="cambodia.html">カンボジアでの活動</a></li>
+        <li><a href="japan.html">日本での活動</a></li>
+        <li><a href="history.html">沿革・実績</a></li>
+        <li><a href="news.html">News &amp; Topics</a></li>
       </ul>
     </div>
     <div class="ft2-col">
       <h4>ACTION</h4>
       <ul>
-        <li><a href="#join">メンバーとして参加する</a></li>
-        <li><a href="#join">協賛する</a></li>
-        <li><a href="#join">イベントに参加する</a></li>
+        <li><a href="join.html#member">メンバーとして参加する</a></li>
+        <li><a href="sponsor.html">協賛する</a></li>
+        <li><a href="japan.html#charity">イベントに参加する</a></li>
         <li><a href="#contact">お問い合わせ</a></li>
       </ul>
     </div>

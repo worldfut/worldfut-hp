@@ -1,5 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url><loc>https://worldfut.jp/</loc><lastmod>2026-11-19</lastmod><priority>1.0</priority></url>
+  <url><loc>https://worldfut.jp/about.html</loc><lastmod>2026-11-19</lastmod><priority>0.8</priority></url>
+  <url><loc>https://worldfut.jp/cambodia.html</loc><lastmod>2026-11-19</lastmod><priority>0.8</priority></url>
+  <url><loc>https://worldfut.jp/japan.html</loc><lastmod>2026-11-19</lastmod><priority>0.8</priority></url>
+  <url><loc>https://worldfut.jp/history.html</loc><lastmod>2026-11-19</lastmod><priority>0.8</priority></url>
+  <url><loc>https://worldfut.jp/sponsor.html</loc><lastmod>2026-11-19</lastmod><priority>0.8</priority></url>
+  <url><loc>https://worldfut.jp/join.html</loc><lastmod>2026-11-19</lastmod><priority>0.8</priority></url>
+  <url><loc>https://worldfut.jp/news.html</loc><lastmod>2026-11-19</lastmod><priority>0.8</priority></url>
   <url><loc>https://worldfut.jp/privacy.html</loc><lastmod>2026-11-19</lastmod><priority>0.3</priority></url>
 </urlset>
