@@ -547,9 +547,12 @@
     }
     @media(max-width:560px){
       footer.ft2{padding:3.5rem 1.25rem 0}
-      .ft2-in{grid-template-columns:1fr}
+      .ft2-in{grid-template-columns:1fr 1fr;column-gap:1rem;row-gap:2.2rem}
       .ft2-col{padding:0!important}
       .ft2-col::before{display:none}
+      .ft2-col h4{margin-bottom:1.1rem}
+      .ft2-col ul{gap:.85rem}
+      .ft2-col a{font-size:.86rem}
     }
 
     .consent{display:flex;align-items:flex-start;gap:.6rem;margin:.4rem 0 1.2rem;font-size:.88rem;color:var(--ink);cursor:pointer;line-height:1.6}
@@ -607,4 +610,8 @@
       .nav-links a{white-space:nowrap;font-size:.8rem;padding:.4rem .7rem}
       html{scroll-padding-top:112px}
     }
+
+    /* 文節の切れ目（<wbr>）でだけ改行する。見出しは最終行が1〜2文字だけにならないように */
+    :where(*):has(> wbr){word-break:keep-all;overflow-wrap:anywhere}
+    h1,h2,h3,h4{text-wrap:pretty}
   

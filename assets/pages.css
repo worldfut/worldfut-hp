@@ -160,3 +160,5 @@ html{scroll-padding-top:84px}
   .msg-photo{max-width:560px}
   .msgs{gap:3.5rem}
 }
+/* 強調語（プレーする環境 など）を途中で改行しない */
+.sub-intro strong{white-space:nowrap}

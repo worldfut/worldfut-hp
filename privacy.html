@@ -43,7 +43,9 @@
     footer{background:var(--navy);color:rgba(255,255,255,.55);text-align:center;font-size:.76rem;padding:1.8rem 1rem}
     footer a{color:rgba(255,255,255,.75);text-decoration:none}
     @media(max-width:560px){header{padding:0 1.25rem}.hero{padding:3.5rem 1.25rem 3.5rem}}
-  </style>
+    :where(*):has(> wbr){word-break:keep-all;overflow-wrap:anywhere}
+  footer a{white-space:nowrap}
+</style>
 </head>
 <body>
 <header>
@@ -71,8 +73,8 @@
     <h2><span>02</span>利用目的</h2>
     <p>取得した個人情報は、以下の目的にのみ利用します。</p>
     <ul>
-      <li>お問い合わせへの回答およびご連絡のため</li>
-      <li>協賛・取材・メンバー参加・イベント参加等に関するご案内のため</li>
+      <li>お問い合わせへの<wbr>回答および<wbr>ご連絡のため</li>
+      <li>協賛・取材・<wbr>メンバー参加・<wbr>イベント参加等に<wbr>関する<wbr>ご案内のため</li>
     </ul>
 
     <h2><span>03</span>第三者への提供</h2>
