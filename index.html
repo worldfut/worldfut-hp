@@ -85,6 +85,8 @@
     #opening .op-row:nth-child(4){animation-delay:.21s,0s}
     #opening .op-row:nth-child(5){animation-delay:.28s,0s}
     #opening .op-row:nth-child(6){animation-delay:.35s,0s}
+    #opening .op-row:nth-child(7){animation-delay:.42s,0s}
+    #opening .op-row:nth-child(8){animation-delay:.49s,0s}
     #opening .op-tile{height:21vh;aspect-ratio:3/2;flex-shrink:0;border-radius:8px;overflow:hidden;border:3px solid #fff;box-shadow:0 10px 28px rgba(3,20,40,.45)}
     #opening .op-tile{background:#163f6e}
     #opening .op-tile img{width:100%;height:100%;object-fit:cover;display:block;opacity:0;transition:opacity .35s ease}
@@ -811,7 +813,8 @@ document.addEventListener('DOMContentLoaded', function() {
   const small=innerWidth<640;
   const pics=Object.values(THUMBS).slice(0,small?16:undefined);
   const stage=document.getElementById('opStage');
-  const rows=small?6:5, perRow=12;
+  // スマホは縦長なので8列にして、斜めに傾けても上下・角に空きができないようにする
+  const rows=small?8:5, perRow=12;
   let k=0;
   for(let r=0;r<rows;r++){
     const row=document.createElement('div');
