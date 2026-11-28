@@ -22,8 +22,8 @@
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700;900&family=Outfit:wght@400;600;700;800;900&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet" />
-<link rel="stylesheet" href="assets/site.css?v=0a82886c" />
-<link rel="stylesheet" href="assets/pages.css?v=0a82886c" />
+<link rel="stylesheet" href="assets/site.css?v=0119cbf9" />
+<link rel="stylesheet" href="assets/pages.css?v=0119cbf9" />
 </head>
 <body>
 <nav class="sub-nav">
@@ -99,5 +99,6 @@
   </div>
   <div class="ft2-bottom"><p>&copy; 2026 学生団体 WorldFut. All rights reserved.</p><a href="privacy.html">プライバシーポリシー</a></div>
 </footer>
+<script>/* スマホ・タブレット：下へ読み進める間はメニューを隠し、上へ戻すと出す */(function(){var n=document.querySelector("nav");if(!n)return;function pos(){var m=document.documentElement.scrollHeight-window.innerHeight;return Math.max(0,Math.min(window.scrollY,m))}var last=pos(),anchor=last,dir=0;window.addEventListener("scroll",function(){var c=pos();if(window.innerWidth>1180||c<=160){n.classList.remove("nav-hide");last=anchor=c;dir=0;return}var d=c>last?1:(c<last?-1:0);if(d&&d!==dir){dir=d;anchor=last}if(dir>0&&c-anchor>24)n.classList.add("nav-hide");else if(dir<0&&anchor-c>24)n.classList.remove("nav-hide");last=c},{passive:true})})();</script>
 </body>
 </html>

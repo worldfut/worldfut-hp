@@ -162,3 +162,6 @@ html{scroll-padding-top:84px}
 }
 /* 強調語（プレーする環境 など）を途中で改行しない */
 .sub-intro strong{white-space:nowrap}
+/* スマホ・タブレット：下スクロール中はメニューを隠す。ロゴ段を細く */
+@media(max-width:1180px){nav.sub-nav{transition:transform .3s ease}nav.sub-nav.nav-hide{transform:translateY(-100%);box-shadow:none}}
+@media(max-width:640px){nav.sub-nav{padding:.3rem 1rem 0}nav.sub-nav .nav-logo{height:40px}nav.sub-nav .nav-logo img{width:34px;height:34px}nav.sub-nav .nav-logo span{font-size:1.05rem}nav.sub-nav .nav-links a{padding:.35rem .65rem}}

@@ -494,14 +494,14 @@
 
     /* ===== ACTIVITIES: alternating rows ===== */
     .tab-content{counter-reset:act}
-    .tab-content .act-grid{display:flex;flex-direction:column;gap:5rem;margin-bottom:5rem!important}
+    .tab-content .act-grid{counter-reset:act;display:flex;flex-direction:column;gap:5rem;margin-bottom:5rem!important}
     .act-card{counter-increment:act;display:grid;grid-template-columns:1.1fr 1fr;gap:4rem;align-items:center;background:none;border:none;box-shadow:none!important;padding:0;border-radius:0;overflow:visible;transform:none!important;opacity:0;translate:-48px 0;transition:opacity .8s ease,translate .8s cubic-bezier(.2,.7,.2,1)}
     .act-card:nth-child(even){translate:48px 0}
     .act-card.in{opacity:1;translate:0 0}
     .act-card img,.act-card .act-photo-placeholder{width:100%!important;height:auto!important;aspect-ratio:3/2;border-radius:16px!important;border:4px solid #fff;box-shadow:0 22px 50px rgba(3,15,30,.45)}
     .act-card:nth-child(even) img,.act-card:nth-child(even) .act-photo-placeholder{order:2}
     .act-body{padding:0}
-    .act-body::before{content:counter(act,decimal-leading-zero);display:block;font-family:'Outfit',sans-serif;font-size:4.8rem;font-weight:800;line-height:1;color:transparent;-webkit-text-stroke:1.5px rgba(143,208,255,.75);margin-bottom:.9rem}
+    .act-body::before{content:counter(act,decimal-leading-zero);display:grid;place-items:center;width:3rem;height:3rem;border:1.5px solid rgba(143,208,255,.6);border-radius:50%;font-family:'DM Sans',sans-serif;font-size:1.05rem;font-weight:700;letter-spacing:.04em;line-height:1;color:var(--sky);margin-bottom:1.1rem}
     .pitch-sec .act-year{color:var(--sky);font-size:1rem}
     .pitch-sec .act-card h3{color:#fff;font-size:clamp(1.25rem,2.2vw,1.6rem);margin:.3rem 0 1rem}
     .pitch-sec .act-card p{color:rgba(255,255,255,.8);font-size:.95rem;line-height:1.95}
@@ -510,7 +510,7 @@
       .act-card{grid-template-columns:1fr;gap:1.4rem;translate:0 32px}
       .act-card:nth-child(even){translate:0 32px}
       .act-card:nth-child(even) img,.act-card:nth-child(even) .act-photo-placeholder{order:0}
-      .act-body::before{font-size:3.4rem}
+      .act-body::before{width:2.6rem;height:2.6rem;font-size:.95rem;margin-bottom:.9rem}
       .tab-content .act-grid{gap:3.5rem;margin-bottom:3.5rem!important}
     }
     @media(prefers-reduced-motion:reduce){.act-card{opacity:1;translate:none;transition:none}}
@@ -609,6 +609,16 @@
       .nav-links li{flex:0 0 auto}
       .nav-links a{white-space:nowrap;font-size:.8rem;padding:.4rem .7rem}
       html{scroll-padding-top:112px}
+      nav{transition:transform .3s ease}
+      nav.nav-hide{transform:translateY(-100%);box-shadow:none}
+    }
+    @media(max-width:640px){
+      nav{padding:.3rem 1rem 0}
+      .nav-logo{height:40px}
+      .nav-logo img{width:34px;height:34px}
+      .nav-logo span{font-size:1.05rem}
+      .nav-links a{padding:.35rem .65rem}
+      html{scroll-padding-top:96px}
     }
 
     /* 文節の切れ目（<wbr>）でだけ改行する。見出しは最終行が1〜2文字だけにならないように */
